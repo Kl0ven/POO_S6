@@ -1,0 +1,15 @@
+#############
+## Windows detritus
+#############
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+
+#############
+## nwjs 
+#############
+
+*.log
+Start.bat
