@@ -1,0 +1,16 @@
+{
+  "name": "Actu",
+  "main": "index.html",
+  "window": {
+    "title": "actu",
+    "frame": true,
+    "width": 1920,
+    "height": 1080,
+    "position": "center",
+    "icon": "netflix.png",
+    "fullscreen": false
+  },
+  "dependencies": {
+    "ws": "^4.0.0"
+  }
+}
