@@ -13,4 +13,4 @@ ehthumbs.db
 
 *.log
 Start.bat
-*.log
+platforms/
