@@ -1,12 +1,12 @@
 #Internal package file, do not edit.
-#Wed Feb 21 14:20:56 CET 2018
-25.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-xxxhdpi-v4\\icon.png
+#Sat Feb 24 20:34:50 CET 2018
+25.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\resources.arsc
 25.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 22.set=ANDROID_RESOURCE
 8.set=ASSET
 11.set=ANDROID_RESOURCE
 27.set=ASSET
-30.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-mdpi-v4\\screen.png
+30.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\AndroidManifest.xml
 14.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-ldpi-v4\\screen.png
 30.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 14.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
@@ -14,18 +14,18 @@
 count=34
 6.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\cordova.js
 6.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-26.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\resources.arsc
+26.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-xxxhdpi-v4\\icon.png
 2.set=ANDROID_RESOURCE
 26.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 32.set=ASSET
-0.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-hdpi-v4\\icon.png
+0.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-mdpi-v4\\icon.png
 0.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 21.set=ANDROID_RESOURCE
 20.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\js\\Jquery.js
 7.set=ANDROID_RESOURCE
 20.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 10.set=ASSET
-31.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\AndroidManifest.xml
+31.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-mdpi-v4\\screen.png
 15.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-xxxhdpi-v4\\screen.png
 31.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 15.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
@@ -35,7 +35,7 @@ count=34
 15.set=ANDROID_RESOURCE
 27.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\js\\index.js
 27.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-1.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-mdpi-v4\\icon.png
+1.file=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\mipmap-hdpi-v4\\icon.png
 1.base=C\:\\Users\\Jean-loup\\POO_S6\\Tests_unitaires\\Mobile\\test_ws\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 1.set=ANDROID_RESOURCE
 31.set=ANDROID_RESOURCE
