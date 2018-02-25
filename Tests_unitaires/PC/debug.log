@@ -644,3 +644,15 @@
 [0217/165349.668:WARNING:chrome_main_delegate.cc(565)] final extension: 
 [0224/195926.987:WARNING:chrome_main_delegate.cc(565)] final extension: 
 [0224/203822.585:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/173033.490:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/173949.489:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/181508.415:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/183646.726:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/183724.278:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/183741.311:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/190104.184:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/190212.847:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/190243.565:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/190513.281:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0225/190618.944:ERROR:http_transport_win.cc(50)] WinHttpCrackUrl: L’URL n’utilise pas un protocole reconnu  (0x2EE6)
+[0225/190635.985:WARNING:chrome_main_delegate.cc(565)] final extension: 

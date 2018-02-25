@@ -15,3 +15,4 @@ ehthumbs.db
 Start.bat
 platforms/
 Tests_unitaires/PC/debug.log
+*.log
