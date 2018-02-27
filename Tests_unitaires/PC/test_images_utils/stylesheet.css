@@ -1,0 +1,14 @@
+.dropper {
+    margin: 50px 10px 10px 50px;
+    width: 400px;
+    height: 250px;
+    background-color: #fff;
+    border: 1px solid #111;
+
+    border-radius: 10px;
+    transition: all 200ms linear;
+}
+
+.drop_hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) inset;
+}
