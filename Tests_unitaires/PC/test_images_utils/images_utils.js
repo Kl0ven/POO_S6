@@ -1,8 +1,11 @@
-const download = require('image-downloader')
+const cpFile = require('cp-file')
+const dir = './img_pdf/';
 const fs = require('fs');
 
-$(document).ready(function(){
 
+
+$(document).ready(function(){
+  updateView()
   var dropper = $(".dropper")
 
   dropper.on('dragover', function(e) {
@@ -19,7 +22,21 @@ $(document).ready(function(){
 
 });
 
-
+function updateView(){
+  $(".view").empty()
+  fs.readdir(dir, (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+      ext = file.split('.').pop().toLowerCase();
+      if(ext == "png" || ext == "jpg" || ext == "jpeg" ){
+        console.log(dir+file);
+        $(".view").append('<div class="item"><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+      }else if (ext == "pdf") {
+        $(".view").append('<div class="item"><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+      }
+    });
+  })
+}
 
 
 function screenlog(color,message) {
@@ -37,47 +54,30 @@ function drop_handler(ev) {
   $(".dropper drop_hover").className = 'dropper';
   // If dropped items aren't files, reject them
   var dt = ev.dataTransfer;
-  if (dt.items) {
-    // Use DataTransferItemList interface to access the file(s)
-    for (var i=0; i < dt.items.length; i++) {
-      if (dt.items[i].kind == "file") {
-        var f = dt.items[i].getAsFile();
-        screenlog('green',"... file[" + i + "].name = " + f.name);
-        console.log(f);
-        // Only process image files.
-        if (f.type.match('image.*')) {
-            getDataUri(f.path,f.path.split('.').pop(),import_images)
-        }
+  // Use DataTransferItemList interface to access the file(s)
+  for (var i=0; i < dt.items.length; i++) {
+    if (dt.items[i].kind == "file") {
+      var f = dt.items[i].getAsFile();
+
+      //console.log(f);
+      // Only process image & pdf files.
+      var ext = f.path.split('.').pop().toLowerCase()
+      var name = f.name
+      //console.log(name);
+      screenlog('green',"moving " +name);
+      if (ext == "png" || ext == "jpg" || ext == "jpeg" ||ext == "pdf") {
+        $('#myProgress').css("visibility","initial")
+        cpFile(f.path, dir+name).on('progress',data =>{
+          $('#myBar').css("width",data.percent*100+"%")
+        }).then(() => {
+          console.log('File copied');
+            screenlog('green',"File copied");
+          $('#myBar').css("width","0%")
+          $('#myProgress').css("visibility","hidden")
+          updateView()
+        });
       }
-    }
-  } else {
-    // Use DataTransfer interface to access the file(s)
-    for (var i=0; i < dt.files.length; i++) {
-      screenlog("red","... file[" + i + "].name = " + dt.files[i].name);
+
     }
   }
-}
-
-
-function import_images(base64,ext){
-  var buff = new Buffer(base64,'base64')
-  console.log(buff);
-  fs.writeFile('img/image.'+ext, buff);
-}
-
-
-
-function getDataUri(url, ext, callback) {
-    var image = new Image();
-
-    image.onload = function () {
-        var canvas = document.createElement('canvas');
-        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
-
-        canvas.getContext('2d').drawImage(this, 0, 0);
-        callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''),ext);
-    };
-
-    image.src = url;
 }
