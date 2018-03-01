@@ -20,24 +20,52 @@ $(document).ready(function(){
     this.className = 'dropper'; // On revient au style de base lorsque l'élément quitte la zone de drop
   });
 
+
 });
 
 function updateView(){
   $(".view").empty()
   fs.readdir(dir, (err, files) => {
     files.forEach(file => {
-      console.log(file);
+      //console.log(file);
       ext = file.split('.').pop().toLowerCase();
       if(ext == "png" || ext == "jpg" || ext == "jpeg" ){
-        console.log(dir+file);
-        $(".view").append('<div class="item"><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+        //console.log(dir+file);
+        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"=""> <button id="'+dir+file+'" class="send" style="display:none;" type="button" onclick="send(this)" >send</button><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }else if (ext == "pdf") {
         $(".view").append('<div class="item"><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }
     });
   })
+  $(".item").on("mouseover",function(){console.log(1)})
+
 }
 
+function send(elem) {
+  console.log(elem.id);
+  getDataUri(elem.id,function (data) {console.log(data)})
+
+}
+
+function del(elem) {
+  console.log(elem.id);
+  fs.unlink(elem.id, function(error) {
+    if (error) {
+        throw error;
+    }
+    console.log('Deleted '+elem.id);
+    screenlog("red","suprression de "+elem.id)
+    updateView()
+});
+
+}
+function over(elem) {
+  $(elem).find(".send").each(function(id){$($(elem).find(".send")[id]).show();})
+}
+
+function leave(elem) {
+  $(elem).find(".send").each(function(id){$($(elem).find(".send")[id]).hide()})
+}
 
 function screenlog(color,message) {
   var dt = new Date();
@@ -48,7 +76,6 @@ function screenlog(color,message) {
 
 
 function drop_handler(ev) {
-
   ev.preventDefault();
   screenlog("red","Drop");
   $(".dropper drop_hover").className = 'dropper';
@@ -80,4 +107,19 @@ function drop_handler(ev) {
 
     }
   }
+}
+
+function getDataUri(url, callback) {
+    var image = new Image();
+
+    image.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+        canvas.getContext('2d').drawImage(this, 0, 0);
+        callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+    };
+
+    image.src = url;
 }
