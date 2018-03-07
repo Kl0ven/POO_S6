@@ -1,10 +1,20 @@
 const cpFile = require('cp-file')
 const dir = './img_pdf/';
 const fs = require('fs');
-
+const WebSocket = require('ws');
+const internalIp = require('internal-ip');
+const wss = new WebSocket.Server({ port: 8080 });
 
 
 $(document).ready(function(){
+  wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
+  console.log(wss);
   updateView()
   var dropper = $(".dropper")
 
@@ -19,7 +29,18 @@ $(document).ready(function(){
   dropper.on('drop', function() {
     this.className = 'dropper'; // On revient au style de base lorsque l'élément quitte la zone de drop
   });
-
+  internalIp.v4().then(ip => {
+      console.log(ip);
+      screenlog("purple", ip)
+  });
+  wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+      screenlog("green", message);
+    })
+  });
+  wss.on('error', function connection(e) {
+    screenlog("red", e)
+  });
 
 });
 
@@ -43,7 +64,12 @@ function updateView(){
 
 function send(elem) {
   console.log(elem.id);
-  getDataUri(elem.id,function (data) {console.log(data)})
+  getDataUri(elem.id,function (dataUri) {
+    //console.log(dataUri)
+    wss.broadcast(JSON.stringify({type: "image", data : dataUri}))
+  })
+
+
 
 }
 
@@ -134,7 +160,7 @@ function getDataUri(url, callback) {
     canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
     canvas.getContext('2d').drawImage(this, 0, 0);
-    callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+    callback(canvas.toDataURL('image/png'));
   };
 
   image.src = url;
