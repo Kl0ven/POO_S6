@@ -31,9 +31,9 @@ function updateView(){
       ext = file.split('.').pop().toLowerCase();
       if(ext == "png" || ext == "jpg" || ext == "jpeg" ){
         //console.log(dir+file);
-        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"=""> <button id="'+dir+file+'" class="send" style="display:none;" type="button" onclick="send(this)" >send</button><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"> <button id="'+dir+file+'" class="send" style="display:none;" type="button" onclick="send(this)" >send</button><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }else if (ext == "pdf") {
-        $(".view").append('<div class="item"><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }
     });
   })
