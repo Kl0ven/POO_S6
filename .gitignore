@@ -17,3 +17,4 @@ platforms/
 Tests_unitaires/PC/debug.log
 test_images_utils/img_pdf/
 *.log
+Tests_unitaires/PC/test_images_utils/img_pdf/Manuel_Des_Joueurs3.5.pdf

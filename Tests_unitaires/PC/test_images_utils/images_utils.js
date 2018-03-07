@@ -33,7 +33,7 @@ function updateView(){
         //console.log(dir+file);
         $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"> <button id="'+dir+file+'" class="send" style="display:none;" type="button" onclick="send(this)" >send</button><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="'+dir+file+'" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }else if (ext == "pdf") {
-        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
+        $(".view").append('<div class="item" onmouseleave="leave(this)" onmouseover="over(this)"><button id="'+dir+file+'" class="send" style="display:none;" type="button" onclick="view(this)" >view</button><button id="'+dir+file+'" class="send two" style="display:none;" type="button" onclick="del(this)" >del</button><div class="overlay"></div><img src="./assets/pdf.png" style="width:80px;height:80px" alt=""><span>'+file+'</span></div>')
       }
     });
   })
@@ -47,16 +47,32 @@ function send(elem) {
 
 }
 
+function view(elem){
+  if ($("#iframepdf").attr('src') != elem.id){
+    $("#iframepdf").attr('src',elem.id);
+  }
+  $("#iframepdf").css("visibility","visible")
+  setTimeout(function(){
+  $(window).click(function() {
+    $("#iframepdf").css("visibility","hidden")
+    $(window).unbind( "click" );
+  });
+
+  $('#iframepdf').click(function(event){
+    event.stopPropagation();
+  });},100)
+}
+
 function del(elem) {
   console.log(elem.id);
   fs.unlink(elem.id, function(error) {
     if (error) {
-        throw error;
+      throw error;
     }
     console.log('Deleted '+elem.id);
     screenlog("red","suprression de "+elem.id)
     updateView()
-});
+  });
 
 }
 function over(elem) {
@@ -98,7 +114,7 @@ function drop_handler(ev) {
           $('#myBar').css("width",data.percent*100+"%")
         }).then(() => {
           console.log('File copied');
-            screenlog('green',"File copied");
+          screenlog('green',"File copied");
           $('#myBar').css("width","0%")
           $('#myProgress').css("visibility","hidden")
           updateView()
@@ -110,16 +126,16 @@ function drop_handler(ev) {
 }
 
 function getDataUri(url, callback) {
-    var image = new Image();
+  var image = new Image();
 
-    image.onload = function () {
-        var canvas = document.createElement('canvas');
-        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+  image.onload = function () {
+    var canvas = document.createElement('canvas');
+    canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+    canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
-        canvas.getContext('2d').drawImage(this, 0, 0);
-        callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
-    };
+    canvas.getContext('2d').drawImage(this, 0, 0);
+    callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+  };
 
-    image.src = url;
+  image.src = url;
 }

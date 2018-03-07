@@ -90,3 +90,15 @@
     left: 30px;
     top: 45px;
 }
+
+
+
+#iframepdf{
+width: 90%;
+height: 90%;
+position: absolute;
+z-index: 1000;
+visibility: hidden;
+margin-left: 5%;
+margin-top: 2.5%;
+}
