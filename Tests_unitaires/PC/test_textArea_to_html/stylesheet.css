@@ -1,0 +1,33 @@
+#valid{
+  float: left;
+}
+
+#html{
+  height: 500px;
+  border: solid;
+  width: 50%;
+  float: right;
+}
+
+#t1 {
+  margin: 0px;
+  height: 500px;
+  width: 900px;
+}
+
+
+#center
+{
+	text-align:center;
+
+}
+
+#left
+{
+	text-align:left;
+}
+
+#right
+{
+	text-align:right;
+}
