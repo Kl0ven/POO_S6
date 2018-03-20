@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="poo s6" version="4">
+  <OBJECT>
+    <ID name="poo s6" mc="Standard.Package" uid="271a945c-fe65-45f3-a790-9b8aa78cc61c"/>
+    <PID name="POO S6" mc="Standard.Project" uid="2de08f44-54b5-410d-9dc6-19d335d19383"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[poo s6]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Joueur" mc="Standard.Actor" uid="9fbd64af-5c3b-43da-ae28-b028addedaa6"/>
+        <COMPID name="Logiciel PC" mc="Standard.Actor" uid="b992c666-fe85-42a7-9f54-39e44a3278fb"/>
+        <COMPID name="Se connecter à une campagne" mc="Standard.UseCase" uid="9e5c377c-fdb0-4657-88de-ce85b2fefaa2"/>
+        <COMPID name="Ajouter ou modifer un sort / compétence / don" mc="Standard.UseCase" uid="69d5bb84-8c06-4cdd-8646-c28a3dfb9970"/>
+        <COMPID name="Maître du jeu" mc="Standard.Actor" uid="414b0ca1-5c62-4644-b816-f1cd1d1e2df2"/>
+        <COMPID name="Appli mobile" mc="Standard.Actor" uid="07564e46-b442-4978-86fe-dcc715b7aef4"/>
+        <COMPID name="Créer campagne" mc="Standard.UseCase" uid="df3e1e02-bd47-4d8b-9562-7c2f568e1f5c"/>
+        <COMPID name="Modifier campagne existante" mc="Standard.UseCase" uid="f617df4d-81a8-499d-ac51-c54431e6a422"/>
+        <COMPID name="Lancer campagne existante" mc="Standard.UseCase" uid="9c8a13aa-d4e4-432a-8b96-f0af19308b0b"/>
+        <COMPID name="Sauvegarder campagne" mc="Standard.UseCase" uid="4eab1b4f-c2af-4d00-948a-d3bddb988c71"/>
+        <COMPID name="Modifier stats joueurs" mc="Standard.UseCase" uid="48ffdfb9-af8b-417a-b5c5-e1bd9ab4233d"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="UseCaseMobile" mc="Standard.UseCaseDiagram" uid="998b878f-629f-471b-b394-ff707d2ef598"/>
+        <COMPID name="UseCasePC" mc="Standard.UseCaseDiagram" uid="83d62117-81c9-4ec4-abde-356312d8ba1b"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
