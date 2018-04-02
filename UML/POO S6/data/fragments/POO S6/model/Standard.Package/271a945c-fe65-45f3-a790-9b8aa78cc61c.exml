@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="poo s6" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Use case" version="4">
   <OBJECT>
-    <ID name="poo s6" mc="Standard.Package" uid="271a945c-fe65-45f3-a790-9b8aa78cc61c"/>
+    <ID name="Use case" mc="Standard.Package" uid="271a945c-fe65-45f3-a790-9b8aa78cc61c"/>
     <PID name="POO S6" mc="Standard.Project" uid="2de08f44-54b5-410d-9dc6-19d335d19383"/>
     <ATTRIBUTES>
       <ATT name="IsInstantiable">false</ATT>
@@ -9,7 +9,7 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[poo s6]]></ATT>
+      <ATT name="Name"><![CDATA[Use case]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>

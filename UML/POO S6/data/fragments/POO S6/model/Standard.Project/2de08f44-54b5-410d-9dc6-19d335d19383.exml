@@ -10,7 +10,8 @@
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="Model">
-        <COMPID name="poo s6" mc="Standard.Package" uid="271a945c-fe65-45f3-a790-9b8aa78cc61c"/>
+        <COMPID name="Use case" mc="Standard.Package" uid="271a945c-fe65-45f3-a790-9b8aa78cc61c"/>
+        <COMPID name="sequence" mc="Standard.Package" uid="c06bb88c-0f2c-4931-bc35-ed87982e9873"/>
       </COMP>
       <COMP relation="DiagramRoot">
         <COMPID name="POO S6" mc="Infrastructure.DiagramSet" uid="14244d73-5f59-4f05-930a-f1561735913b"/>
