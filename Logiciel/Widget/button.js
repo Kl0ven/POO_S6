@@ -1,14 +1,13 @@
 class PC_Button extends Widget{
-	constructor(parent,id,class,height,width,position,style){
-		super(parent,id,classe)//ici, remplacage de "class" par "classe"
-		this.height=height;
-		this.width=width;
-		this.position=position;
-		this.style=style;
+	constructor(parent,classe,text,cb){
+		super(parent,classe)
+    this.text=text;//ici, remplacage de "class" par "classe"
+		this.cb=cb;
+    this.show();
 	}
-}
 
- show(){
+
+  show(){
     $(this.parent).append(this.getHTML());
     $("#"+this.id).click(this.cb)
     this.applyStyle();
