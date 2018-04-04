@@ -1,7 +1,8 @@
 class Widget{
 	constructor(parent,classe){
 		this.parent=parent;
-		this.classe=classe;
+		this.classes=classe;
+		this.id = Widget.generate_ID()
 	}
 
 

@@ -10,7 +10,7 @@ class PC_Button extends Widget{
   show(){
     $(this.parent).append(this.getHTML());
     $("#"+this.id).click(this.cb)
-    this.applyStyle();
+    //this.applyStyle();
   }
 
   getHTML(){
@@ -19,9 +19,9 @@ class PC_Button extends Widget{
     return'<button '+id+" "+classes+'>'+this.text+'</button>';
   }
 
-  applyStyle(){
+  /*applyStyle(){
 
-  }
+  }*/
 
   settext(text){
     this.text = text;
