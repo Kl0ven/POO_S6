@@ -1,7 +1,7 @@
 class TextArea extends Widget {
-  constructor(parent, classes, height, width) {
+  constructor(parent,parentBtn, classes, height, width) {
     super(parent, classes)
-    this.btn = new Button(parent,"w3-button w3-blue","save",() => {this.switching()});
+    this.btn = new Button(parentBtn,"w3-button w3-blue","save",() => {this.switching()});
     this.height = height;
     this.width = width;
     this.text = ""
@@ -55,8 +55,10 @@ class TextArea extends Widget {
     text = text.replace(/\[color color=(\#[A-Z0-9]{6})\](.+)\[\/color\]/gi, '<div style="color:$1;">$2</div>');
     //text = text.replace(/\[img\](.+)\[\/img\]/gi , '<img src ="$1"/>');
     return text;
+  }
 
-
+  toString(){
+    return this.text;
   }
 
 }

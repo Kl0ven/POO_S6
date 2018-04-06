@@ -1,16 +1,18 @@
 trame de données :
-ordi => mobile 
+ordi => mobile
 {"type": para1 ,"data": para2}
-	
-	- para1 = "image"     => para2 = dataURI de l'image 
+
+	- para1 = "image"     => para2 = dataURI de l'image
 		(cf test unitaire)
 
-	- para1 = "choice"    => para2 = liste des non {1:"babar", 2:"tomm", 3;"couille"} 
+	- para1 = "choice"    => para2 = liste des non {1:"babar", 2:"tomm", 3;"couille"}
 		pour la selestion du joueur en debut de partie
 		- return {"type" : "choicerep", "data": "babar"}
 
+	- para1 = "load"      => para2 = {"comp":{"comp1":"texte1","comp2";"text2"},"dons":{"don1":"texte1","don2";"text2"},"sorts":{"sort1":"texte1","sort2";"text2"}}
+
 	- para1 = "time"      => para2 = liste {"qte": 12, "unit" = "h", "time":"22h36"}
-		permet de faire "vivre" les effet coté client 
+		permet de faire "vivre" les effet coté client
 
 	- para1 = "cara"      => para2 = liste {"PV": 23, "CA":50}
 
@@ -18,4 +20,3 @@ ordi => mobile
 
 	- para1 = "save" 	  => para2 = null
 		-return {"type": "saverep", "data": {"comp":{"comp1":"texte1","comp2";"text2"},"dons":{"don1":"texte1","don2";"text2"},"sorts":{"sort1":"texte1","sort2";"text2"}}}
-
