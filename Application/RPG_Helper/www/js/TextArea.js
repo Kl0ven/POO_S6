@@ -1,7 +1,9 @@
 class TextArea extends Widget {
-  constructor(parent,parentBtn, classes, height, width) {
+  constructor(parent,parentBtn, classes, height, width, nameBtn = "save", cb = 0) {
     super(parent, classes)
-    this.btn = new Button(parentBtn,"w3-button w3-blue","save",() => {this.switching()});
+    this.nameBtn = nameBtn;
+    this.btnCb = (typeof cb == "function") ? cb : () => {this.switching()};
+    this.btn = new Button(parentBtn,"w3-button w3-blue",this.nameBtn,this.btnCb);
     this.height = height;
     this.width = width;
     this.text = ""
@@ -33,7 +35,7 @@ class TextArea extends Widget {
       $("#"+this.id).remove();
       this.show();
       this.state = false;
-      this.btn.settext("save");
+      this.btn.settext(this.nameBtn);
     }
 
 
@@ -58,7 +60,11 @@ class TextArea extends Widget {
   }
 
   toString(){
-    return this.text;
+    if (this.state){
+      return this.text;
+    }else {
+      return $("#"+this.id).val();
+    }
   }
 
 }

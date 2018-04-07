@@ -1,4 +1,5 @@
 class Widget {
+
   constructor(parent, classes) {
     this.parent = parent;
     this.id = Widget.generate_ID();
