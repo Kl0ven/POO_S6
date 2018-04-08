@@ -1,0 +1,16 @@
+{
+  "name": "test_classe",
+  "main": "index.html",
+  "window": {
+    "title": "test_classe",
+    "frame": true,
+    "width": 1920,
+    "height": 1080,
+    "position": "center",
+    "fullscreen": false
+  },
+  "dependencies": {
+    "sqlite3": "^4.0.0",
+    "ws": "^4.0.0"
+  }
+}

@@ -8,7 +8,7 @@ class Character{
 
 	}
 
-	modCar(c){
+	modCar(c){ // inutile ? 
 		this.carac = c;
 	}
 
