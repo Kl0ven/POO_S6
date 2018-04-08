@@ -1,4 +1,4 @@
-$(document).ready(function(){
-	new PC_Button($(".app_PC"),"btn btn-primary btn-block","GROSSE BITE",clickpopup);    //mycode
-});
-
+$(document).ready(function()
+{
+	new PC_Button($(".app_PC"),"w3-button w3-black","hello",clickpopup)
+})
