@@ -1,4 +1,6 @@
 $(document).ready(function()
 {
-	new PC_Button($(".app_PC"),"w3-button w3-black","hello",clickpopup)
+	new PC_Button($(".app_PC_1"),"w3-button w3-black","hello",clickpopup)
+	new TextArea($(".app_PC_2"),$(".app_PC_2"),10,10)
+	//les 2 app_PC : le bouton et la textarea seront affichés l'un en dessous de l'autre
 })
