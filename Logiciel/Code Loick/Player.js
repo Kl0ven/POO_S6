@@ -15,8 +15,7 @@ class Player extends Character{
 
 	this.comm_handler = null
 
-	// this.campain ? 
-	//this.button ?
+	//this.button ? 
 
 	}
 
@@ -48,6 +47,10 @@ class Player extends Character{
 
 
 	//resumePlayer(name,t){  --> Le resumeplayer est géré par la Campagne
+	//}
+
+	//send(img){					?? A voir
+	//	comm_handler.send(img)
 	//}
 
 }
