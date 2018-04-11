@@ -1,20 +1,24 @@
 
 class Character{
-	constructor(n,id){
+	constructor(n){
 	this.name = n;
-	this.carac = null;
-	this.id = id;
+	this.id = Character.generate_ID();
 	this.image = null;
 
+	this.pc_effect = [];
+
 	}
 
-	modCar(c){ // inutile ? 
-		this.carac = c;
+	// modCar(c) inutile ? 
+
+
+	static generate_ID() {
+
+    if( typeof Character.counter == 'undefined' ) {
+        Character.counter = -1;
+    }
+    Character.counter++;
+    return Character.counter;
 	}
-
-
-
-	// Faire Generate ID : cf Widget.js
-
 }
 

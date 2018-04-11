@@ -1,8 +1,8 @@
 //import 
 
 class Player extends Character{
-	constructor(n,id){
-	super(n,id)
+	constructor(n){
+	super(n)
 
 	this.infos = {
 		name : this.name,
@@ -10,8 +10,6 @@ class Player extends Character{
 		PV : 0,
 		CA : 0
 	}
-
-	this.pc_effect = []
 
 	this.comm_handler = null
 
@@ -55,18 +53,24 @@ class Player extends Character{
 
 }
 
+/*
+_____________________________________________Tests 
+ $(document).ready(function(){
 
-//_____________________________________________Tests 
-// $(document).ready(function(){
-
-// P1 = new Player('zangdar',1)
-// screenlog(JSON.stringify(P1.infos))
-// P1.addPV(10)
-// screenlog(JSON.stringify(P1.infos))
-// });
-
+ P1 = new Player('zangdar')
+ screenlog(JSON.stringify(P1.infos))
+ P1.addPV(10)
+ screenlog(JSON.stringify(P1.infos))
 
 
-// function screenlog(message) {
-//   $("#screenlog").append("<p>"+message+"</p>")
-// }
+screenlog(P1.id)
+P2 = new Player('Tordek')
+screenlog(P2.id)
+
+});
+
+
+ function screenlog(message) {
+   $("#screenlog").append("<p>"+message+"</p>")
+ }
+ */
