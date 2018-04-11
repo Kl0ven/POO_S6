@@ -1,10 +1,10 @@
 
 class Character{
-	constructor(n,c,id,im){
+	constructor(n,id){
 		this.name = n
-		this.carac = c
+		this.carac = null
 		this.id = id
-		this.image = im
+		this.image = null
 
 	}
 
@@ -12,6 +12,11 @@ class Character{
 		this.carac = c;
 	}
 
+	
+
+
+
+	// Faire Generate ID : cf Widget.js
 
 }
 

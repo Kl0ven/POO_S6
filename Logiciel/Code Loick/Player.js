@@ -1,41 +1,69 @@
 //import 
 
 class Player extends Character{
-	constructor(n,c,id,im,inf){
-	super(n,c,id,im)
-	this.infos = inf
+	constructor(n,id){
+	super(n,id)
 
-	//this.effect : liste d'effets / need le fichier Effect
+	this.infos = {
+		name : this.name,
+		id : this.id,
+		PV : 0,
+		CA : 0
+	}
 
-	//this.comm_handler : need le fichier comm handler
-	//this.button 
+	this.pc_effect = []
+
+	this.comm_handler = null
+
+	// this.campain ? 
+	//this.button ?
 
 	}
 
-	addPV(n){
-		 
+	modPV(n){
+	this.infos.PV = this.infos.PV + n
 	}
 
 
-	addCA(n){
+	modCA(n){
+	this.infos.PV = this.infos.PV + n
+	}
 
+	getInfos(){
+		return this.infos
 	}
 
 	addEffect(e){
-		// Need this.effect
+		this.pc_effect.push(e)
 	}
 
-	 createPlayer(inf, t){
+	getEffect(){
+		return this.pc_effect
+	}
+
+	createPlayer(inf, t){
 	 	this.infos = inf
 	 	this.comm_handler = t
+	} 
 
 
-	 } 
+	//resumePlayer(name,t){  --> Le resumeplayer est géré par la Campagne
+	//}
 
-	resumePlayer(name,t){
-		this.comm_handler = t
+}
 
-		// comparer le name avec celui des infos ? 
 
-	}
+//_____________________________________________Tests 
+// $(document).ready(function(){
 
+// P1 = new Player('zangdar',1)
+// screenlog(JSON.stringify(P1.infos))
+// P1.addPV(10)
+// screenlog(JSON.stringify(P1.infos))
+// });
+
+
+
+// function screenlog(message) {
+//   $("#screenlog").append("<p>"+message+"</p>")
+// }
