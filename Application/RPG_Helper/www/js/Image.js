@@ -22,5 +22,5 @@ class Image extends Widget {
     $("#"+this.id).css("height",this.height+"px");
     $("#"+this.id).css("width",this.width+"px");
   }
-  
+
 }

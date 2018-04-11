@@ -5,17 +5,17 @@ class View {
   }
 
 
-show(){
-  $(this.mainframe).css("display", "block");
-}
+  show(){
+    $(this.mainframe).css("display", "block");
+  }
 
-hide(){
-  $(this.mainframe).css("display", "none");
-}
+  hide(){
+    $(this.mainframe).css("display", "none");
+  }
 
-getElem(nb){
-  return this.elements[nb]
-}
+  getElem(nb){
+    return this.elements[nb]
+  }
 
 
 }

@@ -1,9 +1,9 @@
 class TextArea extends Widget {
-  constructor(parent,parentBtn, classes, height, width, nameBtn = "save", cb = 0) {
+  constructor(parent,parentBtn, classes,btnclass, height, width, nameBtn = "save", cb = 0) {
     super(parent, classes)
     this.nameBtn = nameBtn;
     this.btnCb = (typeof cb == "function") ? cb : () => {this.switching()};
-    this.btn = new Button(parentBtn,"w3-button w3-blue",this.nameBtn,this.btnCb);
+    this.btn = new Button(parentBtn,btnclass,this.nameBtn,this.btnCb);
     this.height = height;
     this.width = width;
     this.text = ""
@@ -12,7 +12,20 @@ class TextArea extends Widget {
   }
 
   show(){
+    if($("#"+this.id)){
+      $("#"+this.id).remove();
+    }
     $(this.parent).append(this.getHTML());
+    if(this.height == 1){
+      $("#"+this.id).keypress((event)  => {
+        // Check the keyCode and if the user pressed Enter (code = 13)
+        // disable it
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          $("#"+this.btn.id).click();
+        }
+      });
+    }
   }
 
   getHTML(){
@@ -65,6 +78,11 @@ class TextArea extends Widget {
     }else {
       return $("#"+this.id).val();
     }
+  }
+
+  setText(text){
+    this.text = text;
+    this.show();
   }
 
 }

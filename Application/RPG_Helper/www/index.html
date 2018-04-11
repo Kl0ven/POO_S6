@@ -1,39 +1,70 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <script type="text/javascript" src="cordova.js"></script>
-        <script src="./js/Jquery.js"></script>
-        <script src="./js/Widget.js"></script>
-        <script src="./js/Image.js"></script>
-        <script src="./js/Button.js"></script>
-        <script src="./js/TextArea.js"></script>
-        <script src="./js/View.js"></script>
-        <script src="./js/User_interface.js"></script>
-        <script src="./js/App.js"></script>
-        <script src="./js/index.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" type="text/css" href="css/w3.css">
-        <title>RPG_helper</title>
-    </head>
-    <body>
-        <div id="div_broadcast" ><img id="img_broadcast" src="" alt="image" /></div>
-        <div id="InitSrceen">
-          <div id="LogoImage">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="application/javascript" src="./js/Jquery.js"></script>
+  <script type="application/javascript" src="./js/jquery-confirm.min.js"></script>
+  <script type="application/javascript" src="./js/Widget.js"></script>
+  <script type="application/javascript" src="./js/Image.js"></script>
+  <script type="application/javascript" src="./js/Button.js"></script>
+  <script type="application/javascript" src="./js/TextArea.js"></script>
+  <script type="application/javascript" src="./js/Effect.js"></script>
+  <script type="application/javascript" src="./js/View.js"></script>
+  <script type="application/javascript" src="./js/User_interface.js"></script>
+  <script type="application/javascript" src="./js/Communication.js"></script>
+  <script type="application/javascript" src="./js/App.js"></script>
+  <script type="application/javascript" src="./js/index.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/w3.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-confirm.min.css">
+  <title>RPG_helper</title>
+</head>
+<body>
+  <div id="div_broadcast" ><img id="img_broadcast" src="" alt="image" /></div>
+  <div id="header">
+    <div id="name">joueur 1</div>
+    <div id="barre1"></div>
+  </div>
+  <div id="InitSrceen">
+    <div id="LogoImage"></div>
+    <h3>RPG Helper</h3>
 
-          </div>
-          <h3>RPG Helper</h3>
+    <div id="JoinGame">
+      <span id="mot1">Entrez l'adresse ip du MJ</span></br>
+    </div>
+    <div id="btnip"></div>
+  </div>
 
-          <div id="JoinGame">
-            <span id="mot1">Entrez l'adresse ip du MJ</span></br>
+  <div id="loading">
+    <div class="loader"></div>
+  </div>
 
-          </div>
-          <div id="btnip">
+  <div id="main">
+    <div id="first">
 
-          </div>
-        </div>
-    </body>
+      <div id="CA" class="item"><div id="CA_image" class="imageItem" ></div><div id="CA_text"class="text">24</div></div>
+      <div id="PV" class="item"><div id="PV_image" class="imageItem" ></div><div id="PV_text"class="text">13</div></div>
+    </div>
+    <div id="PO" class="item">
+      <div id="PO_image"></div>
+      <div id="PO_text" class="text">3500</div>
+      <div id="PO_mod"></div>
+    </div>
+    <div id="Time" class="item"><div id="Time_image"></div><div id="Tme_text" class="text">22 : 56</div></div>
+    <span class="text" style="margin-left:  5%;">Effets</span>
+    <div id="effectscroll">
+    <table id="effect">
+      <tbody>
+        <tr><td id="col1"></td><td id="col2"></td><td id="col3"></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</body>
 </html>

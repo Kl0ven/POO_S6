@@ -9,17 +9,13 @@ class Button extends Widget {
   show(){
     $(this.parent).append(this.getHTML());
     $("#"+this.id).click(this.cb)
-    this.applyStyle();
+
   }
 
   getHTML(){
     var id = this.isID() ? 'id="'+ this.id +'"' : '';
     var classes = this.isClasses() ? 'class="'+ this.classes +'"' : '';
     return'<button '+id+" "+classes+'>'+this.text+'</button>';
-  }
-
-  applyStyle(){
-
   }
 
   settext(text){

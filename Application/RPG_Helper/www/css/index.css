@@ -34,3 +34,114 @@
 #mot1{
   color: black;
 }
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #456bc6; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto auto;
+    margin-top: 50%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+#barre1{
+  display: flex;
+  justify-content: space-between;
+}
+
+#name{
+  text-align: center;
+  font-size: xx-large;
+}
+
+
+#main{
+  margin-top: 20%;
+}
+
+#first{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-right: 10%;
+
+  font-size: xx-large;
+}
+
+.item{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.imageItem{
+  margin-right: 10px;
+}
+
+#PO{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  font-size: initial;
+}
+
+.text{
+  line-height: 75px;
+  font-size: xx-large;
+}
+
+#PO_text{
+  font-size: xx-large;
+}
+.PO_modeur{
+    height: 50%;
+    margin: auto;
+}
+#PO_mod{
+  display: inline-flex;
+}
+
+#Time{
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.red{
+  background-color: rgb(255, 77, 77);
+}
+
+.green{
+  background-color: rgb(77, 255, 77);
+}
+
+#effect{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  overflow-wrap: break-word;
+}
+
+#col2{
+  width: 25px;
+}
+
+#col3{
+  width: 50px;
+}
+
+#effectscroll{
+  height: 200px;
+  overflow: scroll;
+
+}
