@@ -11,6 +11,7 @@ class Image extends Widget {
   show(){
     $(this.parent).append(this.getHTML());
     this.applyStyle();
+    //this.hovermouse();
   }
 
   getHTML(){
@@ -24,6 +25,11 @@ class Image extends Widget {
     $("#"+this.id).css("width",this.width+"px");
   }
 
-  //updateView(){}
+  hovermouse(){
+    $(this.classes).mouseenter(alert("ceci est un popup !"));
+    }
+  }
+
+
+
   
-}
