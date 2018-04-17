@@ -1,8 +1,8 @@
 {
-  "name": "test_classe",
+  "name": "RPG_Helper",
   "main": "index.html",
   "window": {
-    "title": "test_classe",
+    "title": "RPG_Helper",
     "frame": true,
     "width": 1920,
     "height": 1080,
