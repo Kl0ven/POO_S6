@@ -1,0 +1,16 @@
+bouton
+{
+	float: left;
+    margin-left: 170px;
+}
+textareadiv
+{
+	float : right;
+	margin-right: 170px;
+
+}
+
+imagediv
+{
+	text-align:center;
+}
