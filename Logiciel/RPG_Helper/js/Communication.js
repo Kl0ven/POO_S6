@@ -1,9 +1,11 @@
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
 
 class Communication{
-	constructor(pc_app){
+	constructor(ip,pc_app){
 		this.pc_app = pc_app;
+		this.ip = ip;
+		this.url = 'ws://'+ip+':8080';
+		this.wss = WebSocket.Server({ port: 8080 });
 	}
 	openCom(pinfos,resume){
 		while (this.pc_app.getOpenConnection()==True){
@@ -29,4 +31,6 @@ class Communication{
 		
 		}
 	}
+
+
 }
