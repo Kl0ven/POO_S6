@@ -7,21 +7,26 @@ class Communication{
 	}
 	openCom(pinfos,resume){
 		while (this.pc_app.getOpenConnection()==True){
-			if (resume ==0) {
-				//Fonction de connexion des téléphones
-				wss.on('connection', function connection(ws) {
-					ws.send('Vous êtes connecté !');
+			//Fonction de connexion des téléphones
+			wss.on('connection', function connection(ws) {
+				ws.send('Vous êtes connecté !');
+				if (resume ==0) { //Si la partie est nouvelle pinfos = NULL
 					ws.on('message', function incoming(message) {
 						pinfos = message; // On rentre les infos dans pinfos
-						//Quand un téléphone se connecte
 						comm_Handler = new Com_Handler(this);
 						this.comm_Handler = comm_Handler;
-						this.comm_Handler.playerConnection(pinfos,resume);
+						this.comm_Handler.playerConnection(pinfos,resume);//On envoie
 
-					}
+					});
 				}
+				else { //Si la partie existe déja, on crée un comm handler et on lance playerconnexion
+					comm_Handler = new Com_Handler(this);
+					this.comm_Handler = comm_Handler;
+					this.comm_Handler.playerConnection(pinfos,resume);
+				}
+			});
 				
-			}
+		
 		}
 	}
 }
