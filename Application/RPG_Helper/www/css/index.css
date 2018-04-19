@@ -145,3 +145,46 @@
   overflow: scroll;
 
 }
+
+#backarrow{
+  float: left;
+  line-height: 48px;
+  font-size: 30px;
+}
+
+.sousonglet{
+  margin-top: 7px;
+}
+
+.w3-bar{
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.add_btn{
+  float: right;
+}
+
+.w3-button{
+  outline: transparent;
+}
+
+.dynamicView > textarea{
+    width: 100%;
+}
+
+
+.dynamicView > div{
+  height: 70vh;
+  overflow-x: scroll;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+body{
+  background-color: lightgrey;
+}
+
+textarea{
+  outline: transparent;
+}

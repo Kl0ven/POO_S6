@@ -1,3 +1,5 @@
+
+
 class Effect {
   constructor(bonus, duration, unit, description) {
     this.bonus = bonus;
