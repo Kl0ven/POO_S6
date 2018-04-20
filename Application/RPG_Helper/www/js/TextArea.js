@@ -1,15 +1,31 @@
+/**
+class TextArea derivé de Widget
+Jean-Loup MONNIER
+19/04/2018
+cette classe gère l'affichage des zones de texte & input
+**/
+
 class TextArea extends Widget {
   constructor(parent,parentBtn, classes,btnclass, height, width, nameBtn = "save", cb = 0) {
+    // init de la classe parente
     super(parent, classes)
+    // nom du btn associer a la TextArea
     this.nameBtn = nameBtn;
+    // si une callback est fourni alors on l'utilise sinon on utilise celle par defaut
     this.btnCb = (typeof cb == "function") ? cb : () => {this.switching()};
+    // declaration du btn
     this.btn = new Button(parentBtn,btnclass,this.nameBtn,this.btnCb);
+    // hauteur et largeur
     this.height = height;
     this.width = width;
+    // texte dans la zone de texte
     this.text = ""
+    // false =>  l'utilisateur peut renter du texte
+    // true  =>  l'utilisateur ne peut pas renter du texte et le texte et afficher en temps que code HTML
     this.state = false; //textarea
     this.show();
   }
+
 
   show(){
     if($("#"+this.id)){
