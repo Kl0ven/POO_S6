@@ -1,6 +1,10 @@
 class Image extends Widget {
-  constructor(parent, classes, src, height, width) {
+  constructor(parent,parentBtn, classes, src, height, width,nameBtn='send',cb) {
     super(parent, classes)
+    this.nameBtn=nameBtn;
+    this.parentBtn=parentBtn;
+    this.btnCb=cb;
+    this.btn=new PC_Button(parentBtn,"w3-button w3-blue",this.nameBtn,this.btnCb);
     this.src = src;
     this.height = height;
     this.width = width;
@@ -26,7 +30,12 @@ class Image extends Widget {
   }
 
   hovermouse(){
-    $("#"+this.id).mouseenter(() => {alert("ceci est un popup !")});
+    (this.parentBtn).css("visibility","hidden")
+
+        //console.log(this.parentBtn)
+    $("#"+this.id).mouseenter(() =>{$(this.parentBtn).css("visibility","visible")});
+    $("#"+this.id).mouseleave(() =>{$(this.parentBtn).css("visibility","hidden")});
+
     }
   }
 
