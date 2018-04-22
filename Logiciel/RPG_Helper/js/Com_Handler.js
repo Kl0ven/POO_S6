@@ -4,14 +4,22 @@ class Com_Handler {
 	}
 	playerConnection(pinfos,resume){
 		if (resume==0){
-			infos = this.getInfo(pinfos);
+			infos = this.getInfo();
 			player = this.com.pc_app.campaign.addPlayer(infos,this);
 			this.player = player;
 		}
 		else {
-			player = this.send(pinfos);
+			player = this.getName()
 			
 		}
+	}
+
+	getInfo() {
+		//On récupère la trame d'informations de l'appli téléphone
+
+
+
+		return infos;
 	}
 
 
