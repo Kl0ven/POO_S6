@@ -26,7 +26,7 @@ class TextArea extends Widget {
     this.show();
   }
 
-
+   // permet d'afficher la textArea
   show(){
     if($("#"+this.id)){
       $("#"+this.id).remove();
@@ -44,13 +44,14 @@ class TextArea extends Widget {
     }
   }
 
+  // retounr le code HTML de la TextArea
   getHTML(){
     var id = this.isID() ? 'id="'+ this.id +'"' : '';
     var classes = this.isClasses() ? 'class="'+ this.classes +'"' : '';
     return '<textarea '+id+" "+classes+' rows="'+this.height+'" cols="'+this.width+'">'+this.text+'</textarea>';
   }
 
-
+  // methode qui permet de passer de la div/non modifiable  à la textArea/modifiable
   switching(){
     if(!this.state){
       var html = this.toHTML();
@@ -70,11 +71,13 @@ class TextArea extends Widget {
 
   }
 
+  // renvoie le code HTML de ce qu'il y a a l'inerieur du TextArea pour l'afficher dans la div
   toHTML(){
-
+      // on recupere et sauvegarde le texte
       var text = $("#"+this.id).val();
       this.text = text;
 
+      // on transforme le BBCode en HTML
       text = text.replace(/<[^>]+>/gi,"");
       text = text.replace(/[\r\n]/g, '</br>');
       text = text.replace(/\[g\](.+)\[\/g\]/gi, '<strong>$1</strong>');
@@ -91,6 +94,7 @@ class TextArea extends Widget {
       return text;
     }
 
+    // renvoie le text de la textArea
     toString(){
       if (this.state){
         return this.text;
@@ -99,6 +103,7 @@ class TextArea extends Widget {
       }
     }
 
+    // definie le text de la textArea
     setText(text){
       this.text = text;
       this.show();
