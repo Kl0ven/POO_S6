@@ -30,13 +30,17 @@ class Image extends Widget {
   }
 
   hovermouse(){
-    (this.parentBtn).css("visibility","hidden")
-
-        //console.log(this.parentBtn)
-    $("#"+this.id).mouseenter(() =>{$(this.parentBtn).css("visibility","visible")});
-    $("#"+this.id).mouseleave(() =>{$(this.parentBtn).css("visibility","hidden")});
-
+    //enlève le bouton, de base
+    $(this.parentBtn).css("display","none");
+    //position du bouton
+    $(this.parentBtn).css("position","absolute");
+    
+    //display le bouton quand il est "hoveré"
+    $(this.parent).hover(() =>{$(this.parentBtn).css("display","initial")},() =>{$(this.parentBtn).css("display","none")});//ici, j'ai galéré
+    //$("#"+this.id).mouseout(() =>{$(this.parentBtn).css("display","none")});
+  
     }
+    
   }
 
   
