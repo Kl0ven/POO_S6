@@ -21,7 +21,6 @@ class Player extends Character{
 	this.infos.PV = this.infos.PV + n
 	}
 
-
 	modCA(n){
 	this.infos.PV = this.infos.PV + n
 	}
