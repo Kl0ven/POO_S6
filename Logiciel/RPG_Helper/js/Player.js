@@ -10,6 +10,7 @@ class Player extends Character{
 		PV : 0,
 		CA : 0
 	}
+	
 
 	this.comm_handler = null
 
@@ -40,6 +41,11 @@ class Player extends Character{
 	}
 
 	createPlayer(inf, t){
+	 	this.infos = inf
+	 	this.comm_handler = t
+	} 
+
+	resumePlayer(inf, t){
 	 	this.infos = inf
 	 	this.comm_handler = t
 	} 
