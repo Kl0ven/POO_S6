@@ -2,7 +2,7 @@ class TextArea extends Widget{
 	constructor(parent,parentBtn,classes,height,width,nameBtn='save',cb=0){
 		super(parent,classes)
     this.nameBtn = nameBtn;
-    this.btnCb = (typeof cb == "function") ? cb : () =>{this.switching()};
+    this.btnCb = (typeof cb == "function") ? cb : () =>{this.switching()};//ici, si jamais on veut un bouton avec une autre utilité que "acquitter le texte"
     this.btn = new PC_Button(parentBtn,"w3-button w3-blue",this.nameBtn,this.btnCb);
 		this.height = height;
 		this.width = width;
