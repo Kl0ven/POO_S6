@@ -5,7 +5,7 @@ ordi => mobile
 	- para1 = "image"     => para2 = dataURI de l'image
 		(cf test unitaire)
 
-	- para1 = "choice"    => para2 = liste des non {1:"babar", 2:"tomm", 3;"couille"}
+	- para1 = "choice"    => para2 = liste des nom ["babar","tomm","couille"]
 		pour la selestion du joueur en debut de partie
 		- return {"type" : "choicerep", "data": "babar"}
 
@@ -23,13 +23,13 @@ ordi => mobile
 																				 "sorts":{"sort1":"texte1","sort2";"text2"},
 																				 "inventaire":{"obj1":"texte1","obj2";"text2"}}}
 
-	- para1 = "time"      => para2 = liste {"qte": 12, "unit" = "h", "time":"22h36"}
+	- para1 = "time"      => para2 = liste {"qte": 12, "in_fight" : true, "time":"22h36"}
 		permet de faire "vivre" les effet coté client
 
-	- para1 = "cara"      => para2 = liste {"PV": 23, "CA":50, PO :2500 }
+	- para1 = "cara"      => para2 = liste {"PV": 23, "CA":50 }
 
-	- para1 = "effect"    => para2 = list {"bonus":true , "duration":3, "unit":"h", "description":"short description"}
-
+	- para1 = "effect"    => para2 = list {"bonus":true , "duration":3, "unit":true, "description":"short description"}
+																																				true = round / false = heure
 	- para1 = "save" 	  => para2 = null
 		- return {"type": "saverep", "data": {"cara":{"PV": 23, "CA":50, PO :2500,"name":"babar" },
 																				 "comp":{"comp1":"texte1","comp2";"text2"},

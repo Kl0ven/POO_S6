@@ -55,7 +55,7 @@ class Communication {
         }
         // si c'est un choix on l'affiche au joueur puis on renvoie le choix au PC
         else if (obj.type == "choice") {
-          this.mobileApp.chooseplayer(obj.data,(name) => {this.ws.send({"type" : "choicerep", "data": name})});
+          this.mobileApp.chooseplayer(obj.data,(name) => {this.ws.send(JSON.stringify({"type" : "choicerep", "data": name}))});
         }
         // si c'est l'heure
         else if (obj.type == "time") {
@@ -71,11 +71,11 @@ class Communication {
         }
         // si c'est une demande de sauvegarde
         else if (obj.type == "save") {
-          this.ws.send({"type": "saverep", "data": this.mobileApp.getAllText() })
+          this.ws.send(JSON.stringify({"type": "saverep", "data": this.mobileApp.getAllData() }));
         }
         // si c'est une nouvelle partie
         else if (obj.type == "new") {
-          this.mobileApp.newGame()
+          this.mobileApp.newGame(()=>{this.ws.send(JSON.stringify({"type": "newrep", "data": this.mobileApp.getAllData() }));})
         }
         // si c'est une demande de chargement d'une ancienne partie
         else if (obj.type == "load") {

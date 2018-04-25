@@ -9,9 +9,12 @@ $(document).ready(function(){
   const wss = new WebSocket.Server({ port: 8080 });
 
   wss.on('connection', function connection(ws) {
+    ws.on("message",(data) => {
+      console.log(JSON.parse(data));
+    })
     console.log(ws);
     $("#send").click(() =>{
-      var cmd = {"type":$("#para1").val(),"data":$("#para2").val()}
+      var cmd = {"type":$("#para1").val(),"data":JSON.parse($("#para2").val())}
       screenlog('purple',JSON.stringify(cmd))
       ws.send(JSON.stringify(cmd));
     }

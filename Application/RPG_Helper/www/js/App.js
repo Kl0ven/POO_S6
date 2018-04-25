@@ -9,24 +9,26 @@ class App {
     // liste des effets du joueur
     this.effect = [];
     // dictionnaire de toutes les caracteristiques du joueur
-    this.cara = {"pv": undefined, "ca":undefined,"po":undefined,"name":undefined};
+    this.cara = {"PV": undefined, "CA":undefined,"PO":0,"name":undefined};
     // declaration de l'interface graphique
     this.UI = new User_interface(this);
     // l'objet communication ne sera creer qu'apres la demande du joueur
     this.com = undefined;
+    //heure
+    this.time = "22:56"
   }
 
   //methode appelé au démarrage de l'application
   start(){
-    //this.UI.showView("init");
-    this.UI.showView("header").showView("main");
+    this.UI.showView("init");
+    //this.UI.showView("header").showView("main");
     //this.newGame();
     // handler pour la fleche de retour
-    $("#backarrow").click(() => {this.UI.hideAll().showView('header').showView("main");});
+    $("#backarrow").click(() => {this.UI.hideAll().showView('header').showView("main").unsetAllBtn("header");});
   }
 
   // methode pour demander au joueur pour ses informations pour une nouvelle partie
-  newGame(){
+  newGame(cb){
     // utilisation de jquery-confirm pour les popup
     $.alert({
       title: 'informations',
@@ -59,12 +61,13 @@ class App {
               return false;
             }
             // enregistrement des donées
-            this.cara.pv = parseInt($("#inputPV").val());
-            this.cara.ca = parseInt($("#inputCA").val());
-            this.cara.po = parseInt($("#inputPO").val());
+            this.cara.PV = parseInt($("#inputPV").val());
+            this.cara.CA = parseInt($("#inputCA").val());
+            this.cara.PO = parseInt($("#inputPO").val());
             this.cara.name = $("#nom").val();
             // màj de l'UI
             this.update();
+            cb();
             // envoie des données au PC du MJ
             //this.com.sendNewRep();
           }
@@ -86,9 +89,10 @@ class App {
   // màj de l'interface graphique
   update(){
     $("#name").text(this.cara.name);
-    $("#PO_text").text(this.cara.po);
-    $("#PV_text").text(this.cara.pv);
-    $("#CA_text").text(this.cara.ca);
+    $("#PO_text").text(this.cara.PO);
+    $("#PV_text").text(this.cara.PV);
+    $("#CA_text").text(this.cara.CA);
+    $("#Time_text").text(this.time);
   }
 
   // methode pour la création de l'objet communication
@@ -127,8 +131,82 @@ class App {
   // methode modificatrice de pièce d'or
   modPO(mod){
     if(!isNaN(mod)){
-      this.cara.po += mod;
+      this.cara.PO += mod;
       this.update();
     }
+  }
+
+  chooseplayer(names,cb){
+    var innerHTML = "";
+    for (var name in names) {
+      innerHTML += '<input type="radio" name="choice" id="'+names[name]+'" value="'+names[name]+'">   ';
+      innerHTML += '<label for="'+names[name]+'" style="font-size: x-large;">'+names[name]+' </label></br>';
+    }
+
+    $.alert({
+      title: 'choisie ton perso',
+      type: 'green',
+      theme: 'material',
+      content: '' +
+      '<form id="choice" action="" >' +
+      '<div class="form-infos">' + innerHTML + '</div>' +
+      '</form>',
+      boxWidth: '80%',
+      useBootstrap: false,
+      buttons: {
+        Save: {
+          text: 'Save',
+          btnClass: 'btn-green',
+          action: () =>{
+            // cette callback est appelé lors de l'appuis sur le boutton save
+            // verification des entrée user
+            if(!$('input[name=choice]:checked', '#choice').val()){
+              $.alert('provide every information');
+              return false;
+            }
+            // on apelle la callback avec le non selectionné
+            cb($('input[name=choice]:checked', '#choice').val())
+            this.cara.name = $('input[name=choice]:checked', '#choice').val()
+          }
+        }
+      },
+      // callback permettant de valider sur la touche entrée
+      onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+          // if the user submits the form by pressing enter in the field.
+          e.preventDefault();
+          jc.$$Save.trigger('click'); // reference the button and click it
+        });
+      }
+    });
+  }
+
+  changeTime(obj){
+    this.time = obj.time;
+    for (var E in this.effect){
+      this.effect[E].live(obj.in_fight,obj.qte)
+    }
+    this.update();
+  }
+
+  changeCara(obj){
+    this.cara.PV = obj.PV;
+    this.cara.CA = obj.CA;
+    this.update();
+  }
+
+  newEffect(obj){
+    this.effect.push(new Effect(obj.bonus, obj.duration, obj.unit, obj.description))
+  }
+  getAllData(){
+    var info = {};
+    info.cara = this.cara;
+    info.comp = this.UI.getTexts("competence");
+    info.dons = this.UI.getTexts("don");
+    info.sorts = this.UI.getTexts("sort");
+    info.inventaire = this.UI.getTexts("objet");
+    return info;
   }
 }

@@ -25,8 +25,8 @@ class User_interface {
     this.view.header = new View($('#header'),[
       new Button($("#barre1"),"w3-button w3-blue","Compétences",() => {this.btnHandler("header",0,["competence"]);}),
       new Button($("#barre1"),"w3-button w3-blue","Dons",() => {this.btnHandler("header",1,["don"]);}),
-      new Button($("#barre1"),"w3-button w3-blue","Sorts",() => {}),
-      new Button($("#barre1"),"w3-button w3-blue","Objets",() => {})
+      new Button($("#barre1"),"w3-button w3-blue","Sorts",() => {this.btnHandler("header",2,["sort"]);}),
+      new Button($("#barre1"),"w3-button w3-blue","Objets",() => {this.btnHandler("header",3,["objet"]);})
     ]);
 
     this.view.competence = new View($('#competence'),[
@@ -35,6 +35,14 @@ class User_interface {
 
     this.view.don = new View($('#don'),[
       new Button($("#don .add_btn"),"w3-button w3-circle w3-blue","+",() => {this.dynamicView("don");})
+    ]);
+
+    this.view.sort = new View($('#sort'),[
+      new Button($("#sort .add_btn"),"w3-button w3-circle w3-blue","+",() => {this.dynamicView("sort");})
+    ]);
+
+    this.view.objet = new View($('#objet'),[
+      new Button($("#objet .add_btn"),"w3-button w3-circle w3-blue","+",() => {this.dynamicView("objet");})
     ]);
 
     this.view.main = new View($("#main"),[
@@ -152,6 +160,7 @@ class User_interface {
         this.view[v].getElem(i).unset();
       }
     }
+    return this;
   }
 
   // methode qui gere les actions des boutons
@@ -181,5 +190,15 @@ class User_interface {
 
       }
     }
+  }
+
+  getTexts(val){
+    var res = {};
+    for (var i = 1; i < this.view[val].getNbElem(); i++) {
+      var name = this.view[val].getElem(i).getText();
+      var value = this.view[name].getElem(0).toString();
+      res[name]=value;
+    }
+    return res;
   }
 }
