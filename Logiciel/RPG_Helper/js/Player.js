@@ -18,10 +18,15 @@ class Player extends Character{
 	}
 
 	modPV(n){
-	this.infos.PV = this.infos.PV + n
+	this.infos.PV = this.infos.PV + n;
 
 	}
 
+
+	// envoyer changement a communication handler ? 
+
+	
+	}
 
 	modCA(n){
 	this.infos.PV = this.infos.PV + n

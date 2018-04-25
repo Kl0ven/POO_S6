@@ -11,6 +11,7 @@ class Campaign{
 	}
 
 
+
 	addPlayer(inf,com){
 		
 		var P = new Player('test')
@@ -26,8 +27,8 @@ class Campaign{
 		P.createPlayer(new_infos,com)
 
 		this.players.push(P)
-	
 	}
+
 
 
 
@@ -54,3 +55,4 @@ class Campaign{
 //  	}
 
 	
+

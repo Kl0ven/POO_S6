@@ -6,4 +6,6 @@ $(document).ready(function()
 	//les 2 app_PC : le bouton et la textarea seront affichés l'un en dessous de l'autre
 
 
+ 
+
 })
