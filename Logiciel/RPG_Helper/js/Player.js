@@ -18,9 +18,15 @@ class Player extends Character{
 	}
 
 	modPV(n){
-	this.infos.PV = this.infos.PV + n
+	this.infos.PV = this.infos.PV + n;
+
 	}
 
+
+	// envoyer changement a communication handler ? 
+
+	
+	}
 
 	modCA(n){
 	this.infos.PV = this.infos.PV + n
@@ -43,6 +49,10 @@ class Player extends Character{
 	 	this.comm_handler = t
 	} 
 
+	sendInfos(){
+		this.comm_handler.modCar(this.infos.PV,this.infos.CA)
+
+	}
 
 	//resumePlayer(name,t){  --> Le resumeplayer est géré par la Campagne
 	//}
