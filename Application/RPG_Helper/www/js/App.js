@@ -200,13 +200,23 @@ class App {
   newEffect(obj){
     this.effect.push(new Effect(obj.bonus, obj.duration, obj.unit, obj.description))
   }
+
   getAllData(){
     var info = {};
     info.cara = this.cara;
-    info.comp = this.UI.getTexts("competence");
-    info.dons = this.UI.getTexts("don");
-    info.sorts = this.UI.getTexts("sort");
-    info.inventaire = this.UI.getTexts("objet");
+    info.comp = this.UI.getTabs("competence");
+    info.dons = this.UI.getTabs("don");
+    info.sorts = this.UI.getTabs("sort");
+    info.inventaire = this.UI.getTabs("objet");
     return info;
+  }
+
+  loadGame(obj){
+    this.cara = obj.cara;
+    this.UI.setTabs("competence",obj.comp);
+    this.UI.setTabs("don",obj.dons);
+    this.UI.setTabs("sort",obj.sorts);
+    this.UI.setTabs("objet",obj.inventaire);
+    this.UI.hideAll().showView("main").showView("header")
   }
 }

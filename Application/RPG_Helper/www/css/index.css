@@ -36,7 +36,7 @@
 }
 
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
+    border: 16px solid lightgrey; /* Light grey */
     border-top: 16px solid #456bc6; /* Blue */
     border-radius: 50%;
     width: 120px;

@@ -119,22 +119,7 @@ class User_interface {
               $.alert('provide another name');
               return false;
             }
-            // on ajoute une div pour la nouvelle vue
-            $("#dynamicView").append('<div class="dynamicView" id="'+name.replace(/ /g,'')+'" ></diV>')
-            // on recupere le nb d'onglet deja present
-            var nb = UI.view[type].getNbElem();
-            // on ajoute un onglet
-            UI.view[type].addElem(new Button($("#"+type+" .w3-bar"),"w3-button w3-blue",name,() => {UI.btnHandler(type,nb,[type,name]);}));
-            // on affiche la bonne vue
-            UI.hideAll().showView("header").showView(type)
-            // creation d'une nouvelle vue lier au bounton et dans la div
-            UI.view[name] = new View($("#"+name.replace(/ /g,'')),[
-              new TextArea($("#"+name.replace(/ /g,'')),$("#"+name.replace(/ /g,'')),"","w3-button w3-green w3-hover-green",20,30)
-            ]);
-            // on deselectionne tout les btn
-            UI.unsetAllBtn(type);
-            // on selectionne le bouton de la  nouvelle vue
-            UI.view[type].getElem(UI.view[type].getNbElem()-1).set();
+            UI.addTab(name,type)
           }
         },
         cancel: function () {
@@ -192,7 +177,28 @@ class User_interface {
     }
   }
 
-  getTexts(val){
+  addTab(name,type){
+    // on ajoute une div pour la nouvelle vue
+    $("#dynamicView").append('<div class="dynamicView" id="'+name.replace(/ /g,'')+'" ></diV>')
+    // on recupere le nb d'onglet deja present
+    var nb = this.view[type].getNbElem();
+    // on ajoute un onglet
+    this.view[type].addElem(new Button($("#"+type+" .w3-bar"),"w3-button w3-blue",name,() => {this.btnHandler(type,nb,[type,name]);}));
+    // on affiche la bonne vue
+    this.hideAll().showView("header").showView(type)
+    // creation d'une nouvelle vue lier au bounton et dans la div
+    this.view[name] = new View($("#"+name.replace(/ /g,'')),[
+      new TextArea($("#"+name.replace(/ /g,'')),$("#"+name.replace(/ /g,'')),"","w3-button w3-green w3-hover-green",20,30)
+    ]);
+    // on deselectionne tout les btn
+    this.unsetAllBtn(type);
+    // on selectionne le bouton de la  nouvelle vue
+    this.view[type].getElem(this.view[type].getNbElem()-1).set();
+
+  }
+
+
+  getTabs(val){
     var res = {};
     for (var i = 1; i < this.view[val].getNbElem(); i++) {
       var name = this.view[val].getElem(i).getText();
@@ -200,5 +206,13 @@ class User_interface {
       res[name]=value;
     }
     return res;
+  }
+
+  setTabs(val,obj){
+    for (var elem in obj) {
+      this.addTab(elem,val);
+      this.view[elem].getElem(0).setText(obj[elem]);
+      this.view[elem].getElem(0).switching();
+    }
   }
 }

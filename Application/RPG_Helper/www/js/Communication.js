@@ -79,7 +79,7 @@ class Communication {
         }
         // si c'est une demande de chargement d'une ancienne partie
         else if (obj.type == "load") {
-          this.mobileApp.loadGame()
+          this.mobileApp.loadGame(obj.data)
         }
       };
 
@@ -132,6 +132,24 @@ class Communication {
       this.ws.onclose = (event) => {
         this.connected = false;
         console.log(event);
+        $.confirm({
+          title: 'Erreur!',
+          content: 'La connexion avec le PC a été perdue',
+          type: 'red',
+          typeAnimated: true,
+          buttons: {
+            tryAgain: {
+              text: 'Try again',
+              btnClass: 'btn-red',
+              action: () => {
+                this.mobileApp.UI.hideAll().showView("load");
+                this.ws = new WebSocket(this.url);
+                this.setup();
+
+              }
+            }
+          }
+        });
       };
     }
 
