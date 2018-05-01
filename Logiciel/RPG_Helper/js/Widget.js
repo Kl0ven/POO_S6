@@ -6,8 +6,6 @@ class Widget{
 	}
 
 
-
-
 	isID(){
     	if (typeof this.id == "undefined") {
          	return false;

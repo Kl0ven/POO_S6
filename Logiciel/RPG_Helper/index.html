@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -28,7 +30,10 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+        <meta charset="utf-8">
+
         <script src="./js/Jquery.js"></script>
+        <script type="application/javascript" src="./js/jquery-confirm.min.js"></script>
         <script src="./js/Widget.js"></script>
         <script src="./js/button.js"></script>
         <script src="./js/cb.js"></script>
@@ -38,36 +43,32 @@
         <script src="./js/Character.js"></script>
         <script src="./js/Player.js"></script>
         <script src="./js/Campaign.js"></script>
+        <script src="./js/View.js">></script>
+        <script src="./js/User_Interface.js"></script>
+        <script src="./js/App_PC.js"></script>
         <link rel="stylesheet" type="text/css" href="css/misenpage.css">
         <link rel="stylesheet" type="text/css" href="css/w3.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-confirm.min.css">
         <title>RPG_helper_PC</title>
     </head>
     <body>
-        <Bouton>
-        <div class="app_PC_1">
-            <h1>button</h1>
-            </div>
-        </Bouton>
-        <textareadiv>
-            <div class="app_PC_2">
-                <h1>textarea</h1>
-            </div>
-        </textareadiv>
-        <imagediv>
-            <div class="image">
-                <h1>image</h1>
-            </div>
-        </imagediv>
-
-       <!-- Tests
-
-        <div style="border: solid;overflow:scroll;height:300px;" id="screenlog"> 
-
-        -->
+        <!-- ecran de demarrage -->
         
+        <div id="LaunchScreen">
+            <h1 class="titre_princ">Rpg Helper</h1>
+            <div class="bts_camp">
+            </div>
+            <div class ='bt_create'>
+            </div>
         </div>
 
-      
+        <!--ecran de connexion-->
+        <div id="ConnectScreen">
+            <h1 class="ecran de connex">Ecran de connexion</h1>
+            <div class ='bt_dem'>
+            </div>            
+        </div>
+
 
 
     </body>

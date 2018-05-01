@@ -16,6 +16,7 @@ class Campaign{
 	}
 
 
+
 	addPlayer(inf,com){
 		
 		var P = new Player('test')
@@ -31,7 +32,6 @@ class Campaign{
 		P.createPlayer(new_infos,com)
 
 		this.players.push(P)
-	
 	}
 
 	resumePlayer(inf,com){
@@ -74,6 +74,7 @@ class Campaign{
 
 
 
+
 }
 
 //__________________________________________ Test trame de données
@@ -96,16 +97,4 @@ class Campaign{
 //    	$("#screenlog").append("<p>"+message+"</p>")
 //  	}
 
-// _______________________________________________________Tests sauvegarde 
 
-	// C1 = new Campaign('C1')
-	// C1.saveCampaign()
-
-	// inf1 = {"cara":{"PV": 23, "CA":50, PO :2500,"name":"babar" }}
-	// inf2 = {"cara":{"PV": 23, "CA":50, PO :2500,"name":"Zangdar" }}
- // 	t = null
-
- // 	C1.addPlayer(inf1,t)
- // 	C1.addPlayer(inf2,t)
- // 	C1.savePlayer(C1.players[0])
- // 	C1.savePlayer(C1.players[1])
