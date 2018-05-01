@@ -14,8 +14,10 @@ class Com_Handler {
 		}
 	}
 
+
+
 	getInfo() {
-		ws.send(JSON.stringify("type" : "new","data": NULL)) //On envoie une demande d'infos de nouveau joueur
+		ws.send(JSON.stringify("type" : "new","data": null)) //On envoie une demande d'infos de nouveau joueur
 	}
 
 	getName(pinfos) {
@@ -42,6 +44,7 @@ class Com_Handler {
 			this.com.pc_app.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 		}
 		else { //On veut sauvegarder le joueur
+
 
 		}
 	}
