@@ -17,12 +17,10 @@ class User_Interface{
 			new PC_Button($(".bt_dem"),"w3-button w3-blue","démarrer",this.clickpopup)
 			]);
 		//vue onglets
-		//this.view.header = new View($(header),[])
+		this.view.header = new View($("#Header"),[]);
 
 
 		this.hideAll();
-
-
 
 	}
 
@@ -59,9 +57,9 @@ class User_Interface{
 
  				$("#"+name).append(name);
 
-                new PC_Button($("#"+name),"w3-button w3-blue","Lancer",clickpopup);//ici, en cb, mettre des showView?
- 				new PC_Button($("#"+name),"w3-button w3-blue","Modifier",clickpopup);
- 				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",clickpopup);
+                new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {this.btnHandler("init",["launch"]);});//btnHandler pas reconnu comme une fonction
+                new PC_Button($("#"+name),"w3-button w3-blue","Modifier",null);
+ 				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
 
 
             }
@@ -83,7 +81,6 @@ class User_Interface{
 }
 
 
-
   	showView(name){
     	this.view[name].show();
 }
@@ -98,12 +95,15 @@ class User_Interface{
     	}
     }
 
-    btnHandler(vue,show){
-    	this.hideAll();
-    	for(var v in show) {
-    		this.showView(show[v]);
-    	}
+   
+     btnHandler(vue,show){
+
+        this.hideAll();
+        for(var v in show) {
+            this.showView(show[v]);
+        }
     }
+
 
 
 }
