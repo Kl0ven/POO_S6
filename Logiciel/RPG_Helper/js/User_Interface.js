@@ -10,26 +10,60 @@ class User_Interface{
 	createview(){
 		//vue initiale
 		this.view.init = new View($("#LaunchScreen"),[
-			new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",this.clickcreercamp)
+			new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",this.clickcreercamp(this))
 			]);
 		//vue écran de connexion
 		this.view.launch = new View($("#ConnectScreen"),[
 			new PC_Button($(".bt_dem"),"w3-button w3-blue","démarrer",this.clickpopup)
 			]);
-		//vue onglets
-		//this.view.header = new View($(header),[])
+		//vue header
+		this.view.header = new View($("#Header"),[
+            new PC_Button($(".barre1"),"w3-button w3-blue","Histoire",() => {this.btnHandler("header",["header","histoire"]);}),
+            new PC_Button($(".barre1"),"w3-button w3-blue","Combats",() => {this.btnHandler("header",["header","combats"]);}),
+            new PC_Button($(".barre1"),"w3-button w3-blue","Règles",() => {this.btnHandler("header",["header","regles"]);}),
+            new PC_Button($(".barre1"),"w3-button w3-blue","Générateurs",() => {this.btnHandler("header",["header","generateurs"]);}),
+            new PC_Button($(".barre1"),"w3-button w3-blue","Joueurs",() => {this.btnHandler("header",["header","joueurs"]);})
+            ]);
+  
+        //vue onglet Histoire
+        this.view.histoire = new View($("#Histoire"),[
+            new TextArea($(".txtarea"),$(".txtarea"),undefined,50,170,undefined,undefined)
+             ]);
+
+
+        //vue onglet Combats
+        this.view.combats = new View($("#Combats"),[
+        new PC_Button($("#test"),"w3-button w3-blue","combats",null)
+             ]);
+
+
+        //vue onglet Règles
+        this.view.regles = new View($("#Regles"),[
+        new PC_Button($("#test1"),"w3-button w3-blue","regles",null)
+            ]);
+
+
+        //vue onglet géné
+        this.view.generateurs = new View($("#Generateurs"),[
+        new PC_Button($(".test2"),"w3-button w3-blue","generateurs",null)
+            ]);
+
+
+        //vue onglet Joueurs
+        this.view.joueurs = new View($("#Joueurs"),[
+        new PC_Button($(".test3"),"w3-button w3-blue","joueurs",null)
+            ]);
+
+
+
 
 
 		this.hideAll();
 
-
-
 	}
 
 
-
-
-	clickcreercamp(){
+	clickcreercamp(ui){
  	//popup jquery-confirm
  	$.confirm({
     title: '',
@@ -59,9 +93,9 @@ class User_Interface{
 
  				$("#"+name).append(name);
 
-                new PC_Button($("#"+name),"w3-button w3-blue","Lancer",clickpopup);//ici, en cb, mettre des showView?
- 				new PC_Button($("#"+name),"w3-button w3-blue","Modifier",clickpopup);
- 				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",clickpopup);
+                new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {ui.btnHandler("init",["launch"]);});
+                new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {ui.btnHandler("init",["header"]);});
+ 				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
 
 
             }
@@ -83,7 +117,6 @@ class User_Interface{
 }
 
 
-
   	showView(name){
     	this.view[name].show();
 }
@@ -98,12 +131,16 @@ class User_Interface{
     	}
     }
 
+   
     btnHandler(vue,show){
-    	this.hideAll();
-    	for(var v in show) {
-    		this.showView(show[v]);
-    	}
+
+        this.hideAll();
+
+        for(var v in show) {
+            this.showView(show[v]);
+        }
     }
+
 
 
 }
