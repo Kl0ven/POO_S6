@@ -1,3 +1,10 @@
+.titre_princ
+{
+	text-align: center;
+	font-size :100px;
+}
+
+
 bouton
 {
 	float: left;
@@ -16,4 +23,28 @@ textareadiv
 	margin:auto;
 }
 
+#launchScreen{}
+
+.bt_create{
+	
+	font-size:50px;
+	margin-left: 100px;
+	margin-top: 0px;
+}
+
+.bts_camp{
+
+
+    width: 30%;
+    margin: auto;
+
+
+}
+
+.item{
+	display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
 

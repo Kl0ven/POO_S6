@@ -26,7 +26,7 @@ class Player extends Character{
 	// envoyer changement a communication handler ? 
 
 	
-	}
+	
 
 	modCA(n){
 	this.infos.PV = this.infos.PV + n
