@@ -10,7 +10,7 @@ class User_Interface{
 	createview(){
 		//vue initiale
 		this.view.init = new View($("#LaunchScreen"),[
-			new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",this.clickcreercamp(this))
+			new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",() => {this.clickcreercamp(this);})
 			]);
 		//vue écran de connexion
 		this.view.launch = new View($("#ConnectScreen"),[
@@ -33,7 +33,7 @@ class User_Interface{
 
         //vue onglet Combats
         this.view.combats = new View($("#Combats"),[
-        new PC_Button($("#test"),"w3-button w3-blue","combats",null)
+        new PC_Button($("#rencontres"),"w3-button w3-blue","+",() => {this.dynamicView('rencontre');})
              ]);
 
 
@@ -61,7 +61,6 @@ class User_Interface{
 		this.hideAll();
 
 	}
-
 
 	clickcreercamp(ui){
  	//popup jquery-confirm
@@ -115,6 +114,87 @@ class User_Interface{
     }
 });
 }
+
+
+
+    
+    dynamicView(type){
+        var term = (type == "rencontre" || type == "description") ? "Nouvelle" : "Nouvelle" ;
+        var UI = this;
+    // affichage d'un popup
+    $.confirm({
+      title: term + " " + type,
+      type: 'green',
+      theme: 'material',
+      boxWidth: '80%',
+      useBootstrap: false,
+      content: '' +
+      '<form action="" class="formName">' +
+      '<div class="form-group">' +
+      '<label>Nom de la rencontre</label></br>' +
+      '<input type="text" placeholder="name" class="name form-control" required autofocus/>' +
+      '</div>' +
+      '</form>',
+      buttons: {
+        formSubmit: {
+          text: 'Créer',
+          btnClass: 'btn-green',
+          action: function () {
+            // callback apeler lors de l'apuis sur "Créer"
+            // on recupere le nom
+            var name = this.$content.find('.name').val();
+            // on verifie le nom et compatible et qui n'existe pas deja
+            if(!name){
+              $.alert('provide a valid name');
+              return false;
+            }
+            try {
+              var n = $("#"+name.replace(/ /g,'')).length;
+            } catch (e) {
+              var n = 1;
+            }
+            if(n){
+              $.alert('provide another name');
+              return false;
+            }
+
+
+            //creation d'une rencontre
+            UI.newEncounter(name,type)
+            //ajout d'un bouton ? 
+
+          }
+        },
+        cancel: function () {
+          //close
+        },
+      },
+      onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+          // if the user submits the form by pressing enter in the field.
+          e.preventDefault();
+          jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+      }
+    });
+  }
+
+
+   newEncounter(name,type){
+    //ajout d'une div pour une nouvelle vue rencontre
+     $("#dynamicView").append('<div class="dynamicView" id="'+name.replace(/ /g,'')+'" ></div>')
+
+     new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
+// Ajouter un bouton rencontre au bon endroit ! 
+
+
+   }
+
+
+
+
 
 
   	showView(name){
