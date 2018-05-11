@@ -5,6 +5,13 @@ class User_Interface{
 		this.createview();
 	}
 
+    addView(obj,name,val){
+        Object.defineProperty(obj,name,{value : val,
+                                        writable : true,
+                                        configurable : true,
+                                        enumerable : true});
+
+    }
 
 	//initialisation vues
 	createview(){
@@ -33,7 +40,7 @@ class User_Interface{
 
         //vue onglet Combats
         this.view.combats = new View($("#Combats"),[
-        new PC_Button($("#rencontres"),"w3-button w3-blue","+",() => {this.dynamicView('rencontre');})
+        new PC_Button($("#rencontres"),"w3-button w3-blue","+",() => {this.newEncounter();})
              ]);
 
 
@@ -53,10 +60,6 @@ class User_Interface{
         this.view.joueurs = new View($("#Joueurs"),[
         new PC_Button($(".test3"),"w3-button w3-blue","joueurs",null)
             ]);
-
-
-
-
 
 		this.hideAll();
 
@@ -85,9 +88,7 @@ class User_Interface{
                     $.alert('Nom de classe non valide');
                     return false;
                 }
-                //$.alert('Votre campagne se nomme :  ' + name);
-                //var saisie = prompt("saisissez le nom de la campagne:");
- 				//new PC_Button($(".bts_camp"),"w3-button w3-blue",saisie,renommer);//nom de la campagne (actuellement un bouton)
+               
  				$('.bts_camp').append("<div id='"+name+"' class='item'></div>");
 
  				$("#"+name).append(name);
@@ -118,12 +119,12 @@ class User_Interface{
 
 
     
-    dynamicView(type){
-        var term = (type == "rencontre" || type == "description") ? "Nouvelle" : "Nouvelle" ;
+    newEncounter(){
+        var term = "Nouvelle rencontre"
         var UI = this;
     // affichage d'un popup
     $.confirm({
-      title: term + " " + type,
+      title: term,
       type: 'green',
       theme: 'material',
       boxWidth: '80%',
@@ -159,9 +160,25 @@ class User_Interface{
             }
 
 
-            //creation d'une rencontre
-            UI.newEncounter(name,type)
-            //ajout d'un bouton ? 
+//ajout d'une div pour les rencontres
+            $("#vue_rencontres").append('<div class="rencontre" id="'+name.replace(/ /g,'')+'" ></div>');
+
+//création de la vue rencontre "name"
+
+            UI.addView(UI.view,name,new View($("#"+name),[
+                $("#"+ name).append("<h1>"+name+"</h1>"),
+                 new TextArea($("#"+name),$("#"+name),undefined,10,10,undefined,undefined)
+            ]));
+    
+
+// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
+             new PC_Button($("#rencontres"),"w3-button w3-blue",name,() => {UI.btnHandler("combats",["header","combats",name]);});
+            
+
+//Affiche uniquement la vue qui vient d'être créée
+            UI.btnHandler("combats",["header","combats",name]); 
+
+
 
           }
         },
@@ -182,20 +199,6 @@ class User_Interface{
   }
 
 
-   newEncounter(name,type){
-    //ajout d'une div pour une nouvelle vue rencontre
-     $("#dynamicView").append('<div class="dynamicView" id="'+name.replace(/ /g,'')+'" ></div>')
-
-     new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
-// Ajouter un bouton rencontre au bon endroit ! 
-
-
-   }
-
-
-
-
-
 
   	showView(name){
     	this.view[name].show();
@@ -207,6 +210,7 @@ class User_Interface{
 
     hideAll(){
     	for (var v in this.view){
+            console.log(this.view[v])
     		this.hideView(v);
     	}
     }
@@ -217,6 +221,7 @@ class User_Interface{
         this.hideAll();
 
         for(var v in show) {
+
             this.showView(show[v]);
         }
     }
