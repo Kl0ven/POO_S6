@@ -25,13 +25,20 @@ class User_Interface{
 			]);
 		//vue header
 		this.view.header = new View($("#Header"),[
-            new PC_Button($(".barre1"),"w3-button w3-blue","Histoire",() => {this.btnHandler("header",["header","histoire"]);}),
-            new PC_Button($(".barre1"),"w3-button w3-blue","Combats",() => {this.btnHandler("header",["header","combats"]);}),
-            new PC_Button($(".barre1"),"w3-button w3-blue","Règles",() => {this.btnHandler("header",["header","regles"]);}),
-            new PC_Button($(".barre1"),"w3-button w3-blue","Générateurs",() => {this.btnHandler("header",["header","generateurs"]);}),
-            new PC_Button($(".barre1"),"w3-button w3-blue","Joueurs",() => {this.btnHandler("header",["header","joueurs"]);})
+            new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Histoire",() => {this.btnHandler("header",["header","footer","histoire"]);}),
+            new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Combats",() => {this.btnHandler("header",["header","footer","combats"]);}),
+            new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"]);}),
+            new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"]);}),
+            new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"]);})
+
+
             ]);
-  
+        
+        //vue footer
+        this.view.footer = new View($("#Footer"),[
+            new PC_Button($("#barre2"),"w3-button w3-green","Test",undefined)
+            ]);
+
         //vue onglet Histoire
         this.view.histoire = new View($("#Histoire"),[
             new TextArea($(".txtarea"),$(".txtarea"),undefined,50,170,undefined,undefined)
@@ -40,7 +47,7 @@ class User_Interface{
 
         //vue onglet Combats
         this.view.combats = new View($("#Combats"),[
-        new PC_Button($("#rencontres"),"w3-button w3-blue","+",() => {this.newEncounter();})
+        new PC_Button($("#rencontres"),"w3-button w3-round w3-blue","+",() => {this.newEncounter();})
              ]);
 
 
@@ -94,7 +101,7 @@ class User_Interface{
  				$("#"+name).append(name);
 
                 new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {ui.btnHandler("init",["launch"]);});
-                new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {ui.btnHandler("init",["header"]);});
+                new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {ui.btnHandler("init",["header","footer"]);});
  				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
 
 
@@ -165,18 +172,17 @@ class User_Interface{
 
 //création de la vue rencontre "name"
 
-            UI.addView(UI.view,name,new View($("#"+name),[
-                $("#"+ name).append("<h1>"+name+"</h1>"),
-                 new TextArea($("#"+name),$("#"+name),undefined,10,10,undefined,undefined)
-            ]));
-    
+            UI.addView(UI.view,name,new View($("#"+name),[]));
+            
+            UI.view[name].addElem($("#"+ name).append('<h1 class = "titre_rencontre">' + name + "</h1>"))
+            UI.view[name].addElem(new TextArea($("#"+name),$("#"+name),undefined,5,30,undefined,undefined))
 
 // Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
-             new PC_Button($("#rencontres"),"w3-button w3-blue",name,() => {UI.btnHandler("combats",["header","combats",name]);});
+             new PC_Button($("#rencontres"),"w3-button w3-round w3-blue",name,() => {UI.btnHandler("combats",["header","footer","combats",name]);});
             
 
 //Affiche uniquement la vue qui vient d'être créée
-            UI.btnHandler("combats",["header","combats",name]); 
+            UI.btnHandler("combats",["header","footer","combats",name]); 
 
 
 
