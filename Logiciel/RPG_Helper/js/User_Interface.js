@@ -174,8 +174,36 @@ class User_Interface{
 
             UI.addView(UI.view,name,new View($("#"+name),[]));
             
-            UI.view[name].addElem($("#"+ name).append('<h1 class = "titre_rencontre">' + name + "</h1>"))
-            UI.view[name].addElem(new TextArea($("#"+name),$("#"+name),undefined,5,30,undefined,undefined))
+            UI.view[name].addElem($("#"+ name).append('<h1 class = "titre_rencontre">' + name + "</h1>"));
+            //UI.view[name].addElem(new TextArea($("#"+name),$("#"+name),undefined,5,30,undefined,undefined));
+
+            // Tableau des monstres et affichage principal
+           UI.view[name].addElem($("#"+ name).append('<div class="w3-row">'+
+                                                        '<div class="w3-col w3-light-grey" style="width:75%">'+
+                                                            '<div class="w3-responsive"'+
+                                                            '<div class = "tab_monstre"> <table class="w3-table-all">' + 
+                                                                '<tr id = "M_nom_'+ name + '"> <th> <div> Monstres :</div></th> </tr>' +
+                                                                '<tr id = "M_PV_'+ name + '"> <th> <div> PV :</div></th> </tr>' +
+                                                                '<tr id = "M_CA_'+ name + '"> <th> <div> CA :</div></th> </tr>' +
+                                                                '</table>' + 
+                                                            '</div>' + 
+                                                            '</div>'+
+                                                        
+
+                                                        '<div class="w3-col" id = "btn_add_M_' + name + '"  style="width:3%">'+
+                                                        '</div>'+
+
+                                                        '<div class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
+                                                            '<p> Joueurs </p>' + 
+                                                        '</div>'+
+                                                     '</div>'+
+                                                     '</div>'    
+                                                     ));
+
+
+            // Test rajout monstre
+            //UI.view[name].addElem($("#btn_add_M").append('<td> <div contenteditable="">Monstre 2</div></td>'));
+            new PC_Button($("#btn_add_M_"+ name +""),"w3-button w3-round w3-blue","+",() => {UI.addMonster(name);});
 
 // Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
              new PC_Button($("#rencontres"),"w3-button w3-round w3-blue",name,() => {UI.btnHandler("combats",["header","footer","combats",name]);});
@@ -204,6 +232,13 @@ class User_Interface{
     });
   }
 
+    addMonster(rencontre){
+        this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">Monstre</div></td>'));
+        this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">0</div></td>'));
+        this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">0</div></td>'));
+
+    }
+
 
 
   	showView(name){
@@ -216,7 +251,6 @@ class User_Interface{
 
     hideAll(){
     	for (var v in this.view){
-            console.log(this.view[v])
     		this.hideView(v);
     	}
     }
@@ -231,6 +265,10 @@ class User_Interface{
             this.showView(show[v]);
         }
     }
+
+
+
+
 
 
 
