@@ -33,7 +33,7 @@ class User_Interface{
 
 
             ]);
-        
+
         //vue footer
         this.view.footer = new View($("#Footer"),[
             new PC_Button($("#barre2"),"w3-button w3-green","Test",undefined)
@@ -95,7 +95,7 @@ class User_Interface{
                     $.alert('Nom de classe non valide');
                     return false;
                 }
-               
+
  				$('.bts_camp').append("<div id='"+name+"' class='item'></div>");
 
  				$("#"+name).append(name);
@@ -125,7 +125,7 @@ class User_Interface{
 
 
 
-    
+
     newEncounter(){
         var term = "Nouvelle rencontre"
         var UI = this;
@@ -173,7 +173,7 @@ class User_Interface{
 //création de la vue rencontre "name"
 
             UI.addView(UI.view,name,new View($("#"+name),[]));
-            
+
             UI.view[name].addElem($("#"+ name).append('<h1 class = "titre_rencontre">' + name + "</h1>"));
             //UI.view[name].addElem(new TextArea($("#"+name),$("#"+name),undefined,5,30,undefined,undefined));
 
@@ -181,23 +181,23 @@ class User_Interface{
            UI.view[name].addElem($("#"+ name).append('<div class="w3-row">'+
                                                         '<div class="w3-col w3-light-grey" style="width:75%">'+
                                                             '<div class="w3-responsive"'+
-                                                            '<div class = "tab_monstre"> <table class="w3-table-all">' + 
+                                                            '<div class = "tab_monstre"> <table class="w3-table-all">' +
                                                                 '<tr id = "M_nom_'+ name + '"> <th> <div> Monstres :</div></th> </tr>' +
                                                                 '<tr id = "M_PV_'+ name + '"> <th> <div> PV :</div></th> </tr>' +
                                                                 '<tr id = "M_CA_'+ name + '"> <th> <div> CA :</div></th> </tr>' +
-                                                                '</table>' + 
-                                                            '</div>' + 
+                                                                '</table>' +
+                                                            '</div>' +
                                                             '</div>'+
-                                                        
+
 
                                                         '<div class="w3-col" id = "btn_add_M_' + name + '"  style="width:3%">'+
                                                         '</div>'+
 
                                                         '<div class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
-                                                            '<p> Joueurs </p>' + 
+                                                            '<p> Joueurs </p>' +
                                                         '</div>'+
                                                      '</div>'+
-                                                     '</div>'    
+                                                     '</div>'
                                                      ));
 
 
@@ -207,10 +207,10 @@ class User_Interface{
 
 // Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
              new PC_Button($("#rencontres"),"w3-button w3-round w3-blue",name,() => {UI.btnHandler("combats",["header","footer","combats",name]);});
-            
+
 
 //Affiche uniquement la vue qui vient d'être créée
-            UI.btnHandler("combats",["header","footer","combats",name]); 
+            UI.btnHandler("combats",["header","footer","combats",name]);
 
 
 
@@ -255,7 +255,7 @@ class User_Interface{
     	}
     }
 
-   
+
     btnHandler(vue,show){
 
         this.hideAll();
