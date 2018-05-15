@@ -14,6 +14,16 @@ class Com_Handler {
 		}
 	}
 
+	
+	modCar(pv,ca){
+		ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}))
+
+	}
+
+	setPlayer(p){
+		this.player = p;
+	}
+
 
 
 	getInfo() {
