@@ -39,10 +39,6 @@ $(document).ready(function(){
 
 
 
-
-
-
-
 function screenlog(color,message) {
   var dt = new Date();
   var time = "["+dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds()+"]";

@@ -1,0 +1,70 @@
+.titre_princ
+{
+	text-align: center;
+	font-size :100px;
+}
+
+.titre_rencontre
+{
+	text-align: center
+}
+
+
+bouton
+{
+	float: left;
+    margin-right: 170px;
+}
+textareadiv
+{
+	float : right;
+	margin-left: 170px;
+
+}
+
+.image
+{
+	width:200px;
+	margin:auto;
+}
+
+#launchScreen{}
+
+.bt_create{
+	
+	font-size:50px;
+	margin-left: 100px;
+	margin-top: 0px;
+}
+
+.bts_camp{
+
+    width: 30%;
+    margin: auto;
+
+}
+
+.item{
+	display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+.sousonglet{
+	margin-top: 5px;
+}
+
+.add_btn{
+	float: right;
+}
+
+
+#barre2{
+
+	position: fixed;
+	bottom: 0;
+	float: under;
+	background: lightgrey;
+
+}
