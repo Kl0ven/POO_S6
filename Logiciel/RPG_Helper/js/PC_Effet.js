@@ -57,7 +57,7 @@ class PC_Effet {
         	PC_Effet.counter = -1;
    		}
     	PC_Effet.counter++;
-    	return PC_Effet.counter;
+    	return "PC_Effet"+PC_Effet.counter;
 	}
 }
 
