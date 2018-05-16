@@ -20,6 +20,10 @@ class Com_Handler {
 
 	}
 
+	modEffect(e){
+		ws.send(JSON.stringify({"type": "effect","data" : {"bonus": e.bonus,"duration": e.duration,"unit": e.unit,"description":e.desc}}))
+	}
+
 	setPlayer(p){
 		this.player = p;
 	}
@@ -54,7 +58,7 @@ class Com_Handler {
 			this.com.pc_app.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 		}
 		else { //On veut sauvegarder le joueur
-
+			this.com.pc_app.save(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
 
 		}
 	}
