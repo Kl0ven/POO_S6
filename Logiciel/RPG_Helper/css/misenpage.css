@@ -85,3 +85,16 @@ textareadiv
 {
 	text-align:right;
 }
+
+html,body{
+	height: 100%;
+}
+
+#Regles{
+	height: 87%;
+}
+
+#iframepdf{
+	width: 100%;
+height: 100%;
+}

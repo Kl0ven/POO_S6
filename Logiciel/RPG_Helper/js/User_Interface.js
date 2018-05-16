@@ -36,7 +36,6 @@ class User_Interface{
 
         //vue footer
         this.view.footer = new View($("#Footer"),[
-            new PC_Button($("#barre2"),"w3-button w3-green","Test",undefined)
             ]);
 
         //vue onglet Histoire
@@ -52,9 +51,7 @@ class User_Interface{
 
 
         //vue onglet Règles
-        this.view.regles = new View($("#Regles"),[
-        new PC_Button($("#test1"),"w3-button w3-blue","regles",null)
-            ]);
+        this.view.regles = new View($("#Regles"),[]);
 
 
         //vue onglet géné
