@@ -2,7 +2,7 @@ class Com_Handler {
 	constructor(com,ws){
 		this.com = com;
 		this.ws = ws;
-		this.setup()
+		this.setup();
 	}
 	playerConnection(pinfos,resume){
 		if (resume==0){
@@ -16,32 +16,34 @@ class Com_Handler {
 
 	
 	modCar(pv,ca){
-		ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}))
+		ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}));
 
 	}
 
 	modEffect(e){
-		ws.send(JSON.stringify({"type": "effect","data" : {"bonus": e.bonus,"duration": e.duration,"unit": e.unit,"description":e.desc}}))
+		ws.send(JSON.stringify({"type": "effect","data" : {"bonus": e.bonus,"duration": e.duration,"unit": e.unit,"description":e.desc}}));
 	}
 
 	setPlayer(p){
 		this.player = p;
 	}
 
-
+	save(){
+		ws.send(JSON.stringify("type" : "save","data": null));
+	}
 
 	getInfo() {
-		ws.send(JSON.stringify("type" : "new","data": null)) //On envoie une demande d'infos de nouveau joueur
+		ws.send(JSON.stringify("type" : "new","data": null)); //On envoie une demande d'infos de nouveau joueur
 	}
 
 	getName(pinfos) {
-		ws.send(JSON.stringify("type" : "choice","data": pinfos))
+		ws.send(JSON.stringify("type" : "choice","data": pinfos));
 	}
 
 	setup(){
 		this.ws.onmessage = (event) => { //Fonction de récéption de message entrant
 			try {
-        		var obj = JSON.parse(event.data) //On essaye de récupérer notre trame
+        		var obj = JSON.parse(event.data); //On essaye de récupérer notre trame
      		} catch (e) {
         		console.log(e); //On affiche l'erreur si la trame n'a pas pu être récupérée
       			}
