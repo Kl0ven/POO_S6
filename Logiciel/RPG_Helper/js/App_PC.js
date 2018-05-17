@@ -1,9 +1,11 @@
+
 class App_PC{
 	constructor(){
 		//declaration interface graphique
 		this.UI= new User_Interface(this);
 		//d'autres éléments à ajouter
-  	this.campaigns = {}; // ? 
+  	this.campaigns = {};
+
 		// pour le generaeur de de on met une callback sur enter
 		$("#cmd").keypress(function(e) {
 	    if(e.which == 13) {
@@ -11,15 +13,21 @@ class App_PC{
 			}
 			});
 
-
-
-
-
-
 	}
 
 	start(){
 		this.UI.showView("init");
+		this.displayCampaignsName();
+
+	}
+
+	displayCampaignsName(){
+		fs.readdirSync('./save/').forEach(file => {
+			console.log(file);
+			this.UI.displayCampButton(file);
+		})
+
+		
 	}
 
 	LaunchCampaign(Name){
@@ -33,19 +41,21 @@ class App_PC{
 	}
 
 	SaveCampaign(Name){
+		this.campaigns[Name].saveCamp()
+
 	}
 
 
 	ModCampaign(Name){
 		//activation de la campagne
 		this.campaigns[Name].active = 1;
-		//Désactivation de la campagne a faire dans le bouton "save and quit" 
+		console.log(this.campaigns[Name].active); 
 
 
 
 	}
 
-	DelCampaign(Name){
+	DeleteCampaign(Name){
 
 	}
 
