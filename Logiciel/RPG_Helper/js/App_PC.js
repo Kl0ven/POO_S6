@@ -1,8 +1,18 @@
 class App_PC{
 	constructor(){
 		//declaration interface graphique
-		this.UI = new User_Interface(this);
-		this.campaigns = {}; // ? 
+		this.UI= new User_Interface(this);
+		//d'autres éléments à ajouter
+  	this.campaigns = {}; // ? 
+		// pour le generaeur de de on met une callback sur enter
+		$("#cmd").keypress(function(e) {
+	    if(e.which == 13) {
+	        $("#cmd").val(new Gene_dice($("#cmd").val()).get());
+			}
+			});
+
+
+
 
 
 
@@ -36,12 +46,8 @@ class App_PC{
 	}
 
 	DelCampaign(Name){
-		
+
 	}
 
 
 }
-
-
-
-
