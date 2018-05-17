@@ -1,8 +1,10 @@
 class Monster extends Character{
-	constructor(n){
+	constructor(n,pv,ca){
 	super(n)
 
 	this.description = null;
+	this.PV = pv;
+	this.CA = ca;
 
 	}
 

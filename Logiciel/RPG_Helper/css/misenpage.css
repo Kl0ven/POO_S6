@@ -31,7 +31,7 @@ textareadiv
 #launchScreen{}
 
 .bt_create{
-	
+
 	font-size:50px;
 	margin-left: 100px;
 	margin-top: 0px;
@@ -67,4 +67,21 @@ textareadiv
 	float: under;
 	background: lightgrey;
 
+}
+
+
+#center
+{
+	text-align:center;
+
+}
+
+#left
+{
+	text-align:left;
+}
+
+#right
+{
+	text-align:right;
 }

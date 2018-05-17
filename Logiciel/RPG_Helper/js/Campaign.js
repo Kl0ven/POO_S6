@@ -4,8 +4,20 @@ var jsonfile = require('jsonfile')
 class Campaign{
 	constructor(n){
 		this.resume = 0;
+		this.active = 0;
 		this.name = n;
 		this.infos_campaign = {name : this.name}
+
+		
+		this.encounters = {encounter :  {name : undefined,
+						  				 monsters : {name : undefined,
+						   			   				PV : undefined,
+						   			   				CA : undefined } 
+						   				}
+						   	}
+
+		//this.encounters = {};
+
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
 		
@@ -14,8 +26,6 @@ class Campaign{
 		//this.carac = 0;
 
 	}
-
-
 
 	addPlayer(inf,com){
 		
@@ -46,7 +56,29 @@ class Campaign{
 	}
 
 
+	addEncounter(name){
+		this.encounters.encounter.name = name;
+
+	}
+
+	addMonster(encounter,name,pv,ca){
+		
+		/*var size = Object.keys(this.encounters).length
+
+		for (var i =0; i < size; i ++) {
+			if this.encounters[i].encounter.name == 
+				this.encounter.name.monstres.
+*/
+
+		//}
+
+
+		
+	}
+
 	saveCampaign(){
+
+
 		// Création d'un fichier de campagne 
 		var dir = './save/' + this.name;
 
@@ -59,6 +91,9 @@ class Campaign{
 		  // Ecriture dans le fichier JSON des infos 
 		var infos = this.infos_campaign 
 		jsonfile.writeFile(file,infos)
+
+
+
 	}
 
 	savePlayer(p){

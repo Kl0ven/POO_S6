@@ -1,5 +1,6 @@
 class PC_Effet {
-	constructor(desc,bonus,duration,unit,player,rtH = 1/600,htR =600){
+	constructor(id,desc,bonus,duration,unit,player,rtH = 1/600,htR =600){
+		this.id=id;
 		this.rtH = rtH;
 		this.htR = htR;
 		this.desc = desc;
