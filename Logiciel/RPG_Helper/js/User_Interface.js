@@ -147,6 +147,7 @@ class User_Interface{
 }
 
 
+
     newEncounter(){
         var term = "Nouvelle rencontre"
         var UI = this;
@@ -232,11 +233,10 @@ class User_Interface{
 
 //Affiche uniquement la vue qui vient d'être créée
             UI.btnHandler("combats",["header","footer","combats",name]);
-
-
             //Instancie une rencontre dans la campagne
             //console.log(UI.app_PC.campaigns)
             //console.log(UI.app_PC.campaigns[camp])
+
 
             var camp = UI.getCampaignName()
             console.log(camp)
