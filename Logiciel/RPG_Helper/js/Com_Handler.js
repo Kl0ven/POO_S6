@@ -24,6 +24,10 @@ class Com_Handler {
 		ws.send(JSON.stringify({"type": "effect","data" : {"bonus": e.bonus,"duration": e.duration,"unit": e.unit,"description":e.desc}}));
 	}
 
+	modTime(qte,in_fight,time){
+		ws.send(JSON.stringify({"type": "time","data": {"qte":qte,"in_fight":in_fight,"time":time}}));
+	}
+
 	setPlayer(p){
 		this.player = p;
 	}
