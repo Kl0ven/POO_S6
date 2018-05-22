@@ -4,7 +4,9 @@ class App_PC{
 		//declaration interface graphique
 		this.UI= new User_Interface(this);
 		//d'autres éléments à ajouter
+
   	this.campaigns = {};
+
 
 		// pour le generaeur de de on met une callback sur enter
 		$("#cmd").keypress(function(e) {
@@ -49,7 +51,10 @@ class App_PC{
 	ModCampaign(Name){
 		//activation de la campagne
 		this.campaigns[Name].active = 1;
+
 		console.log(this.campaigns[Name].active); 
+		//Désactivation de la campagne a faire dans le bouton "save and quit"
+
 
 
 

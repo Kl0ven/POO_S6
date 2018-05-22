@@ -1,6 +1,6 @@
 class PC_Effet {
-	constructor(id,desc,bonus,duration,unit,player,rtH = 1/600,htR =600){
-		this.id=id;
+	constructor(desc,bonus,duration,unit,player,rtH = 1/600,htR =600){
+		this.id=PC_Effet.generate_ID();
 		this.rtH = rtH;
 		this.htR = htR;
 		this.desc = desc;
@@ -49,6 +49,15 @@ class PC_Effet {
 	}
 	apply(qte){
 		this.duration -= qte;
+	}
+
+	static generate_ID() {
+
+    	if( typeof PC_Effet.counter == 'undefined' ) {
+        	PC_Effet.counter = -1;
+   		}
+    	PC_Effet.counter++;
+    	return "PC_Effet"+PC_Effet.counter;
 	}
 }
 

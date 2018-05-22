@@ -36,6 +36,8 @@ class User_Interface{
 
         //vue footer
         this.view.footer = new View($("#Footer"),[
+					new PC_Button($("#btnmoins"),"w3-button  w3-blue","-",() => {this.app_PC.campaigns[this.getCampaignName()].modhour(-parseInt($("#modhour").val()))}),
+					new PC_Button($("#btnplus"),"w3-button  w3-blue","+",() => {this.app_PC.campaigns[this.getCampaignName()].modhour(parseInt($("#modhour").val()))})
             ]);
 
         //vue onglet Histoire
@@ -98,9 +100,9 @@ class User_Interface{
                 //affichage des boutons Lancer/modifier/suppr
                 ui.displayCampButton(name)
 
-                //Instanciation d'une campagne 
+                //Instanciation d'une campagne
                 ui.app_PC.AddCampaign(name);
-                
+
                 //console.log(ui.app_PC.campaigns)
 
             }
@@ -212,6 +214,7 @@ class User_Interface{
             UI.app_PC.campaigns[UI.getCampaignName()].addEncounter(name)  
 
 
+
           }
         },
         cancel: function () {
@@ -262,7 +265,7 @@ class User_Interface{
           btnClass: 'btn-green',
           action: function () {
             // callback apeler lors de l'apuis sur "Créer"
-            // on recupere les infos 
+            // on recupere les infos
             var name = this.$content.find('.name').val();
             var PV = this.$content.find('.PV').val();
             var CA = this.$content.find('.CA').val();
@@ -282,15 +285,16 @@ class User_Interface{
             }
 
 
-        //Création du tableau 
+        //Création du tableau
 
         UI.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ name + '</div></td>'));
         UI.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
         UI.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
 
-        //Création du monstre 
+        //Création du monstre
 
         UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,name,PV,CA);
+
 
 
     }
@@ -377,10 +381,11 @@ class User_Interface{
         var ret                   
         $(".camp").each(function(){
             console.log(this.id);
+
             if (that.app_PC.campaigns[this.id].active == 1){
             ret = this.id
-            } 
-            
+            }
+
         });
         return ret;
     }
