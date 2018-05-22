@@ -4,24 +4,34 @@ var jsonfile = require('jsonfile')
 class Campaign{
 	constructor(n){
 		this.resume = 0;
+		this.active = 0;
 		this.name = n;
-		this.infos_campaign = {name : this.name}
+		this.infos_campaign = {name : this.name,hour:"00h00",day:1}
+
+
+		this.encounters = {encounter :  {name : undefined,
+						  				 monsters : {name : undefined,
+						   			   				PV : undefined,
+						   			   				CA : undefined }
+						   				}
+						   	}
+
+		//this.encounters = {};
+
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
-		
-		//utilité ? 
+
+		//utilité ?
 		//this.info = 0;
 		//this.carac = 0;
 
 	}
 
-
-
 	addPlayer(inf,com){
-		
+
 		var P = new Player('test')
 
-		var new_infos = 
+		var new_infos =
 			{
 			name : inf.cara.name,
 			id : P.id,
@@ -46,31 +56,77 @@ class Campaign{
 	}
 
 
+	addEncounter(name){
+		this.encounters.encounter.name = name;
+
+	}
+
+	addMonster(encounter,name,pv,ca){
+
+		/*var size = Object.keys(this.encounters).length
+
+		for (var i =0; i < size; i ++) {
+			if this.encounters[i].encounter.name ==
+				this.encounter.name.monstres.
+*/
+
+		//}
+
+
+
+	}
+
 	saveCampaign(){
-		// Création d'un fichier de campagne 
+
+
+		// Création d'un fichier de campagne
 		var dir = './save/' + this.name;
 
 		if(!fs.existsSync(dir)){
 			fs.mkdirSync(dir);
 		}
-		  // Création d'un fichier JSON campagne 
+		  // Création d'un fichier JSON campagne
 		var file = './save/' + this.name + '/' + this.name +'.json'
 
-		  // Ecriture dans le fichier JSON des infos 
-		var infos = this.infos_campaign 
+		  // Ecriture dans le fichier JSON des infos
+		var infos = this.infos_campaign
 		jsonfile.writeFile(file,infos)
+
+
+
 	}
 
 	savePlayer(p){
-		//Creation du fichier JSON du joueur 
+		//Creation du fichier JSON du joueur
 		var file = './save/' + this.name + '/' + p.infos.name + '.json'
-		
-		//Ecriture des infos dans le fichier 
+
+		//Ecriture des infos dans le fichier
 		var infos = p.getInfos()
 		jsonfile.writeFile(file,infos)
 	}
 
+	modhour(qte){
+		if(isNaN(qte)){return false;}
 
+		var heure = (parseInt(this.infos_campaign.hour.split("h")[0])+parseInt(qte))
+		var jour  = this.infos_campaign.day+Math.floor(heure/24);
+		heure = heure%24;
+		console.log("h = "+heure);
+		console.log("j = "+jour);
+		if(heure<0){
+			console.log("h<0");
+			heure += 24;
+		}
+		if(jour < 1 ){
+			console.log("j<0");
+			jour = 1;
+			heure = 0;
+		}
+		this.infos_campaign.hour = heure.toString()+"h00";
+		this.infos_campaign.day =  jour;
+		$("#hour").text(this.infos_campaign.hour);
+		$("#day").text(this.infos_campaign.day);
+	}
 
 
 
@@ -81,7 +137,7 @@ class Campaign{
 
 //  $(document).ready(function(){
 
-	
+
 // 	inf = {"cara":{"PV": 23, "CA":50, PO :2500,"name":"babar" }}
 // 	t = null
 
@@ -96,5 +152,3 @@ class Campaign{
 // 	function screenlog(message) {
 //    	$("#screenlog").append("<p>"+message+"</p>")
 //  	}
-
-

@@ -1,115 +1,190 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+#img_broadcast{
+  height: auto;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 30%;
 }
 
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+#div_broadcast{
+  visibility: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+  position: absolute;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+
+.ipinput {
+    resize: none;
+    margin-top: 100px;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+#InitSrceen{
+      text-align: center;
+      color: #456bc6;
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+
+#mot1{
+  color: black;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+.loader {
+    border: 16px solid lightgrey; /* Light grey */
+    border-top: 16px solid #456bc6; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto auto;
+    margin-top: 50%;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+
+#barre1{
+  display: flex;
+  justify-content: space-between;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+#name{
+  text-align: center;
+  font-size: xx-large;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+
+#main{
+  margin-top: 20%;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+#first{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-right: 10%;
+
+  font-size: xx-large;
+}
+
+.item{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.imageItem{
+  margin-right: 10px;
+}
+
+#PO{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  font-size: initial;
+}
+
+.text{
+  line-height: 75px;
+  font-size: xx-large;
+}
+
+#PO_text{
+  font-size: xx-large;
+}
+.PO_modeur{
+    height: 50%;
+    margin: auto;
+}
+#PO_mod{
+  display: inline-flex;
+}
+
+#Time{
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.red{
+  background-color: rgb(255, 77, 77);
+}
+
+.green{
+  background-color: rgb(77, 255, 77);
+}
+
+#effect{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  overflow-wrap: break-word;
+}
+
+#col2{
+  width: 25px;
+}
+
+#col3{
+  width: 50px;
+}
+
+#effectscroll{
+  height: 200px;
+  overflow: scroll;
+
+}
+
+#backarrow{
+  float: left;
+  line-height: 48px;
+  font-size: 30px;
+}
+
+.sousonglet{
+  margin-top: 7px;
+}
+
+.w3-bar{
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.add_btn{
+  float: right;
+}
+
+.w3-button{
+  outline: transparent;
+}
+
+.dynamicView > textarea{
+    width: 100%;
+}
+
+
+.dynamicView > div{
+  height: 70vh;
+  overflow-x: scroll;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+body{
+  background-color: lightgrey;
+}
+
+textarea{
+  outline: transparent;
 }

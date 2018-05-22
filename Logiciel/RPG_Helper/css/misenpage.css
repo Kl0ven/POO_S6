@@ -31,7 +31,7 @@ textareadiv
 #launchScreen{}
 
 .bt_create{
-	
+
 	font-size:50px;
 	margin-left: 100px;
 	margin-top: 0px;
@@ -67,4 +67,55 @@ textareadiv
 	float: under;
 	background: lightgrey;
 
+}
+
+
+#center
+{
+	text-align:center;
+
+}
+
+#left
+{
+	text-align:left;
+}
+
+#right
+{
+	text-align:right;
+}
+
+html,body{
+	height: 100%;
+}
+
+#Regles{
+	height: 87%;
+}
+
+#iframepdf{
+	width: 100%;
+height: 100%;
+}
+.hr{
+	float: right;
+	font-size: large;
+}
+
+#modhour{
+	height: 43px;
+	width: 50px;
+}
+
+#modhourwrrapper{
+	display: inline-flex;
+}
+
+#cmd{
+	height: 43px;
+}
+.btn-hour{
+	margin-left: 10px;
+	margin-right: 10px;
 }
