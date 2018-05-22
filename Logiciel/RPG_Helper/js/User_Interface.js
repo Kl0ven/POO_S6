@@ -342,6 +342,10 @@ class User_Interface{
 		this.app_PC.SaveCampaign(this.getCampaignName());
 		this.app_PC.campaigns[this.getCampaignName()].active = 0;
 		this.initUI();
+
+		//sauvegarde de l'histoire
+
+
 	}
 
 	initUI(){
@@ -366,7 +370,6 @@ class User_Interface{
 		new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",() => {this.delCamp(name)});
 
 	}
-
 
 
 	modifCamp(name){
@@ -410,7 +413,7 @@ class User_Interface{
 		var that = this;
 		var ret
 		$(".camp").each(function(){
-			console.log(this.id);
+			//console.log(this.id);
 
 			if (that.app_PC.campaigns[this.id].active == 1){
 				ret = this.id

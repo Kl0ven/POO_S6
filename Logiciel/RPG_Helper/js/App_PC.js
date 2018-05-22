@@ -5,7 +5,7 @@ class App_PC{
 		this.UI= new User_Interface(this);
 		//d'autres éléments à ajouter
 
-  	this.campaigns = {};
+  		this.campaigns = {};
 
 
 		// pour le generaeur de de on met une callback sur enter
@@ -26,7 +26,7 @@ class App_PC{
 	displayCampaignsName(){
 		$(".bts_camp").empty();
 		fs.readdirSync('./save/').forEach(file => {
-			console.log(file);
+			//console.log(file);
 			this.UI.displayCampButton(file);
 			this.loadCampaign(file); // on charge chaque campagne
 		})
@@ -35,7 +35,7 @@ class App_PC{
 loadCampaign(name){
 
 	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
-	console.log(camp.encounters);
+	//console.log(camp.encounters);
 		this.campaigns[name] = new Campaign(name,camp.encounters,camp.hour,camp.day);
 
 }
@@ -50,7 +50,11 @@ loadCampaign(name){
 	}
 
 	SaveCampaign(Name){
-		this.campaigns[Name].saveCamp()
+
+		//récupération de l'histoire
+		var hist = this.UI.view.histoire.elements[0].text
+		console.log(hist)
+		this.campaigns[Name].saveCamp(hist)
 
 	}
 

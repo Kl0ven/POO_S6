@@ -68,7 +68,7 @@ class TextArea extends Widget{
       this.state = true;//on se met en zone non modifiable
       this.btn.settext("modifier");// on met le bouton sur "modifier"
 
-      console.log(this.btn.text)
+      //console.log(this.btn.text)
 
     }else{//si on est en zone non modifiable
       $("#"+this.id).remove();
@@ -98,10 +98,14 @@ class TextArea extends Widget{
     //text = text.replace(/(https?:\/\/[a-z0-9._/-]+)/gi, '<a href="$1">$1</a>');
     text = text.replace(/\[color color=(\#[A-Z0-9]{6})\](.+)\[\/color\]/gi, '<div style="color:$1;">$2</div>');
     text = text.replace(/\[img\](.+)\[\/img\]/gi , '<img src ="$1"/>');
+    this.setText(text)
     return text;
   }
 
-
+ setText(text){
+      this.text = text;
+      this.show();
+    }
 
 
 

@@ -5,13 +5,12 @@ class Campaign{
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
-		this.story = undefined;
 
 		this.infos_campaign = {"name" : this.name,
 							   "encounters" : undefined,
                           	   "hour":hour,
                           	   "day": day,
-                          	   "story": this.story
+                          	   "story": undefined
                           }
 
 		this.encounters = encounters;
@@ -87,7 +86,7 @@ class Campaign{
 		}
 	}
 
-	saveCamp(){
+	saveCamp(hist){
 
 
 		// Création d'un fichier de campagne
@@ -99,8 +98,10 @@ class Campaign{
 		  // Création d'un fichier JSON campagne
 		var file = './save/' + this.name + '/' + this.name +'.json'
 
-		  // Ecriture dans le fichier JSON des infos
 
+		  // Ecriture dans le fichier JSON des infos
+		this.infos_campaign.story = hist;
+		
 		this.infos_campaign.encounters = this.encounters;
 		var infos = this.infos_campaign;
 		jsonfile.writeFile(file,infos);
