@@ -16,8 +16,8 @@ class Com_Handler {
 
 	
 	modCar(pv,ca){
-		this.ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}));
 
+		this.ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}));
 	}
 
 	modEffect(e){
