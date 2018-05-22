@@ -1,6 +1,10 @@
+//Pour les tests 
 var app;
-$(document).ready(function(){
+//Pour utiliser fs Node.js et json 
+const fs = require('fs');
+const jsonfile = require('jsonfile')
 
+$(document).ready(function(){
 	
 	app = new App_PC();
 	app.start();

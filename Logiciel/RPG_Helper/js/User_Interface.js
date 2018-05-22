@@ -12,9 +12,6 @@ class User_Interface{
                                         configurable : true,
                                         enumerable : true});
 
-
-
-
     }
 
 	//initialisation vues
@@ -35,8 +32,6 @@ class User_Interface{
             new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"]);}),
             new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"]);}),
             new PC_Button($("#barre1"),"w3-button w3-red w3 large","Save and quit",() => {this.saveAndQuit();})
-
-
             ]);
 
         //vue footer
@@ -76,16 +71,6 @@ class User_Interface{
 
 	}
 
-
-    saveAndQuit(){
-        this.btnHandler("header",["init"]);
-
-
-
-    }
-
-
-
 	clickcreercamp(){
  	//popup jquery-confirm
     var ui = this
@@ -112,15 +97,8 @@ class User_Interface{
                     return false;
                 }
 
- 				$('.bts_camp').append("<div id='"+name+"' class='item'></div>");
-
- 				$("#"+name).append(name);
-
-                new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {});
-                new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {ui.modifCamp(name)});
- 				new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",null);
-
-
+                //affichage des boutons Lancer/modifier/suppr
+                ui.displayCampButton(name)
 
                 //Instanciation d'une campagne
                 ui.app_PC.AddCampaign(name);
@@ -144,7 +122,6 @@ class User_Interface{
     }
 });
 }
-
 
 
     newEncounter(){
@@ -233,14 +210,9 @@ class User_Interface{
 //Affiche uniquement la vue qui vient d'être créée
             UI.btnHandler("combats",["header","footer","combats",name]);
             //Instancie une rencontre dans la campagne
-            //console.log(UI.app_PC.campaigns)
-            //console.log(UI.app_PC.campaigns[camp])
 
+            UI.app_PC.campaigns[UI.getCampaignName()].addEncounter(name)  
 
-            var camp = UI.getCampaignName()
-            console.log(camp)
-
-            UI.app_PC.campaigns[UI.getCampaignName()].addEncounter(name) // quelle campagne ?
 
 
           }
@@ -321,8 +293,7 @@ class User_Interface{
 
         //Création du monstre
 
-
-
+        UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,name,PV,CA);
 
 
 
@@ -346,12 +317,37 @@ class User_Interface{
   }
 
 
+    saveAndQuit(){
+        this.btnHandler("header",["init"]);
+        this.app_PC.SaveCampaign(this.getCampaignName());
+        this.app_PC.campaigns[this.getCampaignName()].active = 0;
+       // console.log(this.app_PC.campaigns[this.getCampaignName()].active);
+    }
+
+
+    displayCampButton(name){
+
+        $('.bts_camp').append("<div id='"+name+"' class='camp'></div>");
+
+        $("#"+name).append(name);
+
+        new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {});
+        new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {this.modifCamp(name)});
+        new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",() => {this.delCamp(name)});
+
+  }
+
+
+
     modifCamp(name){
         this.btnHandler("init",["header","footer"]);
         this.app_PC.ModCampaign(name);
 
     }
 
+    delCamp(name){
+        this.app_PC.DeleteCampaign(name);
+    }
 
 
   	showView(name){
@@ -382,9 +378,9 @@ class User_Interface{
 
     getCampaignName(){
         var that = this;
-        var ret
-        $(".item").each(function(){
-            //console.log(this.id);
+        var ret                   
+        $(".camp").each(function(){
+            console.log(this.id);
 
             if (that.app_PC.campaigns[this.id].active == 1){
             ret = this.id
@@ -396,11 +392,5 @@ class User_Interface{
 
 
 
-
-
 }
 
-/*$(document).ready(function()
-{
-	new User_Interface()
-}*/

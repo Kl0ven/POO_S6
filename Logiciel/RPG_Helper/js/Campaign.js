@@ -1,22 +1,24 @@
-var fs = require('fs');
-var jsonfile = require('jsonfile')
+
 
 class Campaign{
 	constructor(n){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
-		this.infos_campaign = {name : this.name,hour:"00h00",day:1}
 
+		this.infos_campaign = {name : this.name,
+							            encounters : undefined,
+                          hour:"00h00",day:1                   
+                          }
 
-		this.encounters = {encounter :  {name : undefined,
-						  				 monsters : {name : undefined,
-						   			   				PV : undefined,
-						   			   				CA : undefined }
-						   				}
+		this.encounters = [] 
+
+/*		this.encounter =  { name : undefined,
+						  	monsters : {name : undefined,
+						   			   	PV : undefined,
+						   			   	CA : undefined } 
 						   	}
-
-		//this.encounters = {};
+						   	*/
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
@@ -56,27 +58,36 @@ class Campaign{
 	}
 
 
-	addEncounter(name){
-		this.encounters.encounter.name = name;
+	addEncounter(n){
+
+		var encounter = { name : n,
+						  monsters : [] 
+						  }
+
+		this.encounters.push(encounter)
+
+		console.log(this.encounters)
 
 	}
+
+
 
 	addMonster(encounter,name,pv,ca){
 
-		/*var size = Object.keys(this.encounters).length
+    var size = this.encounters.length
+		console.log(size)
 
 		for (var i =0; i < size; i ++) {
-			if this.encounters[i].encounter.name ==
-				this.encounter.name.monstres.
-*/
+			if (this.encounters[i].name == encounter){ 
 
-		//}
-
-
-
+				this.encounters[i].monsters.push( {name : name_m,
+						   			   			   PV : pv,
+						   			   	           CA : ca })
+			}
+		}
 	}
 
-	saveCampaign(){
+	saveCamp(){
 
 
 		// Création d'un fichier de campagne
@@ -89,10 +100,10 @@ class Campaign{
 		var file = './save/' + this.name + '/' + this.name +'.json'
 
 		  // Ecriture dans le fichier JSON des infos
-		var infos = this.infos_campaign
-		jsonfile.writeFile(file,infos)
 
-
+		this.infos_campaign.encounters = this.encounters; 
+		var infos = this.infos_campaign;
+		jsonfile.writeFile(file,infos);
 
 	}
 
