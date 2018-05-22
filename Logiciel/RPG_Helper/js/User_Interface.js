@@ -42,7 +42,7 @@ class User_Interface{
 
 			//vue onglet Histoire
 			this.view.histoire = new View($("#Histoire"),[
-				new TextArea($(".txtarea"),$(".txtarea"),undefined,50,170,undefined,undefined)
+				new TextArea($(".txtarea"),$(".txtarea"),undefined,50,170)
 			]);
 
 
@@ -97,13 +97,18 @@ class User_Interface{
 								return false;
 							}
 
-							//affichage des boutons Lancer/modifier/suppr
-							ui.displayCampButton(name)
-
 							//Instanciation d'une campagne
 							ui.app_PC.AddCampaign(name);
 
-							//console.log(ui.app_PC.campaigns)
+                            //Creation de la div Camp et des boutons 
+                            ui.displayCampButton(name);
+
+                            //affichage de la campagne direct
+                            ui.modifCamp(name);
+
+
+							
+
 
 						}
 					},
@@ -299,16 +304,12 @@ class User_Interface{
 							return false;
 						}
 
-
-
 						UI.loadMonster(rencontre,name,PV,CA)
 
 
 						//Création du monstre
 
 						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,name,PV,CA);
-
-
 
 					}
 
@@ -341,7 +342,6 @@ class User_Interface{
 		this.app_PC.SaveCampaign(this.getCampaignName());
 		this.app_PC.campaigns[this.getCampaignName()].active = 0;
 		this.initUI();
-		// console.log(this.app_PC.campaigns[this.getCampaignName()].active);
 	}
 
 	initUI(){

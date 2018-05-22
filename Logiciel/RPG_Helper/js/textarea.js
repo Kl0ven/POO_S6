@@ -32,7 +32,23 @@ class TextArea extends Widget{
 	}
 
   show(){
+    //$(this.parent).append(this.getHTML());
+
+    
+    if($("#"+this.id)){
+      $("#"+this.id).remove();
+    }
     $(this.parent).append(this.getHTML());
+    if(this.height == 1){
+      $("#"+this.id).keypress((event)  => {
+        // Check the keyCode and if the user pressed Enter (code = 13)
+        // disable it
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          $("#"+this.btn.id).click();
+        }
+      });
+    }
   }
 
 
@@ -51,6 +67,9 @@ class TextArea extends Widget{
       $(this.parent).append('<div '+id+" "+classes+' >'+html+'</div>'); //on ajoute notre code dans le html
       this.state = true;//on se met en zone non modifiable
       this.btn.settext("modifier");// on met le bouton sur "modifier"
+
+      console.log(this.btn.text)
+
     }else{//si on est en zone non modifiable
       $("#"+this.id).remove();
       this.show();//on affiche la zone modifiable
@@ -67,6 +86,7 @@ class TextArea extends Widget{
     var text = $("#"+this.id).val();//.val()? ou on tape le texte ?
     this.text = text;
     text = text.replace(/<[^>]+>/gi,"");
+    text = text.replace(/[\r\n]/g, '</br>');
     text = text.replace(/\[g\](.+)\[\/g\]/gi, '<strong>$1</strong>');
     text = text.replace(/\[i\](.+)\[\/i\]/gi, '<em>$1</em>');
     text = text.replace(/\[s\](.+)\[\/s\]/gi, '<u>$1</u>');

@@ -34,6 +34,6 @@ class PC_Button extends Widget{
 
   settext(text){
     this.text = text;
-    $("#"+this.id).text(text);
+    $("#"+this.id).val(text);
   }
 }

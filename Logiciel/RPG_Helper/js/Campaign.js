@@ -5,10 +5,13 @@ class Campaign{
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
+		this.story = undefined;
 
 		this.infos_campaign = {"name" : this.name,
-							            "encounters" : undefined,
-                          "hour":hour,"day":day
+							   "encounters" : undefined,
+                          	   "hour":hour,
+                          	   "day": day,
+                          	   "story": this.story
                           }
 
 		this.encounters = encounters;
@@ -23,9 +26,6 @@ class Campaign{
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
 
-		//utilité ?
-		//this.info = 0;
-		//this.carac = 0;
 
 	}
 
