@@ -1,11 +1,8 @@
 class Com_Handler {
 	constructor(com,ws){
-		console.log('entrée');
 		this.com = com;
 		this.ws = ws;
-		console.log('pre setup');
-		this.setup();
-		console.log('post setup');
+		this.setup();	
 	}
 	playerConnection(pinfos,resume){
 		if (resume==0){
