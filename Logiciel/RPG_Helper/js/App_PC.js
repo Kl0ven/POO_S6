@@ -27,11 +27,17 @@ class App_PC{
 		fs.readdirSync('./save/').forEach(file => {
 			console.log(file);
 			this.UI.displayCampButton(file);
+			this.loadCampaign(file); // on charge chaque campagne
 		})
-
-		
 	}
 
+loadCampaign(name){
+
+	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
+	console.log(camp.encounters);
+		this.campaigns[name] = new Campaign(name,camp.encounters,camp.hour,camp.day);
+
+}
 	LaunchCampaign(Name){
 		this.UI.showView("launch");
 
@@ -51,8 +57,14 @@ class App_PC{
 	ModCampaign(Name){
 		//activation de la campagne
 		this.campaigns[Name].active = 1;
+		for (var enc in this.campaigns[Name].encounters) {
+			this.UI.addEncounter(this.campaigns[Name].encounters[enc].name)
+			for (var m in this.campaigns[Name].encounters[enc].monsters) {
+					var monster = this.campaigns[Name].encounters[enc].monsters[m]
+					this.UI.loadMonster(this.campaigns[Name].encounters[enc].name,monster.name,monster.PV,monster.CA)
+			}
 
-		console.log(this.campaigns[Name].active); 
+		}
 		//Désactivation de la campagne a faire dans le bouton "save and quit"
 
 

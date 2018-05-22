@@ -1,22 +1,22 @@
 
 
 class Campaign{
-	constructor(n){
+	constructor(n,encounters = [],hour = "00h00",day = 1 ){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
 
-		this.infos_campaign = {name : this.name,
-							            encounters : undefined,
-                          hour:"00h00",day:1                   
+		this.infos_campaign = {"name" : this.name,
+							            "encounters" : undefined,
+                          "hour":hour,"day":day
                           }
 
-		this.encounters = [] 
+		this.encounters = encounters;
 
 /*		this.encounter =  { name : undefined,
 						  	monsters : {name : undefined,
 						   			   	PV : undefined,
-						   			   	CA : undefined } 
+						   			   	CA : undefined }
 						   	}
 						   	*/
 
@@ -61,7 +61,7 @@ class Campaign{
 	addEncounter(n){
 
 		var encounter = { name : n,
-						  monsters : [] 
+						  monsters : []
 						  }
 
 		this.encounters.push(encounter)
@@ -78,9 +78,9 @@ class Campaign{
 		console.log(size)
 
 		for (var i =0; i < size; i ++) {
-			if (this.encounters[i].name == encounter){ 
+			if (this.encounters[i].name == encounter){
 
-				this.encounters[i].monsters.push( {name : name_m,
+				this.encounters[i].monsters.push( {"name" : name,
 						   			   			   PV : pv,
 						   			   	           CA : ca })
 			}
@@ -101,7 +101,7 @@ class Campaign{
 
 		  // Ecriture dans le fichier JSON des infos
 
-		this.infos_campaign.encounters = this.encounters; 
+		this.infos_campaign.encounters = this.encounters;
 		var infos = this.infos_campaign;
 		jsonfile.writeFile(file,infos);
 
