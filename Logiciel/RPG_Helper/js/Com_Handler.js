@@ -2,6 +2,7 @@ class Com_Handler {
 	constructor(com,ws){
 		this.com = com;
 		this.ws = ws;
+		this.player = undefined;
 		this.setup();	
 	}
 	playerConnection(pinfos,resume){
@@ -56,15 +57,15 @@ class Com_Handler {
 
 		if(obj.type == "newrep"){ //Le joueur a envoyé ses informations
 			var infos = obj.data; //On enregistre les infos
-			this.com.pc_app.campaign.addPlayer(infos,this);
+			this.player.campaign.addPlayer(infos,this);
 
 		}
 		else if(obj.type == "choicerep"){ //Si le joueur a choisi son nom
 			var name = obj.data; //On enregistre le nom
-			this.com.pc_app.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
+			this.player.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 		}
 		else { //On veut sauvegarder le joueur
-			this.com.pc_app.save(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
+			this.player.campaign.save(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
 
 		}
 	}
