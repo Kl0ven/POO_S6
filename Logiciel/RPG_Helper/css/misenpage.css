@@ -37,6 +37,14 @@ textareadiv
 	margin-top: 0px;
 }
 
+.bt_quit{
+	font-size:10px;
+	position:absolute;
+	top:5px;
+	right:5px;
+
+}
+
 .bts_camp{
 
     width: 30%;
