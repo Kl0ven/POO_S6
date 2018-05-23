@@ -16,12 +16,6 @@ class Campaign{
 
 		this.encounters = encounters;
 
-/*		this.encounter =  { name : undefined,
-						  	monsters : {name : undefined,
-						   			   	PV : undefined,
-						   			   	CA : undefined }
-						   	}
-						   	*/
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
@@ -29,7 +23,7 @@ class Campaign{
 
 	}
 
-	addPlayer(inf,com){
+	/*addPlayer(inf,com){
 
 		var P = new Player('test')
 
@@ -45,6 +39,8 @@ class Campaign{
 
 		this.players.push(P)
 	}
+*/
+
 
 	resumePlayer(inf,com){
 

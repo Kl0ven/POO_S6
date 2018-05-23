@@ -68,19 +68,19 @@ class Com_Handler {
 			//ajout du joueur a la campagne
 			this.com.pc_app.campaigns[this.camp].players.push(n_player)
 			//affichage du joueur
-			$("#waiting_players").append(infos.cara.name);
+			$("#waiting_players").append('<div id ="'+infos.cara.name+'"></div>');
 			
 
 		}
 		else if(obj.type == "choicerep"){ //Si le joueur a choisi son nom
 			var name = obj.data; //On enregistre le nom
 			this.player.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
-		}
+			}
 		else { //On veut sauvegarder le joueur
 			this.player.campaign.save(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
 
+			}
 		}
-	}
 	}
 
 }

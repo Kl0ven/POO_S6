@@ -40,16 +40,13 @@ class App_PC{
 }
 	LaunchCampaign(Name){
 
+		//activation de la campagne
+		this.campaigns[Name].active = 1;
+
 		// resume == 0
 		if (this.campaigns[Name].resume == 0) {
-
 			this.comm = new Communication (this);
 			this.comm.openCom(undefined,0,Name);
-			
-
-
-			// récupérer infos joueurs, les instancier dans la campagne, et les afficher
-
 
 		}
 

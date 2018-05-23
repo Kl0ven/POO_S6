@@ -23,7 +23,7 @@ class User_Interface{
 			]);
 			//vue écran de connexion
 			this.view.launch = new View($("#ConnectScreen"),[
-				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",undefined),
+				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",() => {this.startCamp(getCampaignName());}),
 				new PC_Button($("#btn_ret"),"w3-button w3-red","Retour",() => {this.closeComm_return();})
 			]);
 			//vue header
