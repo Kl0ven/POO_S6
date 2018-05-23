@@ -18,7 +18,8 @@ class User_Interface{
 		createview(){
 			//vue initiale
 			this.view.init = new View($("#LaunchScreen"),[
-				new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",() => {this.clickcreercamp();})
+				new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",() => {this.clickcreercamp();}),
+				new PC_Button($(".bt_quit"),"w3-button w3-red w3 large","x",() => {window.close()})
 			]);
 			//vue écran de connexion
 			this.view.launch = new View($("#ConnectScreen"),[
