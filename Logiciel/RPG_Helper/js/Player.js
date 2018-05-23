@@ -11,10 +11,8 @@ class Player extends Character{
 		CA : 0
 	}
 	
+	this.comm_handler = undefined
 
-	this.comm_handler = null
-
-	//this.button ? 
 
 	}
 

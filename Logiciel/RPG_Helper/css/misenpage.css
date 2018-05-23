@@ -6,19 +6,35 @@
 
 .titre_rencontre
 {
-	text-align: center
+	text-align: center;
 }
 
-
-bouton
+#titre_connex
 {
-	float: left;
-    margin-right: 170px;
+	text-align: center;
 }
-textareadiv
+
+#btn_dem
 {
-	float : right;
-	margin-left: 170px;
+	font-size: 50px;
+	position: absolute;
+	right:20px;
+	bottom: 20px;
+}
+
+#ip
+{
+	font-size: 50px;
+	text-align: center;
+}
+
+#btn_ret{
+	font-size: 20px;
+	position: absolute;
+	left: 0px;
+	top: 0px;	
+
+}
 
 }
 

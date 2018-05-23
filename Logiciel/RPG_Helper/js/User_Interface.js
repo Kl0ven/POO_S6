@@ -19,11 +19,12 @@ class User_Interface{
 			//vue initiale
 			this.view.init = new View($("#LaunchScreen"),[
 				new PC_Button($(".bt_create"),"w3-button w3-blue","Créer",() => {this.clickcreercamp();}),
-				new PC_Button($(".bt_quit"),"w3-button w3-red w3 large","x",() => {window.close()})
+				new PC_Button($(".bt_quit"),"w3-button w3-red w3 large","x",() => {window.close();})
 			]);
 			//vue écran de connexion
 			this.view.launch = new View($("#ConnectScreen"),[
-				new PC_Button($(".bt_dem"),"w3-button w3-blue","démarrer",this.clickpopup)
+				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",undefined),
+				new PC_Button($("#btn_ret"),"w3-button w3-red","Retour",() => {this.closeComm_return();})
 			]);
 			//vue header
 			this.view.header = new View($("#Header"),[
@@ -106,9 +107,6 @@ class User_Interface{
 
                             //affichage de la campagne direct
                             ui.modifCamp(name);
-
-
-							
 
 
 						}
@@ -344,8 +342,6 @@ class User_Interface{
 		this.app_PC.campaigns[this.getCampaignName()].active = 0;
 		this.initUI();
 
-		//sauvegarde de l'histoire
-
 
 	}
 
@@ -366,9 +362,9 @@ class User_Interface{
 
 		$("#"+name).append(name);
 
-		new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {});
-		new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {this.modifCamp(name)});
-		new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",() => {this.delCamp(name)});
+		new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {this.launchCamp(name);});
+		new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {this.modifCamp(name);});
+		new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",() => {this.delCamp(name);});
 
 	}
 
@@ -422,6 +418,16 @@ class User_Interface{
 
 		});
 		return ret;
+	}
+
+	launchCamp(name){
+
+	this.btnHandler("init",["launch"]);
+	this.app_PC.LaunchCampaign(name)
+	}
+
+	closeComm_return(){
+		this.btnHandler("launch",["init"]);
 	}
 
 

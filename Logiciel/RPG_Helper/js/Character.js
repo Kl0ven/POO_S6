@@ -9,8 +9,6 @@ class Character{
 
 	}
 
-	// modCar(c) inutile ? 
-
 
 	static generate_ID() {
 

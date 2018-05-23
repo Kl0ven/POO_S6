@@ -1,24 +1,42 @@
 const WebSocket = require('ws');
+const internalIp = require('internal-ip');
 
 class Communication{
 	constructor(pc_app){
+		//affichage de l'adresse ip 
+
 		this.pc_app = pc_app;
 		this.wss = new WebSocket.Server({ port: 8080 });
 		this.comm_Handlers =[];
 	}
 	
 	openCom(pinfos,resume){
-		while (this.pc_app.getOpenConnection()==True){
-			//Fonction de connexion des téléphones
-			this.wss.on('connection', (ws)=> {
-						comm_Handler = new Com_Handler(this,ws); // On crée un comhandler et on lui envoie la connexion.
+
+		internalIp.v4().then(ip => { console.log(ip);
+							$("#ip").text(ip);});
+
+		//Fonction de connexion des téléphones
+		this.wss.on('connection', (ws)=> {
+
+					console.log('connecté');
+
+					if (this.pc_app.getOpenConnection() == true){
+
+						var comm_Handler = new Com_Handler(this,ws); // On crée un comhandler et on lui envoie la connexion.
 						this.comm_Handlers.push(comm_Handler);
 						comm_Handler.playerConnection(pinfos,resume);//On envoie
+					}
+					
+					else {
+
+						ws.terminate();
+					}
+
+
 					});
 
 
-
-		}
+		//permet d'instancier un evènement permettant l'envoi d'images au joueurs
 		this.wss.broadcast = (data) => {
 			this.wss.clients.forEach(function each(client) {
 				if (client.readyState === WebSocket.OPEN) {
@@ -27,6 +45,8 @@ class Communication{
 			});
 		};
 	}
+
+
 
 	getDataUri(url, callback) {
 		var image = new imageStd();

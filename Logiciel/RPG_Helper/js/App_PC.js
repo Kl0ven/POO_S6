@@ -2,18 +2,17 @@
 class App_PC{
 	constructor(){
 		//declaration interface graphique
-		this.UI= new User_Interface(this);
+		this.UI = new User_Interface(this);
 		//d'autres éléments à ajouter
-
   		this.campaigns = {};
-
-
-		// pour le generaeur de de on met une callback sur enter
+		// pour le generaeur de dés on met une callback sur enter
 		$("#cmd").keypress(function(e) {
 	    if(e.which == 13) {
 	        $("#cmd").val(new Gene_dice($("#cmd").val()).get());
 			}
 			});
+
+		this.comm = undefined;
 
 	}
 
@@ -32,7 +31,7 @@ class App_PC{
 		})
 	}
 
-loadCampaign(name){
+	loadCampaign(name){
 
 	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
 	//console.log(camp.encounters);
@@ -40,9 +39,35 @@ loadCampaign(name){
 
 }
 	LaunchCampaign(Name){
-		this.UI.showView("launch");
 
+		// resume == 0
+		if (this.campaigns[Name].resume == 0) {
+
+			this.comm = new Communication (this);
+			console.log('avant')
+			this.comm.openCom(undefined,0);
+			console.log('après')
+			
+			// récupérer infos joueurs, les instancier dans la campagne, et les afficher
+
+
+		}
+
+		//resume == 1
 	}
+
+
+	getOpenConnection(){
+
+		while ($("#ConnectScreen").css('display') == 'block'){
+			return true;
+			console.log('ok');	
+		}
+
+		return false;
+	}
+
+
 
 	AddCampaign(Name){
 		this.campaigns[Name] = new Campaign(Name);
