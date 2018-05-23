@@ -354,9 +354,9 @@ class User_Interface{
 			delete app.UI.view[id];
 			console.log(id);
 
-
 		})
 		$(".rencontre").remove();
+		this.view.histoire.elements[0].setText("");
 	}
 
 	displayCampButton(name){

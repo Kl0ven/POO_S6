@@ -36,7 +36,7 @@ loadCampaign(name){
 
 	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
 	//console.log(camp.encounters);
-		this.campaigns[name] = new Campaign(name,camp.encounters,camp.hour,camp.day);
+	this.campaigns[name] = new Campaign(name,camp.encounters,camp.hour,camp.day,camp.story);
 
 }
 	LaunchCampaign(Name){
@@ -54,6 +54,7 @@ loadCampaign(name){
 		//récupération de l'histoire
 		var hist = this.UI.view.histoire.elements[0].text
 		console.log(hist)
+
 		this.campaigns[Name].saveCamp(hist)
 
 	}
@@ -67,10 +68,12 @@ loadCampaign(name){
 			for (var m in this.campaigns[Name].encounters[enc].monsters) {
 					var monster = this.campaigns[Name].encounters[enc].monsters[m]
 					this.UI.loadMonster(this.campaigns[Name].encounters[enc].name,monster.name,monster.PV,monster.CA)
+
 			}
 
 		}
-		//Désactivation de la campagne a faire dans le bouton "save and quit"
+		//chargement de l'histoire
+		this.UI.view.histoire.elements[0].setText(this.campaigns[Name].infos_campaign.story);
 
 
 

@@ -80,8 +80,6 @@ class TextArea extends Widget{
 
   }
 
-
-
   toHTML(){
     var text = $("#"+this.id).val();//.val()? ou on tape le texte ?
     this.text = text;
@@ -98,7 +96,7 @@ class TextArea extends Widget{
     //text = text.replace(/(https?:\/\/[a-z0-9._/-]+)/gi, '<a href="$1">$1</a>');
     text = text.replace(/\[color color=(\#[A-Z0-9]{6})\](.+)\[\/color\]/gi, '<div style="color:$1;">$2</div>');
     text = text.replace(/\[img\](.+)\[\/img\]/gi , '<img src ="$1"/>');
-    this.setText(text)
+
     return text;
   }
 

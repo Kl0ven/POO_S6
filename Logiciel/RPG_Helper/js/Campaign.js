@@ -1,16 +1,17 @@
 
 
 class Campaign{
-	constructor(n,encounters = [],hour = "00h00",day = 1 ){
+	constructor(n,encounters = [],hour = "00h00",day = 1,story = "" ){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
+
 
 		this.infos_campaign = {"name" : this.name,
 							   "encounters" : undefined,
                           	   "hour":hour,
                           	   "day": day,
-                          	   "story": undefined
+                          	   "story": story
                           }
 
 		this.encounters = encounters;
