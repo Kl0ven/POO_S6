@@ -1,14 +1,17 @@
 
 
 class Campaign{
-	constructor(n,encounters = [],hour = "00h00",day = 1 ){
+	constructor(n,encounters = [],hour = "00h00",day = 1,story = "" ){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
 
+
 		this.infos_campaign = {"name" : this.name,
-							            "encounters" : undefined,
-                          "hour":hour,"day":day
+							   "encounters" : undefined,
+                          	   "hour":hour,
+                          	   "day": day,
+                          	   "story": story
                           }
 
 		this.encounters = encounters;
@@ -23,9 +26,6 @@ class Campaign{
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
 
-		//utilité ?
-		//this.info = 0;
-		//this.carac = 0;
 
 	}
 
@@ -87,7 +87,7 @@ class Campaign{
 		}
 	}
 
-	saveCamp(){
+	saveCamp(hist){
 
 
 		// Création d'un fichier de campagne
@@ -99,8 +99,10 @@ class Campaign{
 		  // Création d'un fichier JSON campagne
 		var file = './save/' + this.name + '/' + this.name +'.json'
 
-		  // Ecriture dans le fichier JSON des infos
 
+		  // Ecriture dans le fichier JSON des infos
+		this.infos_campaign.story = hist;
+		
 		this.infos_campaign.encounters = this.encounters;
 		var infos = this.infos_campaign;
 		jsonfile.writeFile(file,infos);
