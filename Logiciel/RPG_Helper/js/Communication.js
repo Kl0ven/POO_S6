@@ -10,7 +10,7 @@ class Communication{
 		this.comm_Handlers =[];
 	}
 	
-	openCom(pinfos,resume){
+	openCom(pinfos,resume,camp){
 
 		internalIp.v4().then(ip => { console.log(ip);
 							$("#ip").text(ip);});
@@ -22,9 +22,11 @@ class Communication{
 
 					if (this.pc_app.getOpenConnection() == true){
 
-						var comm_Handler = new Com_Handler(this,ws); // On crée un comhandler et on lui envoie la connexion.
+						var comm_Handler = new Com_Handler(this,ws,camp); // On crée un comhandler et on lui envoie la connexion.
 						this.comm_Handlers.push(comm_Handler);
-						comm_Handler.playerConnection(pinfos,resume);//On envoie
+						comm_Handler.playerConnection(pinfos,resume);//On envoie la demande d'infos
+
+						//l'instanciation des joueurs a lieu dans comm_handler
 					}
 					
 					else {

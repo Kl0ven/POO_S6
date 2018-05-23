@@ -44,10 +44,10 @@ class App_PC{
 		if (this.campaigns[Name].resume == 0) {
 
 			this.comm = new Communication (this);
-			console.log('avant')
-			this.comm.openCom(undefined,0);
-			console.log('après')
+			this.comm.openCom(undefined,0,Name);
 			
+
+
 			// récupérer infos joueurs, les instancier dans la campagne, et les afficher
 
 
