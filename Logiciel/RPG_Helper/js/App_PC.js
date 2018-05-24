@@ -113,9 +113,7 @@ class App_PC{
 			for (var m in this.campaigns[Name].encounters[enc].monsters) {
 					var monster = this.campaigns[Name].encounters[enc].monsters[m]
 					this.UI.loadMonster(this.campaigns[Name].encounters[enc].name,monster.name,monster.PV,monster.CA)
-
 			}
-
 		}
 		//chargement de l'histoire
 		this.UI.view.histoire.elements[0].setText(this.campaigns[Name].infos_campaign.story);

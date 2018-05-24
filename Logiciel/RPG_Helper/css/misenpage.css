@@ -21,6 +21,47 @@
 	text-align: center;
 }
 
+#display_players{
+
+	
+}
+
+
+.n_player{
+	text-align: center;
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr
+
+}
+
+.btnmin{
+	grid-column: 0/3;
+	grid-row: 1;
+}
+
+.PV_player{
+	text-align: center;
+	grid-column: 2/3;
+	grid-row: 1;
+}
+
+
+.btnplus{
+	margin-left: 20px;
+	grid-column: 3/3;
+	grid-row: 1;
+}
+
+.CA_player{
+	text-align: center;
+	grid-column: 2/3;
+	grid-row: 1;
+}
+
 
 
 #titre_connex

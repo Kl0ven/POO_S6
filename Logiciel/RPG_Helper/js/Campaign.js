@@ -100,6 +100,7 @@ class Campaign{
 		  // Ecriture dans le fichier JSON des infos
 		this.infos_campaign.story = hist;
 		
+		 
 		this.infos_campaign.encounters = this.encounters;
 		var infos = this.infos_campaign;
 		jsonfile.writeFile(file,infos);

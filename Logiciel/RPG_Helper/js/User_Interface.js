@@ -33,7 +33,8 @@ class User_Interface{
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"]);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"]);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-red w3 large","Save and quit",() => {this.saveAndQuit();})
+				new PC_Button($("#barre1"),"w3-button w3-red w3 large","Save and quit",() => {this.saveAndQuit();}),
+				new PC_Button($("#barre1"),"w3-button w3-red ","Campagne Test",() => {this.CampagneTest(this.getCampaignName());})
 			]);
 
 			//vue footer
@@ -434,19 +435,43 @@ class User_Interface{
 		this.btnHandler("init",["header","footer"]);
 		this.app_PC.startCampaign(name);
 
-		//affichage des joueurs connecté dans l'onglet joueurs
+		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
 		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
 
-			$("#Joueurs").append('<div id="'+this.app_PC.campaigns[name].players[i].infos.name +'">'+ 
+			$("#display_players").append('<div id="'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
 										'<div class="w3-row">'+
-											'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.name+' </div>'+
-      										'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
-      										'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
-      										'<div class="w3-rest"> Effets </div>'+
+											'<div class="w3-col w3-container" style="width:15%;">'+
+												'<div class = "n_player">'+this.app_PC.campaigns[name].players[i].infos.name+'</div>'+
+											'</div>'+	
+      										'<div class="w3-col w3-container" style="width:15%;">'+
+      											'<div class = "grid">'+
+      												'<div class = "btnmin"></div>'+
+      												'<div class = "PV_player">'+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
+      												'<div class = "btnplus"></div>'+
+      											'</div>'+	
+      										'</div>'+
+      										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
+      											'<div class = "btnmin"></div>'+
+      											'<div class = "CA_player">'+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
+      											'<div class = "btnplus"></div>'+
+      										'</div>'+
+      										'<div class="w3-rest"> Effets : </div>'+
 										'</div>'+
 								  '</div>');
+
 		}
 		
+		new PC_Button($(".btnmin"),"w3-button w3-round w3-blue","-",undefined);
+		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
+	}
+
+	CampagneTest(name){
+
+		var p1 = new Player("Joueur 1","66","33",undefined);
+		var p2 = new Player("Joueur 2","100","50",undefined)
+		this.app_PC.campaigns[name].players.push(p1);
+		this.app_PC.campaigns[name].players.push(p2);
+		this.startCamp(name);
 
 	}
 
