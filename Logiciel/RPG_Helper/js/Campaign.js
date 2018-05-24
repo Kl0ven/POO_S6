@@ -5,6 +5,7 @@ class Campaign{
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
+		this.launched = 0;
 
 
 		this.infos_campaign = {"name" : this.name,

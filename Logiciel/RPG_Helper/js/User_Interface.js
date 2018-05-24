@@ -23,7 +23,7 @@ class User_Interface{
 			]);
 			//vue écran de connexion
 			this.view.launch = new View($("#ConnectScreen"),[
-				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",() => {this.startCamp(getCampaignName());}),
+				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",() => {this.startCamp(this.getCampaignName());}),
 				new PC_Button($("#btn_ret"),"w3-button w3-red","Retour",() => {this.closeComm_return();})
 			]);
 			//vue header
@@ -66,7 +66,6 @@ class User_Interface{
 
 			//vue onglet Joueurs
 			this.view.joueurs = new View($("#Joueurs"),[
-				new PC_Button($(".test3"),"w3-button w3-blue","joueurs",null)
 			]);
 
 			this.hideAll();
@@ -337,6 +336,7 @@ class User_Interface{
 	}
 
 	saveAndQuit(){
+
 		this.btnHandler("header",["init"]);
 		this.app_PC.SaveCampaign(this.getCampaignName());
 		this.app_PC.campaigns[this.getCampaignName()].active = 0;
@@ -421,13 +421,33 @@ class User_Interface{
 	}
 
 	launchCamp(name){
-
 	this.btnHandler("init",["launch"]);
-	this.app_PC.LaunchCampaign(name)
+	this.app_PC.LaunchCampaign(name);
 	}
 
 	closeComm_return(){
 		this.btnHandler("launch",["init"]);
+	}
+
+
+	startCamp(name){
+		this.btnHandler("init",["header","footer"]);
+		this.app_PC.startCampaign(name);
+
+		//affichage des joueurs connecté dans l'onglet joueurs
+		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
+
+			$("#Joueurs").append('<div id="'+this.app_PC.campaigns[name].players[i].infos.name +'">'+ 
+										'<div class="w3-row">'+
+											'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.name+' </div>'+
+      										'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
+      										'<div class="w3-col w3-container" style="width:15%">'+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
+      										'<div class="w3-rest"> Effets </div>'+
+										'</div>'+
+								  '</div>');
+		}
+		
+
 	}
 
 

@@ -68,7 +68,7 @@ class Com_Handler {
 			//ajout du joueur a la campagne
 			this.com.pc_app.campaigns[this.camp].players.push(n_player)
 			//affichage du joueur
-			$("#waiting_players").append('<div id ="'+infos.cara.name+'"></div>');
+			$("#waiting_players").append('<div id ="'+infos.cara.name+'">'+infos.cara.name+'</div>');
 			
 
 		}
