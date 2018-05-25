@@ -245,6 +245,10 @@ class User_Interface{
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
 		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
 
+
+		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
+
+
 		
 
 
@@ -460,7 +464,8 @@ class User_Interface{
 
 
 
-	startFight(name){
+	startFight(name,rencontre){
+		console.log(name)
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
 		var idPlayers = [];
@@ -499,10 +504,12 @@ class User_Interface{
 									var test= { nom: $(initiative[i]).val(),
 												id: $(initiative[i]).attr("id")};
 									FightList.push(test);
-									console.log(test);
+
 
 								}
-								console.log(initiative)
+								console.log(FightList);
+
+								//console.log(initiative)
 								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
@@ -524,8 +531,8 @@ class User_Interface{
 								}*/
 
 
-
-								//UI.LoadFighters()
+								
+								this.view[rencontre].addElem($("#FighterList"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ rencontre + '</div></td>'));
 
 
 								
@@ -548,10 +555,9 @@ class User_Interface{
 				});
 			}
 
-	LoadFighters(rencontre,initiative){
-		this.view[rencontre].addElem($("#FighterList"+rencontre).append('<table class="w3-table w3-striped">' + rencontre));
+	
 
-	}
+	
 
 	getCampaignName(){
 		var that = this;
@@ -622,7 +628,7 @@ class User_Interface{
 
 		//Ajout bouton début combat 
 		
-		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(name);});
+		
 	}
 
 	CampagneTest(name){
