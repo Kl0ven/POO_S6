@@ -21,7 +21,9 @@ textareadiv
 	margin-left: 170px;
 
 }
-
+.sq{
+	height: 43px;
+}
 .image
 {
 	width:200px;
@@ -33,8 +35,9 @@ textareadiv
 .bt_create{
 
 	font-size:50px;
-	margin-left: 100px;
-	margin-top: 0px;
+	position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .bt_quit{
@@ -47,7 +50,7 @@ textareadiv
 
 .bts_camp{
 
-    width: 30%;
+    width: 70%;
     margin: auto;
 
 }
@@ -56,7 +59,12 @@ textareadiv
 	display: flex;
     justify-content: space-between;
     margin-top: 20px;
+		display: grid;
+    grid-template-columns: 30% 20% 20% 20%;
+}
 
+.campname{
+	    overflow-wrap: break-word;
 }
 
 .sousonglet{
@@ -126,4 +134,33 @@ height: 100%;
 .btn-hour{
 	margin-left: 10px;
 	margin-right: 10px;
+}
+.description{
+	width: 80%;
+margin: auto;
+margin-top: 80px;
+height: 300px;
+}
+
+@media screen and (max-width: 1500px) {
+	.description{
+		width: 90%;
+	margin: auto;
+	margin-top: 80px;
+	height: 300px;
+	}
+ }
+
+.ta {
+	float: left;
+	max-width: 750px;
+}
+
+.img{
+	    float: right;
+			width: 35%;
+}
+
+.zede{
+	    max-height: 231px;
 }

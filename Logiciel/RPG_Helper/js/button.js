@@ -7,13 +7,23 @@ class PC_Button extends Widget{
 	  this.cb=cb;
 		this.type = type;
 		this.src = src;
+		// state defini si le bouton est selectionné ou pas
+		// utile pour les onglets
+		this.state = undefined;
 
     this.show();
 	}
 
 
   show(){
-    $(this.parent).append(this.getHTML());// On place le bouton à la fin de la balise app_PC
+		if($("#"+this.id).length){
+      $("#"+this.id).replaceWith( this.getHTML() );
+    }
+    // sinon on l'ajoute au DOM
+    else {
+      $(this.parent).append(this.getHTML());
+    }
+
     $("#"+this.id).click(this.cb)//fonction de base jquery
     //this.applyStyle();
   }
@@ -31,9 +41,27 @@ class PC_Button extends Widget{
   /*applyStyle(){
 
   }*/
+	unset(){
+    this.classes = this.classes.replace("w3-indigo","w3-blue");
+    this.show();
+    this.state = false;
+  }
+
+	set(){
+		this.classes = this.classes.replace("w3-blue","w3-indigo");
+		this.show();
+		this.state = true;
+	}
+
+	getstate(){
+		return this.state;
+	}
 
   settext(text){
     this.text = text;
     $("#"+this.id).val(text);
   }
+	getText(){
+		return this.text;
+	}
 }
