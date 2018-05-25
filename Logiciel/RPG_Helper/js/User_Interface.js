@@ -244,6 +244,8 @@ class User_Interface{
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
 		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
 
+		
+
 
 		//Affiche uniquement la vue qui vient d'être créée
 		this.btnHandler("combats",["header","footer","combats",name],nb);
@@ -462,17 +464,20 @@ class User_Interface{
 		var PlayerName = [];
 		var idPlayers = [];
 		var labandinput=''
-		for (var i = 0; i < this.app_PC.campaigns[name].players[i].length; i++)// Pour chaque joueur, on donne son jet d'initiative
+		console.log(this.app_PC.campaigns[name].players.length)
+		for (var i = 0; i < this.app_PC.campaigns[name].players.length; i++){// Pour chaque joueur, on donne son jet d'initiative
+
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
 			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
 			labandinput='<form action="" class="formName">' +
 						'<div class="form-group" id="'+idPlayers[i]+'">' +
 						'<label>'+PlayerName[i]+'</label></br>' +
-						'<input type="text" placeholder="" class="name form-control" required autofocus/>'+
+						'<input type="number" placeholder="initiative" class="initiative form-control" required autofocus/>'+
+						
 						labandinput +
 						'</div>' +
 						'</form>'
-
+}
 				var UI = this;
 				// affichage d'un popup
 				$.confirm({
@@ -488,15 +493,17 @@ class User_Interface{
 							text: 'Valider',
 							btnClass: 'btn-green',
 							action: function () {
-								// callback apeler lors de l'apuis sur "Créer"
-								// on recupere le nom
-								var name = this.$content.find('.name').val();
-								// on verifie le nom et compatible et qui n'existe pas deja
-								if(!name){
+								var initiative = this.$content.find('.initiative').val();
+								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
+						
 								}
-								try {
+								//if(!name){
+								//	$.alert('provide a valid name');
+								//	return false;
+								//}
+								/*try {
 									var n = $("#"+name.replace(/ /g,'')).length;
 								} catch (e) {
 									var n = 1;
@@ -504,7 +511,8 @@ class User_Interface{
 								if(n){
 									$.alert('provide another name');
 									return false;
-								}
+
+								}*/
 
 
 								
@@ -526,7 +534,6 @@ class User_Interface{
 					}
 				});
 			}
-
 
 
 
@@ -598,7 +605,8 @@ class User_Interface{
 		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
 
 		//Ajout bouton début combat 
-		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
+		
+		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(name);});
 	}
 
 	CampagneTest(name){
