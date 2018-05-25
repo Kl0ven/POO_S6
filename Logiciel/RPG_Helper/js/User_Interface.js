@@ -27,12 +27,12 @@ class User_Interface{
 			]);
 			//vue header
 			this.view.header = new View($("#Header"),[
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Histoire",() => {this.btnHandler("header",["header","footer","histoire"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Combats",() => {this.btnHandler("header",["header","footer","combats"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"]);}),
-				new PC_Button($("#barre1"),"w3-button w3-red w3 large","Save and quit",() => {this.saveAndQuit();})
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Histoire",() => {this.btnHandler("header",["header","footer","histoire"],0);}),
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Combats",() => {this.btnHandler("header",["header","footer","combats"],1);}),
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"],2);}),
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"],3);}),
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"],4);}),
+				new PC_Button($("#barre1"),"w3-button w3-red w3 large sq","Save and quit",() => {this.saveAndQuit();})
 			]);
 
 			//vue footer
@@ -101,14 +101,14 @@ class User_Interface{
 							//Instanciation d'une campagne
 							ui.app_PC.AddCampaign(name);
 
-                            //Creation de la div Camp et des boutons 
+                            //Creation de la div Camp et des boutons
                             ui.displayCampButton(name);
 
                             //affichage de la campagne direct
                             ui.modifCamp(name);
 
 
-							
+
 
 
 						}
@@ -225,8 +225,7 @@ class User_Interface{
 			'</div>'+
 			'</div>'+
 			'</div>'+
-			'<div class="w3-col" id = "btn_desc_M_' + name + '">'+
-			'<div class="w3-col" id = "desc_M_' + name + '">'
+			'<div class="w3-col" id = "btn_desc_M_' + name + '"></div>'
 		));
 
 
@@ -238,20 +237,21 @@ class User_Interface{
 		//ajout du btn pour cree des description
 		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button w3-round w3-blue","add Description",() => {this.addDesc(name);});
 
-
+		var nb = this.view.combats.getNbElem();
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
-		new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name]);});
+		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
 
 
 		//Affiche uniquement la vue qui vient d'être créée
-		this.btnHandler("combats",["header","footer","combats",name]);
+		this.btnHandler("combats",["header","footer","combats",name],nb);
 
 
 
 
 	}
 	addDesc(name){
-		console.log(name);
+		this.app_PC.campaigns[this.getCampaignName()].addDesc(name,new Description($("#descs")))
+
 	}
 
 	addMonster(rencontre){
@@ -352,19 +352,27 @@ class User_Interface{
 	initUI(){
 		$("#vue_rencontres").children().each((n)=>{
 			var id = $("#vue_rencontres").children()[n].id;
+			//vue onglet Combats
+
 			delete app.UI.view[id];
 			console.log(id);
 
 		})
+		$("#rencontres").children().each(function(){$(this).remove()})
+		this.view.combats = new View($("#Combats"),[
+			new PC_Button($("#rencontres"),"w3-button w3-round w3-blue","+",() => {this.newEncounter();})
+		]);
 		$(".rencontre").remove();
 		this.view.histoire.elements[0].setText("");
+
+		$("#descs").empty();
 	}
 
 	displayCampButton(name){
 
-		$('.bts_camp').append("<div id='"+name+"' class='camp'></div>");
+		$('.bts_camp').append("<div id='"+name+"' class='camp'><div class='campname'></div></div>");
 
-		$("#"+name).append(name);
+		$("#"+name +" .campname").append(name);
 
 		new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {});
 		new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {this.modifCamp(name)});
@@ -374,8 +382,8 @@ class User_Interface{
 
 
 	modifCamp(name){
-		this.btnHandler("init",["header","footer"]);
 		this.app_PC.ModCampaign(name);
+		this.btnHandler("init",["header","footer","histoire"]);
 
 	}
 
@@ -398,14 +406,48 @@ class User_Interface{
 		}
 	}
 
+	unsetAllBtn(v){
+    for (var i = 0; i < this.view[v].getNbElem(); i++) {
+      if (this.view[v].getElem(i) instanceof PC_Button){
+        this.view[v].getElem(i).unset();
+      }
+    }
+    return this;
+  }
 
-	btnHandler(vue,show){
+	btnHandler(vue,show,num = undefined ){
 
 		this.hideAll();
 
 		for(var v in show) {
-
 			this.showView(show[v]);
+		}
+		if(typeof num !== 'undefined'){
+			this.unsetAllBtn(vue);
+	    // on selectionne celui de la vue active
+	    this.view[vue].getElem(num).set();
+		}
+		if (vue == "init") {
+			this.unsetAllBtn("header");
+	    // on selectionne celui de la vue active
+	    this.view.header.getElem(0).set();
+		}
+		// condition pour s'assurer que l'on affiche une vue lorque l'on change d'onglet
+		if (vue == "header") {
+			//console.log(vue);
+			for (var i = 0; i < this.view.combats.getNbElem(); i++) {
+				if(this.view.combats.getElem(i) instanceof PC_Button && this.view.combats.getElem(i).getstate()){
+					//console.log(this.view[show[0]].getElem(i).getText());
+					this.showView(this.view.combats.getElem(i).getText());
+				}
+
+			}
+		}
+		if (vue = "combats") {
+			console.log(this.getCampaignName());
+			console.log(this.app_PC.campaigns
+			);
+				this.app_PC.campaigns[this.getCampaignName()].setDesc(show[show.length-1]);
 		}
 	}
 

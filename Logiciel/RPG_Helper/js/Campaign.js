@@ -12,9 +12,9 @@ class Campaign{
                           	   "hour":hour,
                           	   "day": day,
                           	   "story": story
-                          }
-
-		this.encounters = encounters;
+                          };
+		this.encounters = [];
+		this.loadEncounters(encounters);
 
 /*		this.encounter =  { name : undefined,
 						  	monsters : {name : undefined,
@@ -25,6 +25,21 @@ class Campaign{
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
+
+
+	}
+
+	loadEncounters(es){
+		for (var enc in es) {
+			this.addEncounter(es[enc].name);
+
+			// ajout des description
+			for (var desc in es[enc].description) {
+				var d = es[enc].description[desc];
+				this.addDesc(es[enc].name,new Description($("#descs"),d.m,d.url))
+			}
+			// c'est ici u'il faut charger les monstres
+		}
 
 
 	}
@@ -61,7 +76,8 @@ class Campaign{
 	addEncounter(n){
 
 		var encounter = { name : n,
-						  monsters : []
+						  monsters : [],
+							description : []
 						  }
 
 		this.encounters.push(encounter)
@@ -70,7 +86,14 @@ class Campaign{
 
 	}
 
+	addDesc(encounter,desc){
+		for (var d in this.encounters) {
+			if (this.encounters[d].name == encounter) {
+				this.encounters[d].description.push(desc);
+			}
+		}
 
+	}
 
 	addMonster(encounter,name,pv,ca){
 
@@ -102,8 +125,22 @@ class Campaign{
 
 		  // Ecriture dans le fichier JSON des infos
 		this.infos_campaign.story = hist;
-		
-		this.infos_campaign.encounters = this.encounters;
+		var encountersSave = [];
+		for (var en in this.encounters) {
+			//on enregistre les descriptions
+			var descriptionSave = [];
+			for (var desc in this.encounters[en].description) {
+				descriptionSave.push(this.encounters[en].description[desc].getInfos());
+
+			}
+			// c'est ici u'il fau faire la sauvegarde des monstres
+			encountersSave.push({
+				"name":this.encounters[en].name,
+				"description":descriptionSave,
+				"monsters":this.encounters[en].monsters
+			})
+		}
+		this.infos_campaign.encounters = encountersSave;
 		var infos = this.infos_campaign;
 		jsonfile.writeFile(file,infos);
 
@@ -141,7 +178,26 @@ class Campaign{
 		$("#day").text(this.infos_campaign.day);
 	}
 
+	hideAll(){
+		for (var e in this.encounters) {
+			for (var d in this.encounters[e].description) {
+					this.encounters[e].description[d].hide();
+			}
+		}
 
+	}
+
+	setDesc(rencontre){
+		this.hideAll();
+		for (var e in this.encounters) {
+			if(this.encounters[e].name == rencontre){
+				for (var d in this.encounters[e].description) {
+						this.encounters[e].description[d].show();
+				}
+			}
+		}
+
+	}
 
 
 }
