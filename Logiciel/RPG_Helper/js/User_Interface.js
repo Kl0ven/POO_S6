@@ -310,10 +310,10 @@ class User_Interface{
 
 						UI.loadMonster(rencontre,name,PV,CA)
 
-
 						//Création du monstre
 
-						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,name,PV,CA);
+						var m = new Monster(name,PV,CA);
+						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,m);
 
 					}
 
