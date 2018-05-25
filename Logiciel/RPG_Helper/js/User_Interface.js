@@ -34,7 +34,7 @@ class User_Interface{
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"],2);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"],3);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"],4);}),
-				new PC_Button($("#barre1"),"w3-button w3-red w3 large sq","Save and quit",() => {this.saveAndQuit();})
+				new PC_Button($("#barre1"),"w3-button w3-red w3 large sq","Save and quit",() => {this.saveAndQuit();}),
         new PC_Button($("#barre1"),"w3-button w3-red ","Campagne Test",() => {this.CampagneTest(this.getCampaignName());})
 
 			]);
@@ -366,6 +366,8 @@ class User_Interface{
 		this.view.histoire.elements[0].setText("");
 
 		$("#descs").empty();
+
+		$("#display_players").empty();		
 	}
 
 	displayCampButton(name){
@@ -467,8 +469,9 @@ class User_Interface{
 	}
 
 	launchCamp(name){
-	this.btnHandler("init",["launch"]);
-	this.app_PC.LaunchCampaign(name);
+		this.app_PC.LaunchCampaign(name);
+		this.btnHandler("init",["launch"]);
+	
 	}
 
 	closeComm_return(){
@@ -525,6 +528,7 @@ class User_Interface{
 		var p2 = new Player("Joueur 2","100","50",undefined)
 		this.app_PC.campaigns[name].players.push(p1);
 		this.app_PC.campaigns[name].players.push(p2);
+		this.initUI();
 		this.startCamp(name);
 
 	}
