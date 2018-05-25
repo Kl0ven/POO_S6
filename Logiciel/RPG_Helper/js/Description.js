@@ -15,7 +15,7 @@ class Description {
 
 
   setup(){
-    $(this.parent).append("<div id='"+this.id+"' class='description'><div class='btn'></div><div class='ta'></div><div class='img'><div class='btnsend'></div></div></div>");
+    $(this.parent).append("<div id='"+this.id+"' class='description'><div class='btn'></div><div class='ta'></div><div class='img'><div class='btnsend'></div></div><hr></div>");
     this.textarea = new TextArea($("#"+this.id+" .ta"),$("#"+this.id+" .btn"),undefined,10,80,'save',()=>{this.textarea.switching();this.message = this.textarea.gettext()});
     this.btnimg = new PC_Button($("#"+this.id+" .btn"),"w3-button w3-blue","add image",() => {this.addImage();})
     this.textarea.setText(this.message);
