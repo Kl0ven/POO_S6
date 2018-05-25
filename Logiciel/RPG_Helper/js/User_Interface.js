@@ -446,16 +446,25 @@ class User_Interface{
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
       												'<div class = "btnmin"></div>'+
-      												'<div class = "PV_player">'+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
+      												'<div class = "PV_player">PV: '+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
       												'<div class = "btnplus"></div>'+
       											'</div>'+	
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
       											'<div class = "btnmin"></div>'+
-      											'<div class = "CA_player">'+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
+      											'<div class = "CA_player">CA: '+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
       											'<div class = "btnplus"></div>'+
       										'</div>'+
-      										'<div class="w3-rest"> Effets : </div>'+
+      										'<div class="w3-rest">'+
+      											'<table id = "tab_effects" class = "w3-table-all">'+
+      												'<tr>'+
+      													'<th> Effets </th>'+
+      												'</tr>'+
+      												'<tr>'+
+      													'<td> test Effet 1 </td>'+
+      												'</tr>'+
+      										'</div>'+
+
 										'</div>'+
 								  '</div>');
 
