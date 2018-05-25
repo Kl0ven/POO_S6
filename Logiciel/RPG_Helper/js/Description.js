@@ -1,10 +1,11 @@
 class Description {
-  constructor(parent,m="",url=undefined) {
+  constructor(parent,app_PC,m="",url=undefined) {
     this.parent = parent;
     this.id = Description.generate_ID();
     this.image = undefined;
     this.message = m;
     this.url = url;
+    this.app_PC = app_PC;
     this.setup();
 
   }
@@ -74,7 +75,11 @@ class Description {
       this.image.delimg();
     }
     this.url = url;
-    this.image = new Image($("#"+this.id+" .img"),$("#"+this.id+" .btnsend"), "zede", url, "", "",()=>{});
+    this.image = new Image($("#"+this.id+" .img"),$("#"+this.id+" .btnsend"), "zede", url, "", "",()=>{
+        if(typeof this.app_PC.comm != "undefined"){
+          this.app_PC.comm.sendImg(this.url);
+        }
+    });
 
   }
   checkURL(url) {

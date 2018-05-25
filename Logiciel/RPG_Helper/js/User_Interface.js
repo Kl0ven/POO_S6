@@ -35,7 +35,7 @@ class User_Interface{
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"],3);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"],4);}),
 				new PC_Button($("#barre1"),"w3-button w3-red w3 large sq","Save and quit",() => {this.saveAndQuit();}),
-        new PC_Button($("#barre1"),"w3-button w3-red ","Campagne Test",() => {this.CampagneTest(this.getCampaignName());})
+        new PC_Button($("#barre1"),"w3-button w3-red sq","Campagne Test",() => {this.CampagneTest(this.getCampaignName());})
 
 			]);
 
@@ -162,7 +162,7 @@ class User_Interface{
 								return false;
 							}
 							try {
-								var n = $("#"+name.replace(/ /g,'')).length;
+								var n = $("#"+name.replace(/ /g,'_')).length;
 							} catch (e) {
 								var n = 1;
 							}
@@ -170,6 +170,8 @@ class User_Interface{
 								$.alert('provide another name');
 								return false;
 							}
+
+							name = name.replace(/ /g,'_')
 							UI.addEncounter(name);
 							//Instancie une rencontre dans la campagne
 
@@ -253,7 +255,7 @@ class User_Interface{
 
 	}
 	addDesc(name){
-		this.app_PC.campaigns[this.getCampaignName()].addDesc(name,new Description($("#descs")))
+		this.app_PC.campaigns[this.getCampaignName()].addDesc(name,new Description($("#descs"),this.app_PC))
 
 	}
 
@@ -357,7 +359,6 @@ class User_Interface{
 			//vue onglet Combats
 
 			delete app.UI.view[id];
-			console.log(id);
 
 		})
 		$("#rencontres").children().each(function(){$(this).remove()})
@@ -369,7 +370,7 @@ class User_Interface{
 
 		$("#descs").empty();
 
-		$("#display_players").empty();		
+		$("#display_players").empty();
 	}
 
 	displayCampButton(name){
@@ -390,9 +391,41 @@ class User_Interface{
 		this.btnHandler("init",["header","footer","histoire"]);
 
 	}
- 
+
 	delCamp(name){
-		this.app_PC.DeleteCampaign(name);
+		var UI = this;
+		// affichage d'un popup
+		$.confirm({
+			title: "Voulez vous vraiment supprimer la campagne ?",
+			type: 'red',
+			theme: 'material',
+			boxWidth: '80%',
+			useBootstrap: false,
+			buttons: {
+				formSubmit: {
+					text: 'Supprimer',
+					btnClass: 'btn-red',
+					action: function () {
+						UI.app_PC.DeleteCampaign(name);
+
+					}
+
+				},
+				cancel: function () {
+					//close
+				},
+			},
+			onContentReady: function () {
+				// bind to events
+				var jc = this;
+				this.$content.find('form').on('submit', function (e) {
+					// if the user submits the form by pressing enter in the field.
+					e.preventDefault();
+					jc.$$formSubmit.trigger('click'); // reference the button and click it
+				});
+			}
+		});
+
 	}
 
 
@@ -420,7 +453,8 @@ class User_Interface{
   }
 
 	btnHandler(vue,show,num = undefined ){
-
+		console.log(vue);
+		console.log(show);
 		this.hideAll();
 
 		for(var v in show) {
@@ -447,10 +481,9 @@ class User_Interface{
 
 			}
 		}
-		if (vue = "combats") {
-			console.log(this.getCampaignName());
-			console.log(this.app_PC.campaigns
-			);
+		if (vue == "combats") {
+				console.log(show);
+				console.log(vue);
 				this.app_PC.campaigns[this.getCampaignName()].setDesc(show[show.length-1]);
 		}
 	}
@@ -507,7 +540,7 @@ class User_Interface{
 								}
 
 
-								
+
 
 							}
 						},
@@ -547,7 +580,7 @@ class User_Interface{
 	launchCamp(name){
 		this.app_PC.LaunchCampaign(name);
 		this.btnHandler("init",["launch"]);
-	
+
 	}
 
 	closeComm_return(){
@@ -562,17 +595,17 @@ class User_Interface{
 		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
 		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
 
-			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
+			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+
 										'<div class="w3-row">'+
 											'<div class="w3-col w3-container" style="width:15%;">'+
 												'<div class = "n_player">'+this.app_PC.campaigns[name].players[i].infos.name+'</div>'+
-											'</div>'+	
+											'</div>'+
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
       												'<div class = "btnmin"></div>'+
       												'<div class = "PV_player">PV: '+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
       												'<div class = "btnplus"></div>'+
-      											'</div>'+	
+      											'</div>'+
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
       											'<div class = "btnmin"></div>'+
@@ -593,11 +626,11 @@ class User_Interface{
 								  '</div>');
 
 		}
-		
+
 		new PC_Button($(".btnmin"),"w3-button w3-round w3-blue","-",undefined);
 		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
 
-		//Ajout bouton début combat 
+		//Ajout bouton début combat
 		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
 	}
 

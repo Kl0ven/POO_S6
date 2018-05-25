@@ -1,11 +1,12 @@
 
 
 class Campaign{
-	constructor(n,encounters = [],hour = "00h00",day = 1,story = "" ){
+	constructor(n,apc,encounters = [],hour = "00h00",day = 1,story = "" ){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
 		this.launched = 0;
+		this.app_PC = apc;
 
 
 		this.infos_campaign = {"name" : this.name,
@@ -26,13 +27,14 @@ class Campaign{
 
 
 	loadEncounters(es){
+
 		for (var enc in es) {
 			this.addEncounter(es[enc].name);
 
 			// ajout des description
 			for (var desc in es[enc].description) {
 				var d = es[enc].description[desc];
-				this.addDesc(es[enc].name,new Description($("#descs"),d.m,d.url))
+				this.addDesc(es[enc].name,new Description($("#descs"),this.app_PC,d.m,d.url))
 			}
 			// c'est ici u'il faut charger les monstres
 		}
@@ -57,13 +59,14 @@ class Campaign{
 	addEncounter(n){
 
 		var encounter = { name : n,
+
 						  monsters : [],
 							description : []
 						  }
 
 		this.encounters.push(encounter)
 
-		console.log(this.encounters)
+
 
 	}
 
@@ -170,6 +173,7 @@ class Campaign{
 	}
 
 	setDesc(rencontre){
+		
 		this.hideAll();
 		for (var e in this.encounters) {
 			if(this.encounters[e].name == rencontre){
@@ -183,4 +187,3 @@ class Campaign{
 
 
 }
-
