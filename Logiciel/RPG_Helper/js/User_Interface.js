@@ -224,6 +224,7 @@ class User_Interface{
 			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
 			'<p> Joueurs </p>' +
 				'<div class = btn_start_fight>'+
+				'<div class = FighterList>' +
 				'</div>'+
 			'</div>'+
 			'</div>'+
@@ -469,12 +470,11 @@ class User_Interface{
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
 			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
-			labandinput='<form action="" class="formName">' +
+			labandinput=labandinput +
+						'<form action="" class="formName">' +
 						'<div class="form-group" id="'+idPlayers[i]+'">' +
 						'<label>'+PlayerName[i]+'</label></br>' +
-						'<input type="number" placeholder="initiative" class="initiative form-control" required autofocus/>'+
-						
-						labandinput +
+						'<input type="number" id="'+PlayerName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
 						'</div>' +
 						'</form>'
 }
@@ -493,7 +493,16 @@ class User_Interface{
 							text: 'Valider',
 							btnClass: 'btn-green',
 							action: function () {
-								var initiative = this.$content.find('.initiative').val();
+								var FightList = [];
+								var initiative = this.$content.find('.initiative');
+								for (var i = 0; i < this.$content.find('.initiative').length; i++){
+									var test= { nom: $(initiative[i]).val(),
+												id: $(initiative[i]).attr("id")};
+									FightList.push(test);
+									console.log(test);
+
+								}
+								console.log(initiative)
 								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
@@ -513,6 +522,10 @@ class User_Interface{
 									return false;
 
 								}*/
+
+
+
+								//UI.LoadFighters()
 
 
 								
@@ -535,7 +548,10 @@ class User_Interface{
 				});
 			}
 
+	LoadFighters(rencontre,initiative){
+		this.view[rencontre].addElem($("#FighterList"+rencontre).append('<table class="w3-table w3-striped">' + rencontre));
 
+	}
 
 	getCampaignName(){
 		var that = this;
@@ -611,8 +627,8 @@ class User_Interface{
 
 	CampagneTest(name){
 
-		var p1 = new Player("Joueur 1","66","33",undefined);
-		var p2 = new Player("Joueur 2","100","50",undefined)
+		var p1 = new Player("Joueur1","66","33",undefined);
+		var p2 = new Player("Joueur2","100","50",undefined)
 		this.app_PC.campaigns[name].players.push(p1);
 		this.app_PC.campaigns[name].players.push(p2);
 		this.initUI();
