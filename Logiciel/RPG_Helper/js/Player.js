@@ -1,20 +1,17 @@
-//import 
+
 
 class Player extends Character{
-	constructor(n){
+	constructor(n,pv,ca,comm_h){
 	super(n)
 
 	this.infos = {
 		name : this.name,
 		id : this.id,
-		PV : 0,
-		CA : 0
+		PV : pv,
+		CA : ca
 	}
 	
-
-	this.comm_handler = null
-
-	//this.button ? 
+	this.comm_handler = comm_h;
 
 	}
 
@@ -22,11 +19,8 @@ class Player extends Character{
 	this.infos.PV = this.infos.PV + n;
 
 	}
-
-
-	// envoyer changement a communication handler ? 
-
 	
+	// envoyer changement a communication handler ? 
 	
 
 	modCA(n){

@@ -5,6 +5,7 @@ class Campaign{
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
+		this.launched = 0;
 
 
 		this.infos_campaign = {"name" : this.name,
@@ -16,18 +17,13 @@ class Campaign{
 		this.encounters = [];
 		this.loadEncounters(encounters);
 
-/*		this.encounter =  { name : undefined,
-						  	monsters : {name : undefined,
-						   			   	PV : undefined,
-						   			   	CA : undefined }
-						   	}
-						   	*/
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
 		this.players = []; 		 // Liste de Players
 
 
 	}
+
 
 	loadEncounters(es){
 		for (var enc in es) {
@@ -44,22 +40,7 @@ class Campaign{
 
 	}
 
-	addPlayer(inf,com){
 
-		var P = new Player('test')
-
-		var new_infos =
-			{
-			name : inf.cara.name,
-			id : P.id,
-			PV : inf.cara.PV,
-			CA : inf.cara.CA
-			}
-
-		P.createPlayer(new_infos,com)
-
-		this.players.push(P)
-	}
 
 	resumePlayer(inf,com){
 
@@ -125,6 +106,7 @@ class Campaign{
 
 		  // Ecriture dans le fichier JSON des infos
 		this.infos_campaign.story = hist;
+
 		var encountersSave = [];
 		for (var en in this.encounters) {
 			//on enregistre les descriptions
@@ -202,22 +184,3 @@ class Campaign{
 
 }
 
-//__________________________________________ Test trame de données
-
-//  $(document).ready(function(){
-
-
-// 	inf = {"cara":{"PV": 23, "CA":50, PO :2500,"name":"babar" }}
-// 	t = null
-
-// 	C1 = new Campaign('C1')
-// 	C1.addPlayer(inf,t)
-// 	C1.addPlayer(inf,t)
-// 	screenlog(C1.players[0].infos.name)
-// 	screenlog(C1.players[1].infos.PV)
-
-
-// });
-// 	function screenlog(message) {
-//    	$("#screenlog").append("<p>"+message+"</p>")
-//  	}
