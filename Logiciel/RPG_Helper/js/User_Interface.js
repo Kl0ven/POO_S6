@@ -221,8 +221,10 @@ class User_Interface{
 			'<div class="w3-col" id = "btn_add_M_' + name + '"  style="width:3%">'+
 			'</div>'+
 
-			'<div class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
+			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
 			'<p> Joueurs </p>' +
+				'<div class = btn_start_fight>'+
+				'</div>'+
 			'</div>'+
 			'</div>'+
 			'</div>'+
@@ -388,7 +390,7 @@ class User_Interface{
 		this.btnHandler("init",["header","footer","histoire"]);
 
 	}
-
+ 
 	delCamp(name){
 		this.app_PC.DeleteCampaign(name);
 	}
@@ -454,6 +456,80 @@ class User_Interface{
 	}
 
 
+
+	startFight(name){
+		var term = "Jets d'initiative" ;
+		var PlayerName = [];
+		var idPlayers = [];
+		var labandinput=''
+		for (var i = 0; i < this.app_PC.campaigns[name].players[i].length; i++)// Pour chaque joueur, on donne son jet d'initiative
+			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
+			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
+			labandinput='<form action="" class="formName">' +
+						'<div class="form-group" id="'+idPlayers[i]+'">' +
+						'<label>'+PlayerName[i]+'</label></br>' +
+						'<input type="text" placeholder="" class="name form-control" required autofocus/>'+
+						labandinput +
+						'</div>' +
+						'</form>'
+
+				var UI = this;
+				// affichage d'un popup
+				$.confirm({
+					title: term,
+					type: 'green',
+					theme: 'material',
+					boxWidth: '80%',
+					useBootstrap: false,
+					content:
+					labandinput,
+					buttons: {
+						formSubmit: {
+							text: 'Valider',
+							btnClass: 'btn-green',
+							action: function () {
+								// callback apeler lors de l'apuis sur "Créer"
+								// on recupere le nom
+								var name = this.$content.find('.name').val();
+								// on verifie le nom et compatible et qui n'existe pas deja
+								if(!name){
+									$.alert('provide a valid name');
+									return false;
+								}
+								try {
+									var n = $("#"+name.replace(/ /g,'')).length;
+								} catch (e) {
+									var n = 1;
+								}
+								if(n){
+									$.alert('provide another name');
+									return false;
+								}
+
+
+								
+
+							}
+						},
+						cancel: function () {
+							//close
+						},
+					},
+					onContentReady: function () {
+						// bind to events
+						var jc = this;
+						this.$content.find('form').on('submit', function (e) {
+							// if the user submits the form by pressing enter in the field.
+							e.preventDefault();
+							jc.$$formSubmit.trigger('click'); // reference the button and click it
+						});
+					}
+				});
+			}
+
+
+
+
 	getCampaignName(){
 		var that = this;
 		var ret
@@ -486,7 +562,7 @@ class User_Interface{
 		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
 		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
 
-			$("#display_players").append('<div id="'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
+			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
 										'<div class="w3-row">'+
 											'<div class="w3-col w3-container" style="width:15%;">'+
 												'<div class = "n_player">'+this.app_PC.campaigns[name].players[i].infos.name+'</div>'+
@@ -520,6 +596,9 @@ class User_Interface{
 		
 		new PC_Button($(".btnmin"),"w3-button w3-round w3-blue","-",undefined);
 		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
+
+		//Ajout bouton début combat 
+		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
 	}
 
 	CampagneTest(name){

@@ -3,7 +3,8 @@ class Character{
 	constructor(n){
 	this.name = n;
 	this.id = Character.generate_ID();
-	this.image = null;
+	this.image = undefined;
+	this.initiative = undefined;
 
 	this.pc_effect = [];
 
@@ -16,7 +17,7 @@ class Character{
         Character.counter = -1;
     }
     Character.counter++;
-    return Character.counter;
+    return "Player" + Character.counter+"";
 	}
 }
 
