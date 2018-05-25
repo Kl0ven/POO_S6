@@ -13,7 +13,11 @@ class Widget{
      	return true;
   }
 
-  	isClasses(){
+	del(){
+		$("#"+this.id).remove();
+	}
+
+  isClasses(){
     	if (typeof this.classes == "undefined") {
         	return false;
      	}
