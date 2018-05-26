@@ -24,7 +24,8 @@ class User_Interface{
 			//vue écran de connexion
 			this.view.launch = new View($("#ConnectScreen"),[
 				new PC_Button($("#btn_dem"),"w3-button w3-blue","Démarrer",() => {this.startCamp(this.getCampaignName());}),
-				new PC_Button($("#btn_ret"),"w3-button w3-red","Retour",() => {this.closeComm_return();})
+				new PC_Button($("#btn_ret"),"w3-button w3-red","Retour",() => {this.closeComm_return();}),
+				new PC_Button($("#help"),"w3-button w3-purple","help",() => {this.help();})
 			]);
 			//vue header
 			this.view.header = new View($("#Header"),[
@@ -240,7 +241,9 @@ class User_Interface{
 
 
 		//ajout du btn pour cree des description
-		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button w3-round w3-blue","add Description",() => {this.addDesc(name);});
+		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-blue","add Description",() => {this.addDesc(name);});
+		// btn pour supprimer la rencontre
+		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-red","supprimer la rencontre",() => {this.delConfirm(name,()=>{this.delEncounter(name)});});
 
 		var nb = this.view.combats.getNbElem();
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
@@ -255,7 +258,7 @@ class User_Interface{
 
 	}
 	addDesc(name){
-		this.app_PC.campaigns[this.getCampaignName()].addDesc(name,new Description($("#descs"),this.app_PC))
+		this.app_PC.campaigns[this.getCampaignName()].addDesc(name,new Description($("#descs"),name,this.app_PC))
 
 	}
 
@@ -392,11 +395,50 @@ class User_Interface{
 
 	}
 
+	delEncounter(nom){
+		var encounters = this.app_PC.campaigns[this.getCampaignName()].encounters
+		for (var e in encounters) {
+			if(encounters[e].name == nom){
+				encounters.splice(e,1);
+				this.initUI();
+				this.app_PC.ModCampaign(this.getCampaignName());
+				if (this.view["combats"].getNbElem() > 1 ) {
+					this.btnHandler("combats",["header","footer","combats",this.view["combats"].getElem(1).getText()],1);
+
+				}
+				else {
+					this.btnHandler("combats",["header","footer","combats"]);
+				}
+
+			}
+		}
+
+	}
+	delDesription(id,en){
+		var encounters = this.app_PC.campaigns[this.getCampaignName()].encounters;
+		for (var e in encounters) {
+			if (encounters[e].name == en) {
+				var desc = encounters[e].description;
+				for (var d in desc) {
+					if (desc[d].id == id) {
+						this.app_PC.campaigns[this.getCampaignName()].hideAll();
+						this.app_PC.campaigns[this.getCampaignName()].encounters[e].description.splice(d,1);
+						this.app_PC.campaigns[this.getCampaignName()].setDesc(en);
+					}
+				}
+			}
+		}
+
+		}
 	delCamp(name){
+		this.delConfirm("la campagne",()=>{this.app_PC.DeleteCampaign(name)})
+	}
+
+	delConfirm(name, cb ){
 		var UI = this;
 		// affichage d'un popup
 		$.confirm({
-			title: "Voulez vous vraiment supprimer la campagne ?",
+			title: "Voulez vous vraiment supprimer "+name+" ?",
 			type: 'red',
 			theme: 'material',
 			boxWidth: '80%',
@@ -406,7 +448,7 @@ class User_Interface{
 					text: 'Supprimer',
 					btnClass: 'btn-red',
 					action: function () {
-						UI.app_PC.DeleteCampaign(name);
+						cb();
 
 					}
 
@@ -425,9 +467,7 @@ class User_Interface{
 				});
 			}
 		});
-
 	}
-
 
 	showView(name){
 		this.view[name].show();
@@ -453,8 +493,7 @@ class User_Interface{
   }
 
 	btnHandler(vue,show,num = undefined ){
-		console.log(vue);
-		console.log(show);
+
 		this.hideAll();
 
 		for(var v in show) {
@@ -482,8 +521,6 @@ class User_Interface{
 			}
 		}
 		if (vue == "combats") {
-				console.log(show);
-				console.log(vue);
 				this.app_PC.campaigns[this.getCampaignName()].setDesc(show[show.length-1]);
 		}
 	}
@@ -643,6 +680,22 @@ class User_Interface{
 		this.initUI();
 		this.startCamp(name);
 
+	}
+
+	help(){
+		$.alert({
+    title: 'Impossible de connecter les téléphones au PC ?',
+		type: 'purple',
+		theme: 'material',
+		boxWidth: '80%',
+		useBootstrap: false,
+
+    content: '<ul>'+
+  						'<li>Il faut tout d’abord être connecté au même sous-réseau (ex : hotspot WiFi).</li>'+
+  						'<li>Si toutefois cela ne marche pas, il se peut que votre routeur bloque la connexion. Il faut donc ouvrir le port 8080 du firewall de votre routeur.</br> <b>QuickFix :</b> un téléphone en mode partage de connexion fonctionne très bien ! :) </li>'+
+  						'<li>Il se peut aussi que ce soit le PC qui bloque la connexion vous devez autoriser l’application nw.exe au port 8080.</li>'+
+						'</ul>',
+});
 	}
 
 

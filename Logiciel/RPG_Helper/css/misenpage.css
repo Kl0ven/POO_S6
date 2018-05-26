@@ -82,8 +82,8 @@ hr{
 {
 	font-size: 50px;
 	position: absolute;
-	right:20px;
-	bottom: 20px;
+	right:0px;
+	bottom: 0px;
 }
 
 #ip
@@ -99,6 +99,10 @@ hr{
 	top: 0px;
 }
 
+#help{
+    bottom: 0px;
+    position: absolute;
+}
 .sq{
 	height: 43px;
 }

@@ -34,7 +34,7 @@ class Campaign{
 			// ajout des description
 			for (var desc in es[enc].description) {
 				var d = es[enc].description[desc];
-				this.addDesc(es[enc].name,new Description($("#descs"),this.app_PC,d.m,d.url))
+				this.addDesc(es[enc].name,new Description($("#descs"),es[enc].name,this.app_PC,d.m,d.url))
 			}
 			// c'est ici u'il faut charger les monstres
 		}
@@ -173,7 +173,7 @@ class Campaign{
 	}
 
 	setDesc(rencontre){
-		
+
 		this.hideAll();
 		for (var e in this.encounters) {
 			if(this.encounters[e].name == rencontre){

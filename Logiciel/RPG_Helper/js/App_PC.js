@@ -75,7 +75,7 @@ class App_PC{
 
 		//récupération de l'histoire
 		var hist = this.UI.view.histoire.elements[0].text
-		console.log(hist)
+
 
 		this.campaigns[Name].saveCamp(hist)
 
