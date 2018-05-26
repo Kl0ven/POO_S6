@@ -501,9 +501,10 @@ class User_Interface{
 								var FightList = [];
 								var initiative = this.$content.find('.initiative');
 								for (var i = 0; i < this.$content.find('.initiative').length; i++){
-									var test= { nom: $(initiative[i]).val(),
+									var tableau= { nom: $(initiative[i]).val(),
 												id: $(initiative[i]).attr("id")};
-									FightList.push(test);
+									FightList.push(tableau);
+									$(".FighterList").append('<div> "'+ tableau.nom+'"</div>');
 
 
 								}
@@ -532,8 +533,8 @@ class User_Interface{
 
 
 								
-								this.view[rencontre].addElem($("#FighterList"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ rencontre + '</div></td>'));
-
+								//UI.view[rencontre].addElem($("#FighterList"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ rencontre + '</div></td>'));
+								
 
 								
 
