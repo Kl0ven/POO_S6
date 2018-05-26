@@ -501,15 +501,35 @@ class User_Interface{
 								var FightList = [];
 								var initiative = this.$content.find('.initiative');
 								for (var i = 0; i < this.$content.find('.initiative').length; i++){
-									var tableau= { nom: $(initiative[i]).val(),
-												id: $(initiative[i]).attr("id")};
+									var tableau= { id: $(initiative[i]).val(),
+												nom: $(initiative[i]).attr("id")};
 									FightList.push(tableau);
+
+
+
+
 									$(".FighterList").append('<div> "'+ tableau.nom+'"</div>');
-
-
+									//console.log(tableau.nom);
+									//tableau.nom.sort(function(a, b){return a-b});
 								}
 								console.log(FightList);
 
+								var tri =[]
+								for (var nom in FightList){
+									tri.push([nom, FightList[nom]]);
+								}
+								tri.sort(function(a,b){
+									return a[1] - b[1];
+								});
+
+								//for (var i=0; i<FightList.length; i++){
+								//	FightList[i].object["id"].sort(function(a, b){return a-b});
+								//}
+
+								//FightList.id.
+								
+								
+								
 								//console.log(initiative)
 								if(!initiative){
 									$.alert('provide a valid name');
@@ -635,9 +655,11 @@ class User_Interface{
 	CampagneTest(name){
 
 		var p1 = new Player("Joueur1","66","33",undefined);
-		var p2 = new Player("Joueur2","100","50",undefined)
+		var p2 = new Player("Joueur2","100","50",undefined);
+		var p3 = new Player("Joueur3","100","50",undefined);
 		this.app_PC.campaigns[name].players.push(p1);
 		this.app_PC.campaigns[name].players.push(p2);
+		this.app_PC.campaigns[name].players.push(p3);
 		this.initUI();
 		this.startCamp(name);
 
