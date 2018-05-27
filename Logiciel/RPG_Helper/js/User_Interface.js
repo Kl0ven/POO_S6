@@ -470,7 +470,7 @@ class User_Interface{
 		var PlayerName = [];
 		var idPlayers = [];
 		var labandinput=''
-		console.log(this.app_PC.campaigns[name].players.length)
+		//console.log(this.app_PC.campaigns[name].players.length)
 		for (var i = 0; i < this.app_PC.campaigns[name].players.length; i++){// Pour chaque joueur, on donne son jet d'initiative
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
@@ -504,30 +504,26 @@ class User_Interface{
 									var tableau= { id: $(initiative[i]).val(),
 												nom: $(initiative[i]).attr("id")};
 									FightList.push(tableau);
+									//console.log(tableau)
 
 
 
-
-									$(".FighterList").append('<div> "'+ tableau.nom+'"</div>');
-									//console.log(tableau.nom);
+									//$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
+									
 									//tableau.nom.sort(function(a, b){return a-b});
 								}
-								console.log(FightList);
 
-								var tri =[]
-								for (var nom in FightList){
-									tri.push([nom, FightList[nom]]);
-								}
-								tri.sort(function(a,b){
-									return a[1] - b[1];
+								//algorithme de tri
+								FightList.sort(function(a,b){
+									return a.id - b.id;
 								});
+								for (var i = 0; i < this.$content.find('.initiative').length; i++){
 
-								//for (var i=0; i<FightList.length; i++){
-								//	FightList[i].object["id"].sort(function(a, b){return a-b});
-								//}
+									$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
+								}
 
-								//FightList.id.
-								
+
+	
 								
 								
 								//console.log(initiative)
