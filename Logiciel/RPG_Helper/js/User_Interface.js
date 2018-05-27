@@ -499,8 +499,9 @@ class User_Interface{
 							btnClass: 'btn-green',
 							action: function () {
 								var FightList = [];
+								//on met l'intitiative et les noms de chaque joueurs dans un tableau
 								var initiative = this.$content.find('.initiative');
-								for (var i = 0; i < this.$content.find('.initiative').length; i++){
+								for (var i = 0; i < initiative.length; i++){
 									var tableau= { id: $(initiative[i]).val(),
 												nom: $(initiative[i]).attr("id")};
 									FightList.push(tableau);
@@ -515,11 +516,23 @@ class User_Interface{
 
 								//algorithme de tri
 								FightList.sort(function(a,b){
-									return a.id - b.id;
+									return b.id - a.id;
 								});
-								for (var i = 0; i < this.$content.find('.initiative').length; i++){
 
-									$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
+								//on retourne dans l'interface les noms triés dans le bon ordre
+
+								//UI.DisplayPlayers(initiative);
+								for (var i = 0; i < initiative.length; i++){
+
+									//$(".FighterList").append('<div id="div' + FightList[i].nom'> + "'+ FightList[i].nom+'"</div>');
+									//$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
+									$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel w3-border">'+ 
+															'<div class="w3-row">'+
+																'<div class="w3-col w3-container" style="width:100%;">'+
+																	'<div class = "n_player">'+FightList[i].nom+'</div>'+
+																'</div>'+
+															'</div>'+
+								  '</div>');	
 								}
 
 
