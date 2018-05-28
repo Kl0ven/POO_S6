@@ -4,7 +4,9 @@ class User_Interface{
 		this.view={}
 		this.app_PC = app ;
 		this.createview();
-	}
+
+
+		}
 
 	addView(obj,name,val){
 		Object.defineProperty(obj,name,{value : val,
@@ -310,10 +312,10 @@ class User_Interface{
 
 						UI.loadMonster(rencontre,name,PV,CA)
 
-
 						//Création du monstre
 
-						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,name,PV,CA);
+						var m = new Monster(name,PV,CA);
+						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,m);
 
 					}
 
@@ -555,29 +557,43 @@ class User_Interface{
 	}
 
 
-	startCamp(name){
+	startCamp(n_camp){
 		this.btnHandler("init",["header","footer"]);
-		this.app_PC.startCampaign(name);
+		this.app_PC.startCampaign(n_camp);
 
 		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
-		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
+		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 
-			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
+			var n_pl = this.app_PC.campaigns[n_camp].players[i].infos.name;
+			var pv_pl = this.app_PC.campaigns[n_camp].players[i].infos.PV;
+			var ca_pl = this.app_PC.campaigns[n_camp].players[i].infos.CA;
+
+			this.dispPlayers(n_pl,ca_pl,pv_pl,n_camp);		
+		}
+
+		//Ajout bouton début combat 
+		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
+	}
+
+
+	dispPlayers(n_pl,ca_pl,pv_pl,n_camp){
+
+		$("#display_players").append('<div id="div_'+n_pl+'" class = "w3-container w3-panel w3-border">'+ 
 										'<div class="w3-row">'+
 											'<div class="w3-col w3-container" style="width:15%;">'+
-												'<div class = "n_player">'+this.app_PC.campaigns[name].players[i].infos.name+'</div>'+
+												'<div class = "n_player">'+n_pl+'</div>'+
 											'</div>'+	
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
-      												'<div class = "btnmin"></div>'+
-      												'<div class = "PV_player">PV: '+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
-      												'<div class = "btnplus"></div>'+
+      												'<div id = "btnminPV_'+n_pl+'" class = "btnmin"></div>'+
+      												'<div id = "PV_'+n_pl+'" class = "PV_player">PV: '+pv_pl+'</div>'+
+      												'<div id = "btnplusPV_'+n_pl+'"class = "btnplus"></div>'+
       											'</div>'+	
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
-      											'<div class = "btnmin"></div>'+
-      											'<div class = "CA_player">CA: '+this.app_PC.campaigns[name].players[i].infos.CA+'</div>'+
-      											'<div class = "btnplus"></div>'+
+      											'<div id = "btnminCA_'+n_pl+'" class = "btnmin"></div>'+
+      											'<div id = "CA_'+n_pl+'" class = "CA_player">CA: '+ca_pl+'</div>'+
+      											'<div id = "btnplusCA_'+n_pl+'" class = "btnplus"></div>'+
       										'</div>'+
       										'<div class="w3-rest">'+
       											'<table id = "tab_effects" class = "w3-table-all">'+
@@ -592,19 +608,44 @@ class User_Interface{
 										'</div>'+
 								  '</div>');
 
-		}
-		
-		new PC_Button($(".btnmin"),"w3-button w3-round w3-blue","-",undefined);
-		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
 
-		//Ajout bouton début combat 
-		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
+		new PC_Button($("#btnminPV_"+n_pl),"w3-button w3-round w3-blue","-",undefined);
+		new PC_Button($("#btnplusPV_"+n_pl),"w3-button w3-round w3-blue","+",()=> {this.addPV(n_camp,n_pl);});
+		new PC_Button($("#btnminCA_"+n_pl),"w3-button w3-round w3-blue","-",undefined);
+		new PC_Button($("#btnplusCA_"+n_pl),"w3-button w3-round w3-blue","+",undefined);
+	}
+
+
+
+	addPV(n_camp,n_pl){
+
+		//console.log(n_pl);
+
+		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
+			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
+
+				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
+				//incrémentation de 1 dans l'objet
+
+				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.PV)
+				pvint += 1;
+				this.app_PC.campaigns[n_camp].players[i].infos.PV = pvint;
+
+				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
+				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
+				
+				//incrémentation de 1 dans l'affichage
+				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
+				//incrementation sur le téléphone
+
+			}
+		}
 	}
 
 	CampagneTest(name){
 
-		var p1 = new Player("Joueur 1","66","33",undefined);
-		var p2 = new Player("Joueur 2","100","50",undefined)
+		var p1 = new Player("Joueur1","66","33",undefined);
+		var p2 = new Player("Joueur2","100","50",undefined)
 		this.app_PC.campaigns[name].players.push(p1);
 		this.app_PC.campaigns[name].players.push(p2);
 		this.initUI();

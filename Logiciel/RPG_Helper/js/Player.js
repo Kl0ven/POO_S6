@@ -13,6 +13,8 @@ class Player extends Character{
 	
 	this.comm_handler = comm_h;
 
+	this.btnPVpl = undefined;
+
 	}
 
 	modPV(n){
