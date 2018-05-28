@@ -22,13 +22,19 @@
 }
 
 #display_players{
-	
+
 }
 
 .btn_start_fight{
 	bottom : 0;
 }
 
+hr{
+	border: 10px;
+	margin-top: 250px;
+	height: 10px;
+	background-color: #456bc6;
+}
 
 .n_player{
 	text-align: center;
@@ -76,8 +82,12 @@
 {
 	font-size: 50px;
 	position: absolute;
-	right:20px;
-	bottom: 20px;
+	right:0px;
+	bottom: 0px;
+}
+
+.delMonster input{
+	height: 30px;
 }
 
 #ip
@@ -90,10 +100,12 @@
 	font-size: 20px;
 	position: absolute;
 	left: 0px;
-	top: 0px;	
-
+	top: 0px;
 }
 
+#help{
+    bottom: 0px;
+    position: absolute;
 }
 .sq{
 	height: 43px;
@@ -159,7 +171,9 @@
 
 }
 
-
+.Onglet{
+	margin-bottom: 43px;
+}
 #center
 {
 	text-align:center;
@@ -233,8 +247,14 @@ height: 300px;
 .img{
 	    float: right;
 			width: 35%;
+			position: relative;
 }
 
 .zede{
 	    max-height: 231px;
+}
+.btnsend{
+	right: 50%;
+    top: 40%;
+    display: none;
 }

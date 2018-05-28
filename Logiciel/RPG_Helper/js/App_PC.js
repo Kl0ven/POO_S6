@@ -35,7 +35,7 @@ class App_PC{
 
 	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
 	//console.log(camp.encounters);
-	this.campaigns[name] = new Campaign(name,camp.encounters,camp.hour,camp.day,camp.story);
+	this.campaigns[name] = new Campaign(name,this,camp.encounters,camp.hour,camp.day,camp.story);
 
 }
 	LaunchCampaign(Name){
@@ -58,7 +58,7 @@ class App_PC{
 
 		while ($("#ConnectScreen").css('display') == 'block'){
 			return true;
-			console.log('ok');	
+			console.log('ok');
 		}
 
 		return false;
@@ -67,7 +67,7 @@ class App_PC{
 
 
 	AddCampaign(Name){
-		this.campaigns[Name] = new Campaign(Name);
+		this.campaigns[Name] = new Campaign(Name,this);
 
 	}
 
@@ -75,7 +75,7 @@ class App_PC{
 
 		//récupération de l'histoire
 		var hist = this.UI.view.histoire.elements[0].text
-		console.log(hist)
+
 
 		this.campaigns[Name].saveCamp(hist)
 
@@ -83,6 +83,7 @@ class App_PC{
 
 
 	ModCampaign(Name){
+
 		//activation de la campagne
 		this.campaigns[Name].active = 1;
 
@@ -126,11 +127,11 @@ class App_PC{
 		//supprimer l'objet camp
 		delete this.campaigns[Name];
 
-		//supprimer les fichiers 
+		//supprimer les fichiers
 		var path = "./save/"+ Name;
-		
+
 		//console.log(path);
-		
+
 		this.DeleteFolderRecursive(path);
 		setTimeout(()=>{this.displayCampaignsName();},10);
 
@@ -149,7 +150,7 @@ class App_PC{
     		});
     	fs.rmdirSync(path);
   		}
-  		
+
 
 	}
 
