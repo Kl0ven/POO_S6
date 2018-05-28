@@ -312,7 +312,7 @@ class User_Interface{
 							$.alert('provide another name');
 							return false;
 						}
-
+						name = name.replace(/ /g,'-');
 						UI.loadMonster(rencontre,name,PV,CA)
 
 
@@ -341,9 +341,10 @@ class User_Interface{
 
 	loadMonster(rencontre,name,PV,CA){
 			//Création du tableau
-		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ name + '</div></td>'));
+		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ name + '</div> <div class="delMonster" id="delMonster'+name+'"></div></td>'));
 		this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
 		this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
+		new PC_Button($("#delMonster"+name),"","",()=>{this.code('t1','[g] [/g]')},"image",'./assets/fermer.png');
 	}
 
 	saveAndQuit(){
@@ -384,7 +385,7 @@ class User_Interface{
 
 		new PC_Button($("#"+name),"w3-button w3-blue","Lancer", () => {this.launchCamp(name);});
 		new PC_Button($("#"+name),"w3-button w3-blue","Modifier",() => {this.modifCamp(name);});
-		new PC_Button($("#"+name),"w3-button w3-blue","Supprimer",() => {this.delCamp(name);});
+		new PC_Button($("#"+name),"w3-button w3-red","Supprimer",() => {this.delCamp(name);});
 
 	}
 

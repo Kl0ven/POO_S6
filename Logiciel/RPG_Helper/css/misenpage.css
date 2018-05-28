@@ -86,6 +86,10 @@ hr{
 	bottom: 0px;
 }
 
+.delMonster input{
+	height: 30px;
+}
+
 #ip
 {
 	font-size: 50px;
