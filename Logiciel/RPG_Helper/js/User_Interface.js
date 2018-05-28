@@ -586,7 +586,7 @@ class User_Interface{
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
       												'<div id = "btnminPV_'+n_pl+'" class = "btnmin"></div>'+
-      												'<div id = "PV_'+n_pl+'" class = "PV_player">PV: '+pv_pl+'></div>'+
+      												'<div id = "PV_'+n_pl+'" class = "PV_player">PV: '+pv_pl+'</div>'+
       												'<div id = "btnplusPV_'+n_pl+'"class = "btnplus"></div>'+
       											'</div>'+	
       										'</div>'+
@@ -635,7 +635,7 @@ class User_Interface{
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 				
 				//incrémentation de 1 dans l'affichage
-				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).replaceWith("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
+				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				//incrementation sur le téléphone
 
 			}
