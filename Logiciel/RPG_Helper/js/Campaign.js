@@ -36,12 +36,16 @@ class Campaign{
 				var d = es[enc].description[desc];
 				this.addDesc(es[enc].name,new Description($("#descs"),es[enc].name,this.app_PC,d.m,d.url))
 			}
-			// c'est ici u'il faut charger les monstres
+			// chargement des monstres
+
+			for (var monst in es[enc].monsters) {
+				var d = es[enc].monsters[monst];
+				this.addMonster(es[enc].name,new Monster(d.name,d.PV,d.CA))
+			}
+
 		}
 
-
 	}
-
 
 
 	resumePlayer(inf,com){
@@ -63,9 +67,7 @@ class Campaign{
 						  monsters : [],
 							description : []
 						  }
-
 		this.encounters.push(encounter)
-
 
 
 	}
@@ -79,19 +81,13 @@ class Campaign{
 
 	}
 
-	addMonster(encounter,name,pv,ca){
-
-    var size = this.encounters.length
-		console.log(size)
-
-		for (var i =0; i < size; i ++) {
-			if (this.encounters[i].name == encounter){
-
-				this.encounters[i].monsters.push( {"name" : name,
-						   			   			   PV : pv,
-						   			   	           CA : ca })
+	addMonster(encounter,monst){
+		for (var d in this.encounters) {
+			if (this.encounters[d].name == encounter) {
+				this.encounters[d].monsters.push(monst);
 			}
 		}
+
 	}
 
 	saveCamp(hist){
