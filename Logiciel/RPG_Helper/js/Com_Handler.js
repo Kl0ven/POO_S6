@@ -61,7 +61,9 @@ class Com_Handler {
 			console.log(infos)
 
 			//instanciation du joueur avec ses carac
-			var n_player = new Player(infos.cara.name,infos.cara.PV,infos.cara.CA,this);
+
+			var name = infos.cara.name.replace(/ /g,"_"); //Le nom du joueur ne doit pas contenir d'espaces
+			var n_player = new Player(name,infos.cara.PV,infos.cara.CA,this);
 			//liaison au comm handler
 			this.player = n_player;
 		
