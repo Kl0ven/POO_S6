@@ -20,11 +20,20 @@ class Campaign{
 
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
-		this.players = []; 		 // Liste de Players
+		this.players = []; 		 	// Liste de Players
 
 
 	}
-
+	isMonsterNameExist(name){
+		for (var en in this.encounters) {
+			for (var m in this.encounters[en].monsters) {
+				if (this.encounters[en].monsters[m].getName() == name) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	loadEncounters(es){
 
