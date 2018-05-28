@@ -11,6 +11,8 @@ class Player extends Character{
 		CA : ca
 	}
 	
+	this.effects = [];
+
 	this.comm_handler = comm_h;
 
 	this.btnPVpl = undefined;
@@ -34,11 +36,11 @@ class Player extends Character{
 	}
 
 	addEffect(e){
-		this.pc_effect.push(e)
+		this.effects.push(e);
 	}
 
-	getEffect(){
-		return this.pc_effect
+	getEffect(i){
+		return this.effects[i];
 	}
 
 	createPlayer(inf, t){
