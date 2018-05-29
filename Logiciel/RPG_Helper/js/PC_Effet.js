@@ -1,10 +1,10 @@
 class PC_Effet {
-	constructor(desc,bonus,duration,unit,player,rtH = 1/600,htR =600){
+	constructor(desc,malus,duration,unit,player,rtH = 0,htR =Infinity){
 		this.id=PC_Effet.generate_ID();
 		this.rtH = rtH;
 		this.htR = htR;
 		this.desc = desc;
-		this.bonus = bonus;
+		this.malus = malus;
 		this.duration = duration;
 		this.unit = unit;
 		this.player = player;
