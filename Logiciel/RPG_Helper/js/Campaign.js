@@ -6,7 +6,9 @@ class Campaign{
 		this.active = 0;
 		this.name = n;
 		this.launched = 0;
-		this.app_PC = apc;
+		this.FightList = [];
+    this.app_PC = apc;
+
 
 
 		this.infos_campaign = {"name" : this.name,
@@ -91,6 +93,7 @@ class Campaign{
 		}
 
 	}
+
 
 	addMonster(encounter,monst){
 		for (var d in this.encounters) {

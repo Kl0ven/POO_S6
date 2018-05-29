@@ -227,8 +227,12 @@ class User_Interface{
 			'</div>'+
 
 			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
-			'<p> Joueurs </p>' +
+			'<p> Combattants </p>' +
+				'<div class = FighterList>' +
+				'<div class = btn_next_turn>'+
 				'<div class = btn_start_fight>'+
+
+
 				'</div>'+
 			'</div>'+
 			'</div>'+
@@ -250,6 +254,12 @@ class User_Interface{
 		var nb = this.view.combats.getNbElem();
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
 		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
+
+
+		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
+
+
+
 
 
 		//Affiche uniquement la vue qui vient d'être créée
@@ -418,6 +428,7 @@ class User_Interface{
 
 	}
 
+
 	delEncounter(nom){
 		var encounters = this.app_PC.campaigns[this.getCampaignName()].encounters
 		for (var e in encounters) {
@@ -453,6 +464,7 @@ class User_Interface{
 		}
 
 		}
+
 	delCamp(name){
 		this.delConfirm("la campagne",()=>{this.app_PC.DeleteCampaign(name)})
 	}
@@ -550,22 +562,25 @@ class User_Interface{
 
 
 
-	startFight(name){
+	startFight(name,rencontre){
+		console.log(name)
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
 		var idPlayers = [];
 		var labandinput=''
-		for (var i = 0; i < this.app_PC.campaigns[name].players[i].length; i++)// Pour chaque joueur, on donne son jet d'initiative
+		//console.log(this.app_PC.campaigns[name].players.length)
+		for (var i = 0; i < (this.app_PC.campaigns[name].players.length /*+this.app_PC.campaigns[name].encounters.length*/); i++){// Pour chaque joueur, on donne son jet d'initiative
+
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
 			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
-			labandinput='<form action="" class="formName">' +
+			labandinput=labandinput +
+						'<form action="" class="formName">' +
 						'<div class="form-group" id="'+idPlayers[i]+'">' +
 						'<label>'+PlayerName[i]+'</label></br>' +
-						'<input type="text" placeholder="" class="name form-control" required autofocus/>'+
-						labandinput +
+						'<input type="number" id="'+PlayerName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
 						'</div>' +
 						'</form>'
-
+}
 				var UI = this;
 				// affichage d'un popup
 				$.confirm({
@@ -581,15 +596,46 @@ class User_Interface{
 							text: 'Valider',
 							btnClass: 'btn-green',
 							action: function () {
-								// callback apeler lors de l'apuis sur "Créer"
-								// on recupere le nom
-								var name = this.$content.find('.name').val();
-								// on verifie le nom et compatible et qui n'existe pas deja
-								if(!name){
+								//on met l'intitiative et les noms de chaque joueurs dans un tableau
+								var initiative = this.$content.find('.initiative');
+								for (var i = 0; i < initiative.length; i++){
+
+									var tableau= { init: $(initiative[i]).val(),
+												nom: $(initiative[i]).attr("id"),
+												active: (i == 0)? true:false}
+									UI.app_PC.campaigns[UI.getCampaignName()].FightList.push(tableau);
+
+								}
+
+								//algorithme de tri
+								UI.app_PC.campaigns[UI.getCampaignName()].FightList.sort(function(a,b){
+									return b.init - a.init;
+								});
+
+								//on retourne dans l'interface les noms triés dans le bon ordre
+								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList);
+
+								//on supprime le bouton de démarrage de combat
+								$(".btn_start_fight").remove();
+								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
+
+								console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
+								//bouton tour suivant
+								UI.setStartBtn();
+
+															//méthode tour suivant
+
+
+								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
+
 								}
-								try {
+								//if(!name){
+								//	$.alert('provide a valid name');
+								//	return false;
+								//}
+								/*try {
 									var n = $("#"+name.replace(/ /g,'')).length;
 								} catch (e) {
 									var n = 1;
@@ -597,9 +643,9 @@ class User_Interface{
 								if(n){
 									$.alert('provide another name');
 									return false;
-								}
 
 
+								}*/
 
 
 							}
@@ -620,8 +666,51 @@ class User_Interface{
 				});
 			}
 
+	setStartBtn() {
+		new PC_Button($(".btn_next_turn"),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
+	}
+	DisplayPlayers(FightList){
+		for (var i = 0; i < FightList.length; i++){
+
+			$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+
+										//'<div class="w3-row">'+
+										//'<div class="w3-col w3-container" style="width:100%;">'+
+										'<div class = "n_player">'+FightList[i].nom+'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>');
+			}
 
 
+	}
+
+	Next_Turn(){
+
+		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
+		for (var n in f) {
+			$("#div_"+f[n].nom+"").css("background-color","grey");
+		}
+		for (var i = 0; i < f.length; i++){
+			// console.log(FightList[i].active);
+			if (f[i].active == true){
+
+				$("#div_"+f[i].nom+"").css("background-color","green");
+				f[i].active = false;
+				//console.log(FightList)
+
+				if (typeof f[i+1] == "undefined"){
+				}
+				else {
+					f[i+1].active =true;
+				}
+				break;
+			}
+		}
+
+
+
+	}
 
 	getCampaignName(){
 		var that = this;
@@ -655,6 +744,7 @@ class User_Interface{
 		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 
+
 			var n_pl = this.app_PC.campaigns[n_camp].players[i].infos.name;
 			var pv_pl = this.app_PC.campaigns[n_camp].players[i].infos.PV;
 			var ca_pl = this.app_PC.campaigns[n_camp].players[i].infos.CA;
@@ -682,6 +772,7 @@ class User_Interface{
       												'<div id = "btnminPV_'+n_pl+'" class = "btnmin"></div>'+
       												'<div id = "PV_'+n_pl+'" class = "PV_player">PV: '+pv_pl+'</div>'+
       												'<div id = "btnplusPV_'+n_pl+'"class = "btnplus"></div>'+
+
       											'</div>'+
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
@@ -880,6 +971,7 @@ class User_Interface{
 				}
 			}
 		}
+
 	
 	else if(stat == "PV-"){
 
@@ -904,6 +996,7 @@ class User_Interface{
 
 				}
 			}
+
 	}
 
 	else if(stat == "CA+"){
@@ -964,9 +1057,13 @@ class User_Interface{
 	CampagneTest(name){
 
 		var p1 = new Player("Joueur1","66","33",undefined);
-		var p2 = new Player("Joueur2","100","50",undefined)
+
+		var p2 = new Player("Joueur2","100","50",undefined);
+		var p3 = new Player("Joueur3","100","50",undefined);
+
 		this.app_PC.campaigns[name].players.push(p1);
 		this.app_PC.campaigns[name].players.push(p2);
+		this.app_PC.campaigns[name].players.push(p3);
 		this.initUI();
 		this.startCamp(name);
 

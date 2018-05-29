@@ -21,7 +21,9 @@
 	text-align: center;
 }
 
-#display_players{
+
+#players_turn{
+	height:500px;
 
 }
 
@@ -29,11 +31,16 @@
 	bottom : 0;
 }
 
+
+.btn_next_turn{
+	bottom:0;
+}
 hr{
 	border: 10px;
 	margin-top: 250px;
 	height: 10px;
 	background-color: #456bc6;
+
 }
 
 .n_player{
@@ -253,8 +260,16 @@ height: 300px;
 .zede{
 	    max-height: 231px;
 }
+
+
+
+p{
+	font-size:25px;
+}
+
 .btnsend{
 	right: 50%;
     top: 40%;
     display: none;
 }
+
