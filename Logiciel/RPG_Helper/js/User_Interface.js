@@ -228,9 +228,9 @@ class User_Interface{
 
 			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
 			'<p> Combattants </p>' +
-				'<div class = FighterList>' +
-				'<div class = btn_next_turn>'+
-				'<div class = btn_start_fight>'+
+				'<div class = "FighterList">' +
+				'<div class = "btn_next_turn">'+
+				'<div id = "btn_start_fight'+name+'">'+
 
 
 				'</div>'+
@@ -256,7 +256,7 @@ class User_Interface{
 		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
 
 
-		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
+		new PC_Button($("#btn_start_fight"+name),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
 
 
 
@@ -616,7 +616,7 @@ class User_Interface{
 								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList);
 
 								//on supprime le bouton de démarrage de combat
-								$(".btn_start_fight").remove();
+								$("#btn_start_fight"+rencontre).remove();
 								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
 
 								console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
@@ -753,10 +753,10 @@ class User_Interface{
 		}
 
 
-		
 
-		// pas le meilleur endoit pour le mettre ? 
-		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
+
+		// pas le meilleur endoit pour le mettre ?
+		//new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
 	}
 
 
@@ -824,11 +824,11 @@ class User_Interface{
 			'</div>' +
 			'<div class="form-group">' +
 			'<label> Unité : </label></br>' +
-			'<input type="radio" name ="unit_H" class="unit_H form-control" >Heure<br>' +
-			'<input type="radio" name ="unit_R" class="unit_R form-control" >Round<br>'+
+			'<input type="radio" name ="unit_H" value="unit_H" >Heure<br>' +
+			'<input type="radio" name ="unit_H" value="unit_R" >Round<br>'+
 			'<label> Type : </label></br>' +
-			'<input type="radio" name ="bonus" class="bonus form-control" >Bonus<br>' +
-			'<input type="radio" name ="malus" class="malus form-control" >Malus<br>'+
+			'<input type="radio" name ="bonus" value="bonus" >Bonus<br>' +
+			'<input type="radio" name ="bonus" value="malus" >Malus<br>'+
 			'</div>' +
 			'</form>',
 			buttons: {
@@ -841,9 +841,10 @@ class User_Interface{
 						var eff = this.$content.find('.effect').val();
 						var dur = this.$content.find('.duration').val();
 						var u_H = $('input[name="unit_H"]:checked').val();
-						var u_R = $('input[name="unit_R"]:checked').val();
-						var malus = $('input[name="malus"]:checked').val();
+						console.log(u_H);
 						var bonus = $('input[name="bonus"]:checked').val();
+						console.log(bonus);
+						// retunr bonus ou malus !!!!
 						// on verifie le nom et compatible et qui n'existe pas deja
 						if(!eff){
 							$.alert('write a description');
@@ -860,11 +861,11 @@ class User_Interface{
 						}
 
 
-						//autres verification ? 
+						//autres verification ?
 
 						//affichage de l'effet dans le tableau + portable
 						UI.dispEffect(eff,dur,u_H,u_R,UI,n_camp,n_pl,bonus,malus);
-						
+
 
 					}
 
@@ -909,7 +910,7 @@ class User_Interface{
 			u_H = false;
 			u_R = true;}
 		else{
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');	
+			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
 			u_H = true;
 			u_R = false;}
 
@@ -934,10 +935,10 @@ class User_Interface{
 
 
 
-			} 
+			}
 	}
 
-						
+
 
 	}
 
@@ -972,7 +973,7 @@ class User_Interface{
 			}
 		}
 
-	
+
 	else if(stat == "PV-"){
 
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
@@ -987,10 +988,10 @@ class User_Interface{
 
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
-				
+
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
-				
+
 				//incrementation sur le téléphone
 				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
 
@@ -1013,10 +1014,10 @@ class User_Interface{
 
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
-				
+
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
-				
+
 				//incrementation sur le téléphone
 				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
 				}
@@ -1037,22 +1038,22 @@ class User_Interface{
 
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
-				
+
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
-				
+
 				//incrementation sur le téléphone
 				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
 
 				}
-			}	
-		}	 	
+			}
+		}
 }
 
 
 
 
-		
+
 
 	CampagneTest(name){
 
