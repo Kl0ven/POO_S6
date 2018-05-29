@@ -226,8 +226,8 @@ class User_Interface{
 				'<div class = FighterList>' +
 				'<div class = btn_next_turn>'+
 				'<div class = btn_start_fight>'+
-				
-				
+
+
 				'</div>'+
 			'</div>'+
 			'</div>'+
@@ -252,7 +252,7 @@ class User_Interface{
 		new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
 
 
-		
+
 
 
 		//Affiche uniquement la vue qui vient d'être créée
@@ -379,7 +379,7 @@ class User_Interface{
 
 		$("#descs").empty();
 
-		$("#display_players").empty();		
+		$("#display_players").empty();
 	}
 
 	displayCampButton(name){
@@ -400,7 +400,7 @@ class User_Interface{
 		this.btnHandler("init",["header","footer","histoire"]);
 
 	}
- 
+
 	delCamp(name){
 		this.app_PC.DeleteCampaign(name);
 	}
@@ -509,7 +509,7 @@ class User_Interface{
 												nom: $(initiative[i]).attr("id"),
 												active: (i == 0)? true:false}
 									UI.app_PC.campaigns[UI.getCampaignName()].FightList.push(tableau);
-									
+
 								}
 
 								//algorithme de tri
@@ -523,18 +523,18 @@ class User_Interface{
 								//on supprime le bouton de démarrage de combat
 								$(".btn_start_fight").remove();
 								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
-								
+
 								console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
 								//bouton tour suivant
 								UI.setStartBtn();
-								
+
 															//méthode tour suivant
-								
-					
+
+
 								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
-						
+
 								}
 								//if(!name){
 								//	$.alert('provide a valid name');
@@ -575,44 +575,44 @@ class User_Interface{
 	DisplayPlayers(FightList){
 		for (var i = 0; i < FightList.length; i++){
 
-			$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+ 
+			$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+
 										//'<div class="w3-row">'+
 										//'<div class="w3-col w3-container" style="width:100%;">'+
 										'<div class = "n_player">'+FightList[i].nom+'</div>'+
 									'</div>'+
 								'</div>'+
-							'</div>');	
+							'</div>');
 			}
-		
-			
+
+
 	}
 
 	Next_Turn(){
-		
+
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
-		console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
+		for (var n in f) {
+			$("#div_"+f[n].nom+"").css("background-color","grey");
+		}
 		for (var i = 0; i < f.length; i++){
 			// console.log(FightList[i].active);
 			if (f[i].active == true){
 
 				$("#div_"+f[i].nom+"").css("background-color","green");
-				f[i].active =false;
+				f[i].active = false;
 				//console.log(FightList)
-				
+
 				if (typeof f[i+1] == "undefined"){
 				}
 				else {
 					f[i+1].active =true;
 				}
-			}
-			else {
-				$("#div_"+f[i].nom+"").css("background-color","w3-dark-grey");
-			
+				break;
 			}
 		}
-		
 
-		
+
+
 	}
 
 	getCampaignName(){
@@ -632,7 +632,7 @@ class User_Interface{
 	launchCamp(name){
 		this.app_PC.LaunchCampaign(name);
 		this.btnHandler("init",["launch"]);
-	
+
 	}
 
 	closeComm_return(){
@@ -647,17 +647,17 @@ class User_Interface{
 		//affichage des joueurs connecté dans l'onglet joueurs et de leurs carac modifiables
 		for (var i = 0 ; i <= this.app_PC.campaigns[name].players.length -1 ; i++){
 
-			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+ 
+			$("#display_players").append('<div id="div_'+this.app_PC.campaigns[name].players[i].infos.name +'" class = "w3-container w3-panel w3-border">'+
 										'<div class="w3-row">'+
 											'<div class="w3-col w3-container" style="width:15%;">'+
 												'<div class = "n_player">'+this.app_PC.campaigns[name].players[i].infos.name+'</div>'+
-											'</div>'+	
+											'</div>'+
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
       												'<div class = "btnmin"></div>'+
       												'<div class = "PV_player">PV: '+this.app_PC.campaigns[name].players[i].infos.PV+'</div>'+
       												'<div class = "btnplus"></div>'+
-      											'</div>'+	
+      											'</div>'+
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
       											'<div class = "btnmin"></div>'+
@@ -678,13 +678,13 @@ class User_Interface{
 								  '</div>');
 
 		}
-		
+
 		new PC_Button($(".btnmin"),"w3-button w3-round w3-blue","-",undefined);
 		new PC_Button($(".btnplus"),"w3-button w3-round w3-blue","+",undefined);
 
-		//Ajout bouton début combat 
-		
-		
+		//Ajout bouton début combat
+
+
 	}
 
 	CampagneTest(name){
