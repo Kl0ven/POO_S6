@@ -1,12 +1,14 @@
 
 
 class Campaign{
-	constructor(n,encounters = [],hour = "00h00",day = 1,story = "" ){
+	constructor(n,apc,encounters = [],hour = "00h00",day = 1,story = "" ){
 		this.resume = 0;
 		this.active = 0;
 		this.name = n;
 		this.launched = 0;
 		this.FightList = [];
+    this.app_PC = apc;
+
 
 
 		this.infos_campaign = {"name" : this.name,
@@ -20,27 +22,43 @@ class Campaign{
 
 
 		this.players_infos = {}; // liste d'objet JSON qui contient les infos de tous les joueurs
-		this.players = []; 		 // Liste de Players
+		this.players = []; 		 	// Liste de Players
 
 
 	}
-
+	isMonsterNameExist(name,rencontre){
+		for (var en in this.encounters) {
+			if(this.encounters[en].name == rencontre){
+				for (var m in this.encounters[en].monsters) {
+					if (this.encounters[en].monsters[m].getName() == name) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 	loadEncounters(es){
+
 		for (var enc in es) {
 			this.addEncounter(es[enc].name);
 
 			// ajout des description
 			for (var desc in es[enc].description) {
 				var d = es[enc].description[desc];
-				this.addDesc(es[enc].name,new Description($("#descs"),d.m,d.url))
+				this.addDesc(es[enc].name,new Description($("#descs"),es[enc].name,this.app_PC,d.m,d.url))
 			}
-			// c'est ici u'il faut charger les monstres
+			// chargement des monstres
+
+			for (var monst in es[enc].monsters) {
+				var d = es[enc].monsters[monst];
+				this.addMonster(es[enc].name,new Monster(d.name,d.PV,d.CA))
+			}
+
 		}
 
-
 	}
-
 
 
 	resumePlayer(inf,com){
@@ -58,13 +76,12 @@ class Campaign{
 	addEncounter(n){
 
 		var encounter = { name : n,
+
 						  monsters : [],
 							description : []
 						  }
-
 		this.encounters.push(encounter)
 
-		console.log(this.encounters)
 
 	}
 
@@ -77,20 +94,14 @@ class Campaign{
 
 	}
 
-	addMonster(encounter,name,pv,ca){
 
-    var size = this.encounters.length
-		console.log(size)
-
-		for (var i =0; i < size; i ++) {
-			if (this.encounters[i].name == encounter){
-
-				this.encounters[i].monsters.push( {"name" : name,
-						   			   			   PV : pv,
-						   			   	           CA : ca })
-				console.log(name)
+	addMonster(encounter,monst){
+		for (var d in this.encounters) {
+			if (this.encounters[d].name == encounter) {
+				this.encounters[d].monsters.push(monst);
 			}
 		}
+
 	}
 
 	saveCamp(hist){
@@ -172,6 +183,7 @@ class Campaign{
 	}
 
 	setDesc(rencontre){
+
 		this.hideAll();
 		for (var e in this.encounters) {
 			if(this.encounters[e].name == rencontre){
@@ -185,4 +197,3 @@ class Campaign{
 
 
 }
-
