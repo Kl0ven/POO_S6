@@ -715,6 +715,9 @@ class User_Interface{
 			'<label> Unité : </label></br>' +
 			'<input type="radio" name ="unit_H" class="unit_H form-control" >Heure<br>' +
 			'<input type="radio" name ="unit_R" class="unit_R form-control" >Round<br>'+
+			'<label> Type : </label></br>' +
+			'<input type="radio" name ="bonus" class="bonus form-control" >Bonus<br>' +
+			'<input type="radio" name ="malus" class="malus form-control" >Malus<br>'+
 			'</div>' +
 			'</form>',
 			buttons: {
@@ -728,6 +731,8 @@ class User_Interface{
 						var dur = this.$content.find('.duration').val();
 						var u_H = $('input[name="unit_H"]:checked').val();
 						var u_R = $('input[name="unit_R"]:checked').val();
+						var malus = $('input[name="malus"]:checked').val();
+						var bonus = $('input[name="bonus"]:checked').val();
 						// on verifie le nom et compatible et qui n'existe pas deja
 						if(!eff){
 							$.alert('write a description');
@@ -747,7 +752,7 @@ class User_Interface{
 						//autres verification ? 
 
 						//affichage de l'effet dans le tableau + portable
-						UI.dispEffect(eff,dur,u_H,u_R,UI,n_camp,n_pl)
+						UI.dispEffect(eff,dur,u_H,u_R,UI,n_camp,n_pl,bonus,malus);
 						
 
 					}
@@ -773,41 +778,54 @@ class User_Interface{
 
 
 
-	dispEffect(eff,dur,u_H,u_R,ui,n_camp,n_pl){
+	dispEffect(eff,dur,u_H,u_R,ui,n_camp,n_pl,bonus,malus){
+
+//couleur bonus malus
+		var color = "";
+		var boolcolor = 0;
+		if (bonus == undefined){
+			color = "#FF1A1A";//vert
+			boolcolor = 0; }
+		else{ color = "#66FF66" ;
+			boolcolor = 1;	} //rouge
+
+
 
 //affichage du tableau
 
 		if (u_H == undefined){
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td>'+eff+'</td>'+'<td>pendant '+dur+' rounds</td>'+'</tr>');
+			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
 			u_H = false;
 			u_R = true;}
 		else{
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td>'+eff+'</td>'+'<td>pendant '+dur+' heures</td>'+'</tr>');	
+			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');	
 			u_H = true;
 			u_R = false;}
 
 //instanciation de l'effet dans le joueur
 
-	var un = "";
+	var un = 0;
 	if (u_H==true){
-		un = "H"}
-	else{un = "R"}
+		un = 0}
+	else{un = 1} //unit = 0 : heures / unit = 1 : rounds
 
 	//création de l'objet effet
-	var effect = {
-		description : eff,
-		duration : dur,
-		unit : un,
-		alive : true 
-		}
+	var effect = new PC_Effet(eff,boolcolor,dur,un,undefined);
 
 	//ajout de l'effet dans la liste d'effets du joueur
 	for (var i = 0 ; i <= ui.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if(ui.app_PC.campaigns[n_camp].players[i].name == n_pl){
 
-			ui.app_PC.campaigns[n_camp].players[i].addEffect(effect)
+			ui.app_PC.campaigns[n_camp].players[i].addEffect(effect);
+
+			//affichage sur le portable
+			ui.app_PC.campaigns[n_camp].players[i].comm_handler.modEffect(effect);
+
+
+
 			} 
 	}
+
 						
 
 	}
