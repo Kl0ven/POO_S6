@@ -315,10 +315,12 @@ class User_Interface{
 							return false;
 						}
 						name = name.replace(/ /g,'-');
+						if (UI.app_PC.campaigns[UI.getCampaignName()].isMonsterNameExist(name,rencontre)) {
+							$.alert('provide another name');
+							return false;
+						}
 						UI.loadMonster(rencontre,name,PV,CA)
-
 						//Création du monstre
-
 						var m = new Monster(name,PV,CA);
 						UI.app_PC.campaigns[UI.getCampaignName()].addMonster(rencontre,m);
 
@@ -343,12 +345,30 @@ class User_Interface{
 
 	loadMonster(rencontre,name,PV,CA){
 			//Création du tableau
-		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ name + '</div> <div class="delMonster" id="delMonster'+name+'"></div></td>'));
-		this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
-		this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
-		new PC_Button($("#delMonster"+name),"","",()=>{this.code('t1','[g] [/g]')},"image",'./assets/fermer.png');
+		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td id="MonsterName'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ name + '</div> <div class="delMonster" id="delMonster'+name+rencontre+'"></div></td>'));
+		this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td id="MonsterPV'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
+		this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td id="MonsterCA'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
+		new PC_Button($("#delMonster"+name+rencontre),"","",()=>{this.delConfirm(name,()=>{this.delMonster(rencontre,name)})},"image",'./assets/fermer.png');
 	}
 
+	delMonster(rencontre,name){
+		var encounters = this.app_PC.campaigns[this.getCampaignName()].encounters;
+		for (var e in encounters) {
+			if (encounters[e].name == rencontre) {
+				var monster = encounters[e].monsters;
+				for (var m in monster) {
+					if (monster[m].name == name) {
+						this.app_PC.campaigns[this.getCampaignName()].encounters[e].monsters.splice(m,1);
+						$("#M_nom_"+rencontre+" #MonsterName"+name+rencontre).remove();
+						$("#M_PV_"+rencontre+" #MonsterPV"+name+rencontre).remove();
+						$("#M_CA_"+rencontre+" #MonsterCA"+name+rencontre).remove();
+					}
+				}
+			}
+		}
+
+
+	}
 	saveAndQuit(){
 
 		this.btnHandler("header",["init"]);
@@ -639,7 +659,7 @@ class User_Interface{
 			var pv_pl = this.app_PC.campaigns[n_camp].players[i].infos.PV;
 			var ca_pl = this.app_PC.campaigns[n_camp].players[i].infos.CA;
 
-			this.dispPlayers(n_pl,ca_pl,pv_pl,n_camp);		
+			this.dispPlayers(n_pl,ca_pl,pv_pl,n_camp);
 		}
 
 
@@ -649,17 +669,17 @@ class User_Interface{
 
 	dispPlayers(n_pl,ca_pl,pv_pl,n_camp){
 
-		$("#display_players").append('<div id="div_'+n_pl+'" class = "w3-container w3-panel w3-border">'+ 
+		$("#display_players").append('<div id="div_'+n_pl+'" class = "w3-container w3-panel w3-border">'+
 										'<div class="w3-row">'+
 											'<div class="w3-col w3-container" style="width:15%;">'+
 												'<div class = "n_player">'+n_pl+'</div>'+
-											'</div>'+	
+											'</div>'+
       										'<div class="w3-col w3-container" style="width:15%;">'+
       											'<div class = "grid">'+
       												'<div id = "btnminPV_'+n_pl+'" class = "btnmin"></div>'+
       												'<div id = "PV_'+n_pl+'" class = "PV_player">PV: '+pv_pl+'</div>'+
       												'<div id = "btnplusPV_'+n_pl+'"class = "btnplus"></div>'+
-      											'</div>'+	
+      											'</div>'+
       										'</div>'+
       										'<div class="w3-col w3-container" style="width:15%; display: grid;">'+
       											'<div id = "btnminCA_'+n_pl+'" class = "btnmin"></div>'+
@@ -705,7 +725,7 @@ class User_Interface{
 
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
-				
+
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				//incrementation sur le téléphone

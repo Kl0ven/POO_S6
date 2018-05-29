@@ -10,7 +10,9 @@ class Character{
 
 	}
 
-
+	getName(){
+		return this.name;
+	}
 	static generate_ID() {
 
     if( typeof Character.counter == 'undefined' ) {
@@ -20,4 +22,3 @@ class Character{
     return "Player" + Character.counter+"";
 	}
 }
-
