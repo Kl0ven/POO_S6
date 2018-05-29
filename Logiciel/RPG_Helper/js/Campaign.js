@@ -24,11 +24,13 @@ class Campaign{
 
 
 	}
-	isMonsterNameExist(name){
+	isMonsterNameExist(name,rencontre){
 		for (var en in this.encounters) {
-			for (var m in this.encounters[en].monsters) {
-				if (this.encounters[en].monsters[m].getName() == name) {
-					return true;
+			if(this.encounters[en].name == rencontre){
+				for (var m in this.encounters[en].monsters) {
+					if (this.encounters[en].monsters[m].getName() == name) {
+						return true;
+					}
 				}
 			}
 		}

@@ -315,7 +315,7 @@ class User_Interface{
 							return false;
 						}
 						name = name.replace(/ /g,'-');
-						if (UI.app_PC.campaigns[UI.getCampaignName()].isMonsterNameExist(name)) {
+						if (UI.app_PC.campaigns[UI.getCampaignName()].isMonsterNameExist(name,rencontre)) {
 							$.alert('provide another name');
 							return false;
 						}
@@ -345,10 +345,10 @@ class User_Interface{
 
 	loadMonster(rencontre,name,PV,CA){
 			//Création du tableau
-		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td id="MonsterName'+name+'" class = "w3-center"> <div contenteditable="">'+ name + '</div> <div class="delMonster" id="delMonster'+name+'"></div></td>'));
-		this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td id="MonsterPV'+name+'" class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
-		this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td id="MonsterCA'+name+'" class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
-		new PC_Button($("#delMonster"+name),"","",()=>{this.delMonster(rencontre,name)},"image",'./assets/fermer.png');
+		this.view[rencontre].addElem($("#M_nom_"+rencontre).append('<td id="MonsterName'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ name + '</div> <div class="delMonster" id="delMonster'+name+rencontre+'"></div></td>'));
+		this.view[rencontre].addElem($("#M_PV_"+rencontre).append('<td id="MonsterPV'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ PV +'</div></td>'));
+		this.view[rencontre].addElem($("#M_CA_"+rencontre).append('<td id="MonsterCA'+name+rencontre+'" class = "w3-center"> <div contenteditable="">'+ CA +'</div></td>'));
+		new PC_Button($("#delMonster"+name+rencontre),"","",()=>{this.delConfirm(name,()=>{this.delMonster(rencontre,name)})},"image",'./assets/fermer.png');
 	}
 
 	delMonster(rencontre,name){
@@ -359,9 +359,9 @@ class User_Interface{
 				for (var m in monster) {
 					if (monster[m].name == name) {
 						this.app_PC.campaigns[this.getCampaignName()].encounters[e].monsters.splice(m,1);
-						$("#M_nom_"+rencontre+" #MonsterName"+name).remove();
-						$("#M_PV_"+rencontre+" #MonsterPV"+name).remove();
-						$("#M_CA_"+rencontre+" #MonsterCA"+name).remove();
+						$("#M_nom_"+rencontre+" #MonsterName"+name+rencontre).remove();
+						$("#M_PV_"+rencontre+" #MonsterPV"+name+rencontre).remove();
+						$("#M_CA_"+rencontre+" #MonsterCA"+name+rencontre).remove();
 					}
 				}
 			}
