@@ -222,9 +222,12 @@ class User_Interface{
 			'</div>'+
 
 			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
-			'<p> Joueurs </p>' +
-				'<div class = btn_start_fight>'+
+			'<p> Combattants </p>' +
 				'<div class = FighterList>' +
+				'<div class = btn_next_turn>'+
+				'<div class = btn_start_fight>'+
+				
+				
 				'</div>'+
 			'</div>'+
 			'</div>'+
@@ -471,7 +474,7 @@ class User_Interface{
 		var idPlayers = [];
 		var labandinput=''
 		//console.log(this.app_PC.campaigns[name].players.length)
-		for (var i = 0; i < this.app_PC.campaigns[name].players.length; i++){// Pour chaque joueur, on donne son jet d'initiative
+		for (var i = 0; i < (this.app_PC.campaigns[name].players.length /*+this.app_PC.campaigns[name].encounters.length*/); i++){// Pour chaque joueur, on donne son jet d'initiative
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
 			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
@@ -498,48 +501,36 @@ class User_Interface{
 							text: 'Valider',
 							btnClass: 'btn-green',
 							action: function () {
-								var FightList = [];
 								//on met l'intitiative et les noms de chaque joueurs dans un tableau
 								var initiative = this.$content.find('.initiative');
 								for (var i = 0; i < initiative.length; i++){
-									var tableau= { id: $(initiative[i]).val(),
-												nom: $(initiative[i]).attr("id")};
-									FightList.push(tableau);
-									//console.log(tableau)
 
-
-
-									//$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
+									var tableau= { init: $(initiative[i]).val(),
+												nom: $(initiative[i]).attr("id"),
+												active: (i == 0)? true:false}
+									UI.app_PC.campaigns[UI.getCampaignName()].FightList.push(tableau);
 									
-									//tableau.nom.sort(function(a, b){return a-b});
 								}
 
 								//algorithme de tri
-								FightList.sort(function(a,b){
-									return b.id - a.id;
+								UI.app_PC.campaigns[UI.getCampaignName()].FightList.sort(function(a,b){
+									return b.init - a.init;
 								});
 
 								//on retourne dans l'interface les noms triés dans le bon ordre
+								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList);
 
-								//UI.DisplayPlayers(initiative);
-								for (var i = 0; i < initiative.length; i++){
-
-									//$(".FighterList").append('<div id="div' + FightList[i].nom'> + "'+ FightList[i].nom+'"</div>');
-									//$(".FighterList").append('<div> "'+ FightList[i].nom+'"</div>');
-									$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel w3-border">'+ 
-															'<div class="w3-row">'+
-																'<div class="w3-col w3-container" style="width:100%;">'+
-																	'<div class = "n_player">'+FightList[i].nom+'</div>'+
-																'</div>'+
-															'</div>'+
-								  '</div>');	
-								}
-
-
-	
+								//on supprime le bouton de démarrage de combat
+								$(".btn_start_fight").remove();
+								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
 								
+								console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
+								//bouton tour suivant
+								UI.setStartBtn();
 								
-								//console.log(initiative)
+															//méthode tour suivant
+								
+					
 								if(!initiative){
 									$.alert('provide a valid name');
 									return false;
@@ -560,13 +551,6 @@ class User_Interface{
 
 								}*/
 
-
-								
-								//UI.view[rencontre].addElem($("#FighterList"+rencontre).append('<td class = "w3-center"> <div contenteditable="">'+ rencontre + '</div></td>'));
-								
-
-								
-
 							}
 						},
 						cancel: function () {
@@ -585,9 +569,51 @@ class User_Interface{
 				});
 			}
 
-	
+	setStartBtn() {
+		new PC_Button($(".btn_next_turn"),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
+	}
+	DisplayPlayers(FightList){
+		for (var i = 0; i < FightList.length; i++){
 
-	
+			$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+ 
+										//'<div class="w3-row">'+
+										//'<div class="w3-col w3-container" style="width:100%;">'+
+										'<div class = "n_player">'+FightList[i].nom+'</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>');	
+			}
+		
+			
+	}
+
+	Next_Turn(){
+		
+		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
+		console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
+		for (var i = 0; i < f.length; i++){
+			// console.log(FightList[i].active);
+			if (f[i].active == true){
+
+				$("#div_"+f[i].nom+"").css("background-color","green");
+				f[i].active =false;
+				//console.log(FightList)
+				
+				if (typeof f[i+1] == "undefined"){
+				}
+				else {
+					f[i+1].active =true;
+				}
+			}
+			else {
+				$("#div_"+f[i].nom+"").css("background-color","w3-dark-grey");
+			
+			}
+		}
+		
+
+		
+	}
 
 	getCampaignName(){
 		var that = this;

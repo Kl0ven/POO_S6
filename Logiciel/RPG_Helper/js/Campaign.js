@@ -6,6 +6,7 @@ class Campaign{
 		this.active = 0;
 		this.name = n;
 		this.launched = 0;
+		this.FightList = [];
 
 
 		this.infos_campaign = {"name" : this.name,
@@ -87,6 +88,7 @@ class Campaign{
 				this.encounters[i].monsters.push( {"name" : name,
 						   			   			   PV : pv,
 						   			   	           CA : ca })
+				console.log(name)
 			}
 		}
 	}

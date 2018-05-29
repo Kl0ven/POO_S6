@@ -21,14 +21,17 @@
 	text-align: center;
 }
 
-#display_players{
-	
+#players_turn{
+	height:500px;
 }
 
 .btn_start_fight{
 	bottom : 0;
 }
 
+.btn_next_turn{
+	bottom:0;
+}
 
 .n_player{
 	text-align: center;
@@ -237,4 +240,9 @@ height: 300px;
 
 .zede{
 	    max-height: 231px;
+}
+
+
+p{
+	font-size:25px;
 }
