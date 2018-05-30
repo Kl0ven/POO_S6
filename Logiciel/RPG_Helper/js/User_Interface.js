@@ -711,7 +711,8 @@ class User_Interface{
 		for (var k in p){//on parcoure tous les joueurs
 			for(var j=0; j <= p[k].effects.length - 1 ;j++){ // On parcoure les effets de chaque joueur
 			 			if (p[k].effects[j].live(true,1) == false){ //on apelle live, si l'effet "meurt" on le suppprime
-			 				p[k].effects.splice(j,1);
+			 				this.delEffet(this.getCampaignName(),p[k].name,p[k].effects[j].desc);
+
 			 			}
 
 			 }
@@ -917,10 +918,10 @@ class User_Interface{
 //affichage du tableau
 
 		if (u_H == 'unit_R'){
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
+			$("#tab_effects_"+n_pl).append('<tr id ="#effect_'+eff+'" >'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
 			u_H = false;}
 		else{
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
+			$("#tab_effects_"+n_pl).append('<tr id ="#effect_'+eff+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
 			u_H = true;}
 
 //instanciation de l'effet dans le joueur
@@ -949,6 +950,27 @@ class User_Interface{
 
 
 
+	}
+
+	delEffet(n_camp,n_pl,eff){
+		console.log('entrée');
+				for(var j =0; j<= this.app_PC.campaigns[n_camp].players.length -1; j++){
+					if(this.app_PC.campaigns[n_camp].players[j].name == n_pl){
+						for(var k =0; k<= this.app_PC.campaigns[n_camp].players[j].effects.length -1; k++ ){
+							if(this.app_PC.campaigns[n_camp].players[j].effects[k].desc == eff){
+								var idj = this.app_PC.campaigns[n_camp].players[j].id;
+								console.log(idj);
+								console.log("#tab_effects_"+n_pl+" #effect_"+eff);
+								this.app_PC.campaigns[n_camp].players[j].effects.splice(k,1);
+								console.log(this.app_PC.campaigns[n_camp].players[j].effects);
+								$("#tab_effects_"+n_pl+" #effect_"+eff).remove();
+							}
+						}
+					}
+				}
+
+
+					
 	}
 
 
