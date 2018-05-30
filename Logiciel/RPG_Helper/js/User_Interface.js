@@ -864,7 +864,8 @@ class User_Interface{
 						//autres verification ?
 
 						//affichage de l'effet dans le tableau + portable
-						UI.dispEffect(eff,dur,u_H,u_R,UI,n_camp,n_pl,bonus,malus);
+						console.log(UI.app_PC);
+						UI.dispEffect(eff,dur,u_H,UI,n_camp,n_pl,bonus);
 
 
 					}
@@ -890,12 +891,12 @@ class User_Interface{
 
 
 
-	dispEffect(eff,dur,u_H,u_R,ui,n_camp,n_pl,bonus,malus){
+	dispEffect(eff,dur,u_H,ui,n_camp,n_pl,bonus){
 
 //couleur bonus malus
 		var color = "";
 		var boolcolor = 0;
-		if (bonus == undefined){
+		if (bonus == 'malus'){
 			color = "#FF1A1A";//vert
 			boolcolor = 0; }
 		else{ color = "#66FF66" ;
@@ -905,14 +906,12 @@ class User_Interface{
 
 //affichage du tableau
 
-		if (u_H == undefined){
+		if (u_H == 'unit_R'){
 			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
-			u_H = false;
-			u_R = true;}
+			u_H = false;}
 		else{
 			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
-			u_H = true;
-			u_R = false;}
+			u_H = true;}
 
 //instanciation de l'effet dans le joueur
 
