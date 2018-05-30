@@ -687,6 +687,7 @@ class User_Interface{
 	Next_Turn(){
 
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
+		var p = this.app_PC.campaigns[this.getCampaignName()].players;
 		//console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
 		for (var n in f) {
 			$("#div_"+f[n].nom+"").css("background-color","grey");
@@ -707,6 +708,15 @@ class User_Interface{
 				break;
 			}
 		}
+		for (var k in p){//on parcoure tous les joueurs
+			for(var j=0; j <= p[k].effects.length - 1 ;j++){ // On parcoure les effets de chaque joueur
+			 			if (p[k].effects[j].live(true,1) == false){ //on apelle live, si l'effet "meurt" on le suppprime
+			 				p[k].effects.splice(j,1);
+			 			}
+
+			 }
+		}
+		
 
 
 
@@ -864,7 +874,6 @@ class User_Interface{
 						//autres verification ?
 
 						//affichage de l'effet dans le tableau + portable
-						console.log(UI.app_PC);
 						UI.dispEffect(eff,dur,u_H,UI,n_camp,n_pl,bonus);
 
 
@@ -892,15 +901,16 @@ class User_Interface{
 
 
 	dispEffect(eff,dur,u_H,ui,n_camp,n_pl,bonus){
+		console.log(bonus);
 
 //couleur bonus malus
 		var color = "";
 		var boolcolor = 0;
 		if (bonus == 'malus'){
-			color = "#FF1A1A";//vert
+			color = "#FF1A1A";//rouge
 			boolcolor = 0; }
 		else{ color = "#66FF66" ;
-			boolcolor = 1;	} //rouge
+			boolcolor = 1;	} //vert
 
 
 
