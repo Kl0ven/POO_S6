@@ -687,6 +687,7 @@ class User_Interface{
 	Next_Turn(){
 
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
+		var p = this.app_PC.campaigns[this.getCampaignName()].players;
 		//console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
 		for (var n in f) {
 			$("#div_"+f[n].nom+"").css("background-color","grey");
@@ -707,6 +708,16 @@ class User_Interface{
 				break;
 			}
 		}
+		for (var k in p){//on parcoure tous les joueurs
+			for(var j=0; j <= p[k].effects.length - 1 ;j++){ // On parcoure les effets de chaque joueur
+			 			if (p[k].effects[j].live(true,1) == false){ //on apelle live, si l'effet "meurt" on le suppprime
+			 				this.delEffet(this.getCampaignName(),p[k].name,p[k].effects[j].desc);
+
+			 			}
+
+			 }
+		}
+		
 
 
 
@@ -864,7 +875,7 @@ class User_Interface{
 						//autres verification ?
 
 						//affichage de l'effet dans le tableau + portable
-						UI.dispEffect(eff,dur,u_H,u_R,UI,n_camp,n_pl,bonus,malus);
+						UI.dispEffect(eff,dur,u_H,UI,n_camp,n_pl,bonus);
 
 
 					}
@@ -890,29 +901,28 @@ class User_Interface{
 
 
 
-	dispEffect(eff,dur,u_H,u_R,ui,n_camp,n_pl,bonus,malus){
+	dispEffect(eff,dur,u_H,ui,n_camp,n_pl,bonus){
+		console.log(bonus);
 
 //couleur bonus malus
 		var color = "";
 		var boolcolor = 0;
-		if (bonus == undefined){
-			color = "#FF1A1A";//vert
+		if (bonus == 'malus'){
+			color = "#FF1A1A";//rouge
 			boolcolor = 0; }
 		else{ color = "#66FF66" ;
-			boolcolor = 1;	} //rouge
+			boolcolor = 1;	} //vert
 
 
 
 //affichage du tableau
 
-		if (u_H == undefined){
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
-			u_H = false;
-			u_R = true;}
+		if (u_H == 'unit_R'){
+			$("#tab_effects_"+n_pl).append('<tr id ="#effect_'+eff+'" >'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+'</tr>');
+			u_H = false;}
 		else{
-			$("#tab_effects_"+n_pl).append('<tr>'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
-			u_H = true;
-			u_R = false;}
+			$("#tab_effects_"+n_pl).append('<tr id ="#effect_'+eff+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'</tr>');
+			u_H = true;}
 
 //instanciation de l'effet dans le joueur
 
@@ -940,6 +950,27 @@ class User_Interface{
 
 
 
+	}
+
+	delEffet(n_camp,n_pl,eff){
+		console.log('entrée');
+				for(var j =0; j<= this.app_PC.campaigns[n_camp].players.length -1; j++){
+					if(this.app_PC.campaigns[n_camp].players[j].name == n_pl){
+						for(var k =0; k<= this.app_PC.campaigns[n_camp].players[j].effects.length -1; k++ ){
+							if(this.app_PC.campaigns[n_camp].players[j].effects[k].desc == eff){
+								var idj = this.app_PC.campaigns[n_camp].players[j].id;
+								console.log(idj);
+								console.log("#tab_effects_"+n_pl+" #effect_"+eff);
+								this.app_PC.campaigns[n_camp].players[j].effects.splice(k,1);
+								console.log(this.app_PC.campaigns[n_camp].players[j].effects);
+								$("#tab_effects_"+n_pl+" #effect_"+eff).remove();
+							}
+						}
+					}
+				}
+
+
+					
 	}
 
 

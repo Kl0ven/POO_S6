@@ -6,7 +6,6 @@ class Character{
 	this.image = undefined;
 	this.initiative = undefined;
 
-	this.pc_effect = [];
 
 	}
 

@@ -1,10 +1,10 @@
 class PC_Effet {
-	constructor(desc,malus,duration,unit,player,rtH = 0,htR =Infinity){
+	constructor(desc,bonus,duration,unit,player,rtH = 0,htR =Infinity){
 		this.id=PC_Effet.generate_ID();
 		this.rtH = rtH;
 		this.htR = htR;
 		this.desc = desc;
-		this.malus = malus;
+		this.bonus = bonus;
 		this.duration = duration;
 		this.unit = unit;
 		this.player = player;
@@ -43,8 +43,9 @@ class PC_Effet {
 			}
 		}
 		if (this.duration <= 0) { //Si la durée est inférieure ou égale à 0, il faut détruire l'effet
-			screenlog("turquoise","EFFET DETRUIT")
+			return false;
 		}
+		return true;
 
 	}
 	apply(qte){
