@@ -857,7 +857,7 @@ class User_Interface{
 						var u_H = $('input[name="unit_H"]:checked').val();
 						console.log(u_H);
 						var bonus = $('input[name="bonus"]:checked').val();
-						console.log(bonus);
+						//console.log(bonus);
 						// retunr bonus ou malus !!!!
 						// on verifie le nom et compatible et qui n'existe pas deja
 						if(!eff){
@@ -875,7 +875,7 @@ class User_Interface{
 						}
 
 
-						//autres verification ?
+						
 
 						//affichage de l'effet dans le tableau + portable
 						UI.dispEffect(eff,dur,u_H,UI,n_camp,n_pl,bonus);
@@ -903,7 +903,38 @@ class User_Interface{
 
 
 
-	liveEffect(){
+	liveEffect(n_camp,in_fight,unit,qte){
+
+		console.log('coucou');
+
+		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
+
+			for(var j =0; j<= this.app_PC.campaigns[n_camp].players[i].effects.length -1; j++ ){
+
+				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
+
+				//unit = 0 => heures 
+				if (unit == 0){
+
+					var newdur = effect.duration - qte;
+					effect.duration = newdur;
+
+					$("#dur_"+effect.id).text('pendant '+ newdur +' heures');
+
+					//delete effect
+					if (effect.duration == 0 ){
+						this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
+					}
+
+				}
+
+				//unit = 1 => rounds
+
+
+
+			}
+
+		}
 
 	}
 
@@ -928,7 +959,7 @@ class User_Interface{
 
 //instanciation de l'effet dans le joueur
 	var un = 0;
-	if (u_H==true){
+	if (u_H=="unit_H"){
 		un = 0}
 	else{un = 1} //unit = 0 : heures / unit = 1 : rounds
 
@@ -939,7 +970,7 @@ class User_Interface{
 
 //affichage du tableau
 
-		if (u_H == 'unit_R'){
+		if (effect.unit == 1){
 			$("#tab_effects_"+n_pl).append('<tr id ="'+effect.id+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td id = "dur_'+effect.id+'" style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+ '<td id ="btn_'+effect.id+'" style ="background-color : '+color+'"></td> </tr>');
 			u_H = false;}
 		else{
