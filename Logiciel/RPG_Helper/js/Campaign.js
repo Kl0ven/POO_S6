@@ -1,8 +1,7 @@
 
 
 class Campaign{
-	constructor(n,apc,encounters = [],hour = "00h00",day = 1,story = "" ){
-		this.resume = 0;
+	constructor(n,apc,r,encounters = [],hour = "00h00",day = 1,story = "" ){
 		this.active = 0;
 		this.name = n;
 		this.launched = 0;
@@ -12,10 +11,11 @@ class Campaign{
 
 
 		this.infos_campaign = {"name" : this.name,
-							   "encounters" : undefined,
-                          	   "hour":hour,
-                          	   "day": day,
-                          	   "story": story
+							   					"encounters" : undefined,
+                          "hour":hour,
+                          "day": day,
+                          "story": story,
+													"resume":r
                           };
 		this.encounters = [];
 		this.loadEncounters(encounters);
@@ -115,7 +115,12 @@ class Campaign{
 		}
 		  // Création d'un fichier JSON campagne
 		var file = './save/' + this.name + '/' + this.name +'.json'
-
+		if (this.launched) {
+			this.infos_campaign.resume = true;
+			for (var p in this.players) {
+				this.players[p].save();
+			}
+		}
 
 		  // Ecriture dans le fichier JSON des infos
 		this.infos_campaign.story = hist;
@@ -136,18 +141,18 @@ class Campaign{
 			})
 		}
 		this.infos_campaign.encounters = encountersSave;
-		var infos = this.infos_campaign;
-		jsonfile.writeFile(file,infos);
+		jsonfile.writeFile(file,this.infos_campaign);
+
 
 	}
 
-	savePlayer(p){
-		//Creation du fichier JSON du joueur
-		var file = './save/' + this.name + '/' + p.infos.name + '.json'
+	savePlayer(data){
 
+		//Creation du fichier JSON du joueur
+		console.log(data);
+		var file = './save/' + this.name + '/' + data.cara.name + '.json'
 		//Ecriture des infos dans le fichier
-		var infos = p.getInfos()
-		jsonfile.writeFile(file,infos)
+		jsonfile.writeFile(file,data)
 	}
 
 	modhour(qte){
@@ -195,5 +200,7 @@ class Campaign{
 
 	}
 
-
+is_resume(){
+	return this.infos_campaign.resume;
+}
 }

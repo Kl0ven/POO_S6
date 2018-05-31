@@ -35,7 +35,7 @@ class App_PC{
 
 	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
 	//console.log(camp.encounters);
-	this.campaigns[name] = new Campaign(name,this,camp.encounters,camp.hour,camp.day,camp.story);
+	this.campaigns[name] = new Campaign(name,this,camp.resume,camp.encounters,camp.hour,camp.day,camp.story);
 
 }
 	LaunchCampaign(Name){
@@ -44,7 +44,7 @@ class App_PC{
 		this.campaigns[Name].active = 1;
 
 		// resume == 0
-		if (this.campaigns[Name].resume == 0) {
+		if (this.campaigns[Name].is_resume() == 0) {
 			this.comm = new Communication (this);
 			this.comm.openCom(undefined,0,Name);
 
@@ -67,7 +67,7 @@ class App_PC{
 
 
 	AddCampaign(Name){
-		this.campaigns[Name] = new Campaign(Name,this);
+		this.campaigns[Name] = new Campaign(Name,this,0);
 
 	}
 
