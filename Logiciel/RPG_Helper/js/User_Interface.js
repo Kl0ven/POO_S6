@@ -717,7 +717,7 @@ class User_Interface{
 
 			 }
 		}
-		
+
 
 
 
@@ -941,7 +941,10 @@ class User_Interface{
 			ui.app_PC.campaigns[n_camp].players[i].addEffect(effect);
 
 			//affichage sur le portable
-			ui.app_PC.campaigns[n_camp].players[i].comm_handler.modEffect(effect);
+			if(typeof ui.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
+				ui.app_PC.campaigns[n_camp].players[i].comm_handler.modEffect(effect);
+			}
+
 
 
 
@@ -970,7 +973,7 @@ class User_Interface{
 				}
 
 
-					
+
 	}
 
 
@@ -996,8 +999,10 @@ class User_Interface{
 
 
 				//incrementation sur le téléphone
+				if(typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				}
 
-				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
 
 
 				}
@@ -1024,7 +1029,10 @@ class User_Interface{
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
 
 				//incrementation sur le téléphone
-				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				if(typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				}
+
 
 				}
 			}
@@ -1050,7 +1058,9 @@ class User_Interface{
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
 
 				//incrementation sur le téléphone
-				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				if(typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				}
 				}
 			}
 	}
@@ -1074,7 +1084,9 @@ class User_Interface{
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
 
 				//incrementation sur le téléphone
-				this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				if(typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.modCar(this.app_PC.campaigns[n_camp].players[i].infos.PV,this.app_PC.campaigns[n_camp].players[i].infos.CA);
+				}
 
 				}
 			}
