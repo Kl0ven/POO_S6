@@ -22,18 +22,12 @@
 }
 
 
-#players_turn{
+
+
+.tours_combat{
 	height:500px;
-
 }
 
-.btn_start_fight{
-	bottom : 0;
-}
-
-
-.btn_next_turn{
-	bottom:0;
 }
 hr{
 	border: 10px;

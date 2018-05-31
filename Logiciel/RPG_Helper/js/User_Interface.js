@@ -226,16 +226,14 @@ class User_Interface{
 			'<div class="w3-col" id = "btn_add_M_' + name + '"  style="width:3%">'+
 			'</div>'+
 
-			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
+			'<div id = "players_turn'+name+'" class="w3-col w3-dark-grey w3-center tours_combat" style="width:22%"">' +
 			'<p> Combattants </p>' +
-				'<div class = "FighterList">' +
-				'<div class = "btn_next_turn">'+
-				'<div id = "btn_start_fight'+name+'">'+
+				'<div id = "btn_next_turn'+name + '"></div>' +
+				'<div id = "FighterList'+ name + '"></div>' +
+				'<div id = "btn_start_fight'+name+'"></div>' +
+				'<div id = "btn_end_fight' +name+'"></div>' +
 
 
-				'</div>'+
-			'</div>'+
-			'</div>'+
 			'</div>'+
 			'<div class="w3-col" id = "btn_desc_M_' + name + '"></div>'
 		));
@@ -256,7 +254,28 @@ class User_Interface{
 		this.view.combats.addElem(new PC_Button($("#rencontres"),"w3-button w3-round w3-blue rencontre",name,() => {this.btnHandler("combats",["header","footer","combats",name],nb);}));
 
 
-		new PC_Button($("#btn_start_fight"+name),"w3-button w3-round w3-blue","Démarrer Combat",()=>{this.startFight(this.getCampaignName(),name);});
+		new PC_Button($("#btn_start_fight"+name),"w3-button w3-round w3-blue","Démarrer Combat",()=>{
+			if (this.app_PC.campaigns[this.getCampaignName()].InFight==0){
+				this.startFight(this.getCampaignName(),name);
+			}
+			else {
+				$.alert({
+    title: 'Un Combat est déjà en cours !',
+		type: 'purple',
+		theme: 'material',
+		boxWidth: '80%',
+		useBootstrap: false,
+
+    content: '<ul>'
+  						
+});
+				console.log('pédé');
+			}
+
+
+
+
+		});
 
 
 
@@ -563,7 +582,7 @@ class User_Interface{
 
 
 	startFight(name,rencontre){
-		console.log(name)
+		//console.log(name)
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
 		var idPlayers = [];
@@ -613,17 +632,19 @@ class User_Interface{
 								});
 
 								//on retourne dans l'interface les noms triés dans le bon ordre
-								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList);
+								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList,rencontre);
 
 								//on supprime le bouton de démarrage de combat
 								$("#btn_start_fight"+rencontre).remove();
 								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
 
-								console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
+								//console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
 								//bouton tour suivant
-								UI.setStartBtn();
+								UI.setStartBtn(rencontre);
 
-															//méthode tour suivant
+								//faire bouton fin combat
+								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
+								
 
 
 								if(!initiative){
@@ -666,21 +687,69 @@ class User_Interface{
 				});
 			}
 
-	setStartBtn() {
-		new PC_Button($(".btn_next_turn"),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
+	setStartBtn(rencontre) {
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
+			//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
+			
+			}
+		else  {
+
+			$.alert({
+    			title: 'Un autre combat est déjà en cours !',
+				type: 'purple',
+				theme: 'material',
+				boxWidth: '50%',
+				useBootstrap: false,
+
+    			content: '<ul>',
+  						
+});
+		}
+		this.app_PC.campaigns[this.getCampaignName()].InFight=1;	
 	}
-	DisplayPlayers(FightList){
+	
+
+	EndFight(rencontre){
+		this.delConfirm('le combat',()=>{this.DelFight(rencontre);});
+		// vide la liste
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
+		/*this.app_PC.campaigns[this.getCampaignName()].FightList = [];
+		//console.log((this.app_PC.campaigns[this.getCampaignName()].FightList));
+		this.app_PC.campaigns[this.getCampaignName()].InFight=0;
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
+		$("#FighterList"+rencontre).empty();
+		$("#btn_next_turn"+rencontre).empty();
+		$("#btn_end_fight"+rencontre).empty();
+		*/
+	}
+
+
+	DelFight(rencontre){
+		this.app_PC.campaigns[this.getCampaignName()].FightList = [];
+		//console.log((this.app_PC.campaigns[this.getCampaignName()].FightList));
+		this.app_PC.campaigns[this.getCampaignName()].InFight=0;
+		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
+		$("#FighterList"+rencontre).empty();
+		$("#btn_next_turn"+rencontre).empty();
+		$("#btn_end_fight"+rencontre).empty();
+	}
+
+	DisplayPlayers(FightList,rencontre){
+		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
 		for (var i = 0; i < FightList.length; i++){
 
-			$(".FighterList").append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+
+			$("#FighterList"+rencontre).append('<div id="div_'+FightList[i].nom +'" class = "w3-container w3-panel ">'+
 										//'<div class="w3-row">'+
 										//'<div class="w3-col w3-container" style="width:100%;">'+
-										'<div class = "n_player">'+FightList[i].nom+'</div>'+
+										'<div id = "n_player">'+FightList[i].nom+'</div>'+
 									'</div>'+
 								'</div>'+
 							'</div>');
 			}
-
+		// au display, le joueur avec le + d'initiative est en vert
+		$("#div_"+f[0].nom+"").css("background-color","green");
 
 	}
 
@@ -701,6 +770,7 @@ class User_Interface{
 				//console.log(FightList)
 
 				if (typeof f[i+1] == "undefined"){
+					f[0].active = true;
 				}
 				else {
 					f[i+1].active =true;

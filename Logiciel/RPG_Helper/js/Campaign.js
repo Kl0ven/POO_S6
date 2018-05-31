@@ -6,6 +6,7 @@ class Campaign{
 		this.name = n;
 		this.launched = 0;
 		this.FightList = [];
+		this.InFight = 0;
     this.app_PC = apc;
 
 
