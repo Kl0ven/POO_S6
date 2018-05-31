@@ -211,8 +211,8 @@ class User_Interface{
 			//UI.view[name].addElem(new TextArea($("#"+name),$("#"+name),undefined,5,30,undefined,undefined));
 
 			// Tableau des monstres et affichage principal
-			this.view[name].addElem($("#"+ name).append('<div class="w3-row">'+
-			'<div class="w3-col w3-light-grey" style="width:75%">'+
+			$("#"+ name).append('<div class="w3-row">'+
+			'<div class="w3-col w3-light-grey" style="width:74%">'+
 			'<div class="w3-responsive"'+
 			'<div class = "tab_monstre"> <table class="w3-table-all">' +
 			'<tr id = "M_nom_'+ name + '"> <th> <div> Monstres :</div></th> </tr>' +
@@ -226,7 +226,8 @@ class User_Interface{
 			'<div class="w3-col" id = "btn_add_M_' + name + '"  style="width:3%">'+
 			'</div>'+
 
-			'<div id = "players_turn" class="w3-col w3-dark-grey w3-center" style="width:22%"">' +
+			'<div id = "players_turn" class=" players_turn w3-col w3-dark-grey w3-center" style="width:22%"">' +
+			'<div id="inandout'+name+'" class="ino"></div>'+
 			'<p> Combattants </p>' +
 				'<div class = "FighterList">' +
 				'<div class = "btn_next_turn">'+
@@ -238,7 +239,9 @@ class User_Interface{
 			'</div>'+
 			'</div>'+
 			'<div class="w3-col" id = "btn_desc_M_' + name + '"></div>'
-		));
+		);
+		new PC_Button($("#inandout"+name),"w3-button w3-purple","<",() => {$("#players_turn").css("transform","translate(0%, 0px)")});
+		new PC_Button($("#inandout"+name),"w3-button w3-purple",">",() => {$("#players_turn").css("transform","translate(110%, 0px)")});
 
 
 		// Test rajout monstre
