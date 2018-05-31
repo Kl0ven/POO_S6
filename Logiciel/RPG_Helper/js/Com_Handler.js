@@ -6,6 +6,7 @@ class Com_Handler {
 		this.camp = camp;
 		this.setup();
 	}
+
 	playerConnection(pinfos,resume){
 		if (resume==0){
 			return this.getInfo();
@@ -36,6 +37,11 @@ class Com_Handler {
 
 	save(){
 		this.ws.send(JSON.stringify({"type" : "save","data": null}));
+	}
+
+	load(data){
+		this.ws.send(JSON.stringify({"type" : "load","data": data}));
+		$("#waiting_players").append('<div id ="'+data.cara.name+'">'+data.cara.name+'</div>');
 	}
 
 	getInfo() {
@@ -79,7 +85,7 @@ class Com_Handler {
 		}
 		else if(obj.type == "choicerep"){ //Si le joueur a choisi son nom
 			var name = obj.data; //On enregistre le nom
-			this.player.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
+			this.com.pc_app.campaigns[this.camp].resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 			}
 		else { //On veut sauvegarder le joueur
 			console.log("save");

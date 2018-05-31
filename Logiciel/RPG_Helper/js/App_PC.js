@@ -51,15 +51,18 @@ loadPlayer(camp,player){
 
 		//activation de la campagne
 		this.campaigns[Name].active = 1;
-
+		this.comm = new Communication (this);
 		// resume == 0
 		if (this.campaigns[Name].is_resume() == 0) {
-			this.comm = new Communication (this);
+
 			this.comm.openCom(undefined,0,Name);
 
+		}else{
+			//resume == 1
+			this.comm.openCom(this.campaigns[Name].getPlayersNames(),1,Name);
 		}
 
-		//resume == 1
+
 	}
 
 

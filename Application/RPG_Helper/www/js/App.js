@@ -220,6 +220,7 @@ class App {
   }
   loadGame(obj){
     this.cara = obj.cara;
+    this.update();
     this.UI.setTabs("competence",obj.comp);
     this.UI.setTabs("don",obj.dons);
     this.UI.setTabs("sort",obj.sorts);
