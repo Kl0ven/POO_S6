@@ -10,7 +10,7 @@ class Player extends Character{
 		PV : pv,
 		CA : ca
 	}
-	
+
 	this.effects = [];
 
 	this.comm_handler = comm_h;
@@ -23,9 +23,9 @@ class Player extends Character{
 	this.infos.PV = this.infos.PV + n;
 
 	}
-	
-	// envoyer changement a communication handler ? 
-	
+
+	// envoyer changement a communication handler ?
+
 
 	modCA(n){
 	this.infos.PV = this.infos.PV + n
@@ -46,16 +46,20 @@ class Player extends Character{
 	createPlayer(inf, t){
 	 	this.infos = inf
 	 	this.comm_handler = t
-	} 
+	}
 
 	resumePlayer(inf, t){
 	 	this.infos = inf
 	 	this.comm_handler = t
-	} 
+	}
 
 	sendInfos(){
 		this.comm_handler.modCar(this.infos.PV,this.infos.CA)
 
+	}
+
+	save(){
+		this.comm_handler.save();
 	}
 
 	//resumePlayer(name,t){  --> Le resumeplayer est géré par la Campagne
@@ -68,7 +72,7 @@ class Player extends Character{
 }
 
 /*
-_____________________________________________Tests 
+_____________________________________________Tests
  $(document).ready(function(){
 
  P1 = new Player('zangdar')

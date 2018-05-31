@@ -4,7 +4,7 @@ class Com_Handler {
 		this.ws = ws;
 		this.player = undefined;
 		this.camp = camp;
-		this.setup();	
+		this.setup();
 	}
 	playerConnection(pinfos,resume){
 		if (resume==0){
@@ -12,11 +12,11 @@ class Com_Handler {
 		}
 		else {
 			this.getName(pinfos);
-			
+
 		}
 	}
 
-	
+
 	modCar(pv,ca){
 
 		this.ws.send(JSON.stringify({"type": "cara","data": {"PV":pv,"CA":ca}}));
@@ -66,12 +66,12 @@ class Com_Handler {
 			var n_player = new Player(name,infos.cara.PV,infos.cara.CA,this);
 			//liaison au comm handler
 			this.player = n_player;
-		
+
 			//ajout du joueur a la campagne
 			this.com.pc_app.campaigns[this.camp].players.push(n_player)
 			//affichage du joueur
 			$("#waiting_players").append('<div id ="'+infos.cara.name+'">'+infos.cara.name+'</div>');
-			
+
 
 		}
 		else if(obj.type == "choicerep"){ //Si le joueur a choisi son nom
@@ -79,7 +79,8 @@ class Com_Handler {
 			this.player.campaign.resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 			}
 		else { //On veut sauvegarder le joueur
-			this.player.campaign.save(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
+			console.log("save");
+			this.com.pc_app.campaigns[this.camp].savePlayer(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
 
 			}
 		}
