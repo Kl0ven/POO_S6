@@ -68,19 +68,22 @@ class Effect {
     this.duration -= qte;
     // si l'effet est terminé on suprime l'element de DOM
     if(this.duration <=0){
-      $("#"+this.id).remove();
+      this.delEffect();
     // sinon on actualise la durée
     }else{
       $("#"+this.id+" .duration").text(this.duration);
     }
   }
 
+  delEffect(){
+    $("#"+this.id).remove();
+  }
   // retourn true si l'effet est terminé
   isDead(){
     return this.duration <= 0;
   }
 
-// methode statique qui retourne un id unique a chaque appele 
+// methode statique qui retourne un id unique a chaque appele
   static generate_ID() {
     if( typeof Effect.counter == 'undefined' ) {
         Effect.counter = -1;

@@ -211,6 +211,13 @@ class App {
     return info;
   }
 
+  deleffect(sd){
+    for (var e in this.effect) {
+      if (this.effect[e].description == sd) {
+          this.effect[e].delEffect()
+      }
+    }
+  }
   loadGame(obj){
     this.cara = obj.cara;
     this.UI.setTabs("competence",obj.comp);
