@@ -20,7 +20,12 @@ class App {
 
   //methode appelé au démarrage de l'application
   start(){
+    if (localStorage.getItem("ip") == null) {
+      localStorage.setItem("ip","")
+    }
+
     this.UI.showView("init");
+    this.UI.view['init'].getElem(1).setText(localStorage.getItem("ip"));
     //this.UI.showView("header").showView("main");
     //this.newGame();
     // handler pour la fleche de retour
@@ -100,6 +105,7 @@ class App {
     this.UI.view['init'].getElem(1).setText(ip);
     // si l'ip est valide on peut changer de vue et initaliser l'objet communication
     if(this.checkIP(ip)){
+      localStorage.setItem("ip", ip);
       this.UI.hideView("init");
       this.UI.showView("load");
       this.com = new Communication(ip,this,() =>{this.UI.hideView("load").showView("header").showView("main");});
@@ -219,6 +225,7 @@ class App {
     }
   }
   loadGame(obj){
+    this.UI.initUI();
     this.cara = obj.cara;
     this.update();
     this.UI.setTabs("competence",obj.comp);
