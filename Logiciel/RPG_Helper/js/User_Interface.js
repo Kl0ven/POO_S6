@@ -900,9 +900,18 @@ class User_Interface{
 
 
 
+	liveEffect(){
+
+	}
+
+
+
+
+
+
 
 	dispEffect(eff,dur,u_H,ui,n_camp,n_pl,bonus){
-		console.log(bonus);
+
 
 //couleur bonus malus
 		var color = "";
@@ -913,34 +922,31 @@ class User_Interface{
 		else{ color = "#66FF66" ;
 			boolcolor = 1;	} //vert
 
+
+//instanciation de l'effet dans le joueur
+	var un = 0;
+	if (u_H==true){
+		un = 0}
+	else{un = 1} //unit = 0 : heures / unit = 1 : rounds
+
 	
-	//création de l'objet effet
+//création de l'objet effet
 	var effect = new PC_Effet(eff,boolcolor,dur,un,undefined);
-
-
 
 
 //affichage du tableau
 
 		if (u_H == 'unit_R'){
-			$("#tab_effects_"+n_pl).append('<tr id ="'+effect.id+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+ '<td id ="btn_'+effect.id+'" style ="background-color : '+color+'"></td> </tr>');
+			$("#tab_effects_"+n_pl).append('<tr id ="'+effect.id+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td id = "dur_'+effect.id+'" style = "background-color : '+color+'">pendant '+dur+' rounds</td>'+ '<td id ="btn_'+effect.id+'" style ="background-color : '+color+'"></td> </tr>');
 			u_H = false;}
 		else{
-			$("#tab_effects_"+n_pl).append('<tr id ="'+effect.id+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'<td id ="btn_'+effect.id+'" style ="background-color : '+color+'"></td> </tr>');
+			$("#tab_effects_"+n_pl).append('<tr id ="'+effect.id+'">'+'<td style = "background-color : '+color+'">'+eff+'</td>'+'<td id = "dur_'+effect.id+'" style = "background-color : '+color+'">pendant '+dur+' heures</td>'+'<td id ="btn_'+effect.id+'" style ="background-color : '+color+'"></td> </tr>');
 			u_H = true;}
 
 
 //Affichage du btn suppression effet
 
-	new PC_Button($("#btn_"+effect.id),"w3-button w3-red","X", () => {this.delEffet(n_camp,n_pl,effect.id);});
-
-
-//instanciation de l'effet dans le joueur
-
-	var un = 0;
-	if (u_H==true){
-		un = 0}
-	else{un = 1} //unit = 0 : heures / unit = 1 : rounds
+	new PC_Button($("#btn_"+effect.id),"w3-button w3-purple","X", () => {this.delEffet(n_camp,n_pl,effect.id,effect.desc);});
 
 	
 
@@ -949,6 +955,9 @@ class User_Interface{
 			if(ui.app_PC.campaigns[n_camp].players[i].name == n_pl){
 
 			ui.app_PC.campaigns[n_camp].players[i].addEffect(effect);
+
+			//link joueur et effet
+			effect.player = ui.app_PC.campaigns[n_camp].players[i];
 
 			//affichage sur le portable
 			if(typeof ui.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined"){
@@ -962,25 +971,25 @@ class User_Interface{
 
 	}
 
-	delEffet(n_camp,n_pl,id_eff){
+	delEffet(n_camp,n_pl,id_eff,desc_eff){
 
-		console.log(id_eff);
 
 				for(var j =0; j<= this.app_PC.campaigns[n_camp].players.length -1; j++){
 					if(this.app_PC.campaigns[n_camp].players[j].name == n_pl){
-
-						console.log(this.app_PC.campaigns[n_camp].players[j].name)
 
 						for(var k =0; k<= this.app_PC.campaigns[n_camp].players[j].effects.length -1; k++ ){
 							if(this.app_PC.campaigns[n_camp].players[j].effects[k].id == id_eff){
 								var idj = this.app_PC.campaigns[n_camp].players[j].id;
 								
 								this.app_PC.campaigns[n_camp].players[j].effects.splice(k,1);
-								console.log(this.app_PC.campaigns[n_camp].players[j].effects);
 
-								//effacage de la ligne
+								//effacage de la ligne sur le PC
 								$("#"+id_eff).remove();
-								console.log('mdr');
+
+								//Effacage de l'effet sur le portable
+								if(typeof this.app_PC.campaigns[n_camp].players[j].comm_handler != "undefined"){
+								this.app_PC.campaigns[n_camp].players[j].comm_handler.delEffect(desc_eff);
+								}
 							}
 						}
 					}
