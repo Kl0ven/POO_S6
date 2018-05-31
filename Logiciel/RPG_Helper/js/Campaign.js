@@ -113,6 +113,9 @@ class Campaign{
 		if(!fs.existsSync(dir)){
 			fs.mkdirSync(dir);
 		}
+		if(!fs.existsSync(dir+"/players/")){
+			fs.mkdirSync(dir+"/players/");
+		}
 		  // Création d'un fichier JSON campagne
 		var file = './save/' + this.name + '/' + this.name +'.json'
 		if (this.launched) {
@@ -150,7 +153,7 @@ class Campaign{
 
 		//Creation du fichier JSON du joueur
 		console.log(data);
-		var file = './save/' + this.name + '/' + data.cara.name + '.json'
+		var file = './save/' + this.name + '/players/' + data.cara.name + '.json'
 		//Ecriture des infos dans le fichier
 		jsonfile.writeFile(file,data)
 	}
@@ -200,7 +203,10 @@ class Campaign{
 
 	}
 
-is_resume(){
-	return this.infos_campaign.resume;
-}
+	is_resume(){
+		return this.infos_campaign.resume;
+	}
+	addPlayer(psave){
+		this.players.push(new Player(psave.cara.name,psave.cara.PV,psave.cara.CA,undefined,psave));
+	}
 }

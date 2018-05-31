@@ -1,8 +1,9 @@
 
 
 class Player extends Character{
-	constructor(n,pv,ca,comm_h){
+	constructor(n,pv,ca,comm_h,infos_mobile = {}){
 	super(n)
+	this.infos_mobile = infos_mobile;
 
 	this.infos = {
 		name : this.name,

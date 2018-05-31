@@ -46,6 +46,9 @@ class Com_Handler {
 		this.ws.send(JSON.stringify({"type" : "choice","data": pinfos}));
 	}
 
+	delEffect(sd){
+			this.ws.send(JSON.stringify({"type" : "deleffect","data": sd}));
+	}
 	setup(){
 		this.ws.onmessage = (event) => { //Fonction de récéption de message entrant
 			try {
