@@ -81,6 +81,9 @@ class Communication {
         else if (obj.type == "load") {
           this.mobileApp.loadGame(obj.data)
         }
+        else if (obj.type == "deleffect") {
+          this.mobileApp.deleffect(obj.data)
+        }
       };
 
       // exectuter lors d'une erreur de connexion'
