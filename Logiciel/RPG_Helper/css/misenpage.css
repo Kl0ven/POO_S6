@@ -22,9 +22,20 @@
 }
 
 
-#players_turn{
-	height:500px;
+.players_turn{
+	height:600px;
+	position: fixed;
+	right: 0px;
+	z-index: 2;
+	-webkit-transition: 0.5s ease-in-out;
 
+}
+
+
+.ino{
+	position: absolute;
+    left: -44px;
+    top: 50px;
 }
 
 .btn_start_fight{
@@ -175,6 +186,7 @@ hr{
 	bottom: 0;
 	float: under;
 	background: lightgrey;
+	z-index: 3;
 
 }
 
@@ -272,4 +284,3 @@ p{
     top: 40%;
     display: none;
 }
-
