@@ -654,7 +654,7 @@ class User_Interface{
 								//faire bouton fin combat
 								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
 								
-								UI.Next_Turn();
+								UI.Next_Turn(true);
 
 								if(!initiative){
 									$.alert('provide a valid name');
@@ -767,7 +767,7 @@ class User_Interface{
 		}*/
 	}
 
-	Next_Turn(){
+	Next_Turn(bypass = false){
 
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
 		var p = this.app_PC.campaigns[this.getCampaignName()].players;
@@ -785,27 +785,41 @@ class User_Interface{
 
 				if (typeof f[i+1] == "undefined"){
 					f[0].active = true;
+
+
+
+
+
+
 				}
 				else {
 					f[i+1].active =true;
+
+					if (i==0 && !bypass){
+
+					this.liveEffect(this.getCampaignName(),true,1,1);
+
+
+
+
+/*											//live effect : fin du round
+					console.log('round suivant');
+
+					for (var k in p){//on parcoure tous les joueurs
+						console.log(p[k].effects.length);
+						for(var j in p[k].effects ){ // On parcour les effets de chaque joueur
+
+
+							
+			 			}	
+			 		}*/
+					}
 				}
 				break;
 			}
 		}
-		for (var k in p){//on parcoure tous les joueurs
-			for(var j=0; j <= p[k].effects.length - 1 ;j++){ // On parcoure les effets de chaque joueur
-			 			if (p[k].effects[j].live(true,1) == false){ //on apelle live, si l'effet "meurt" on le suppprime
-			 				this.delEffet(this.getCampaignName(),p[k].name,p[k].effects[j].desc);
-
-			 			}
-
-			 }
-		}
-
-
-
-
-	}
+		
+}
 
 	getCampaignName(){
 		var that = this;
@@ -1010,7 +1024,19 @@ class User_Interface{
 				}
 
 				//unit = 1 => rounds
+				else{
 
+					effect.live(in_fight,live);
+
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');
+
+					//delete effect
+					if (effect.duration == 0 ){
+						this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
+					}
+
+
+				}
 
 
 			}
