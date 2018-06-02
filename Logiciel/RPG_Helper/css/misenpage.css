@@ -23,6 +23,22 @@
 
 
 
+.players_turn{
+	height:600px;
+	position: fixed;
+	right: 0px;
+	z-index: 2;
+	-webkit-transition: 0.5s ease-in-out;
+
+}
+
+
+.ino{
+	position: absolute;
+    left: -44px;
+    top: 50px;
+}
+
 
 .tours_combat{
 	height:500px;
@@ -169,6 +185,7 @@ hr{
 	bottom: 0;
 	float: under;
 	background: lightgrey;
+	z-index: 3;
 
 }
 
@@ -266,4 +283,3 @@ p{
     top: 40%;
     display: none;
 }
-

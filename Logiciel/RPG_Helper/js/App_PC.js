@@ -28,6 +28,10 @@ class App_PC{
 			//console.log(file);
 			this.UI.displayCampButton(file);
 			this.loadCampaign(file); // on charge chaque campagne
+			fs.readdirSync('./save/'+file+'/players').forEach(player => {
+				//console.log(file);
+				this.loadPlayer(file,player); // on charge chaque campagne
+			})
 		})
 	}
 
@@ -37,6 +41,11 @@ class App_PC{
 	//console.log(camp.encounters);
 	this.campaigns[name] = new Campaign(name,this,camp.resume,camp.encounters,camp.hour,camp.day,camp.story);
 
+	}
+loadPlayer(camp,player){
+
+	var player = jsonfile.readFileSync("./save/"+camp+"/players/"+player);
+	this.campaigns[camp].addPlayer(player)
 }
 	LaunchCampaign(Name){
 

@@ -74,6 +74,10 @@ class Communication{
 	}
 
 
+	modTime(qte,in_fight,time){
+		this.wss.broadcast(JSON.stringify({"type": "time","data": {"qte":qte,"in_fight":in_fight,"time":time}}));
+	}
+
 
 
 
