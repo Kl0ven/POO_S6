@@ -62,15 +62,17 @@ class Campaign{
 	}
 
 
-	resumePlayer(inf,com){
-
-		for (var i = 0 ; i <= this.players.length ; i++){ // pour tous les Player dans players[]
-			if (inf.cara.name == players[i].infos.name){  // Si le nom envoyé dans inf = nom du player
-
-				players[i].resumePlayer(inf,com)		  // On lie le player a un comm_handler, et on actualise ses infos
-
+	resumePlayer(name,comh){
+		console.log(name);
+		for (var p in this.players) {
+			if (this.players[p].name == name) {
+				console.log("dsvsdvsv");
+					this.players[p].comm_handler = comh;
+					this.players[p].load();
 			}
 		}
+
+
 	}
 
 
@@ -219,5 +221,13 @@ class Campaign{
 	}
 	addPlayer(psave){
 		this.players.push(new Player(psave.cara.name,psave.cara.PV,psave.cara.CA,undefined,psave));
+	}
+
+	getPlayersNames(){
+		var names = []
+		for (var p in this.players) {
+			names.push(this.players[p].name);
+		}
+		return names
 	}
 }
