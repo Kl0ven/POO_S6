@@ -269,7 +269,7 @@ class User_Interface{
     content: '<ul>'
   						
 });
-				console.log('pédé');
+				
 			}
 
 
@@ -621,7 +621,7 @@ class User_Interface{
 
 									var tableau= { init: $(initiative[i]).val(),
 												nom: $(initiative[i]).attr("id"),
-												active: (i == 0)? true:false}
+												active: false}
 									UI.app_PC.campaigns[UI.getCampaignName()].FightList.push(tableau);
 
 								}
@@ -630,6 +630,10 @@ class User_Interface{
 								UI.app_PC.campaigns[UI.getCampaignName()].FightList.sort(function(a,b){
 									return b.init - a.init;
 								});
+
+								UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active=true;
+
+								
 
 								//on retourne dans l'interface les noms triés dans le bon ordre
 								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList,rencontre);
@@ -645,7 +649,7 @@ class User_Interface{
 								//faire bouton fin combat
 								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
 								
-
+								UI.Next_Turn();
 
 								if(!initiative){
 									$.alert('provide a valid name');
@@ -749,13 +753,13 @@ class User_Interface{
 							'</div>');
 			}
 		// au display, le joueur avec le + d'initiative est en vert
-		for (var i = 0; i < FightList.length; i++){
+		/*for (var i = 0; i < FightList.length; i++){
 			if (f[i].active == true){
 
 				$("#div_"+f[0].nom+"").css("background-color","green");
 			}
 
-		}
+		}*/
 	}
 
 	Next_Turn(){
