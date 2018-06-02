@@ -240,8 +240,8 @@ class User_Interface{
 			'</div>'+
 			'<div class="w3-col" id = "btn_desc_M_' + name + '"></div>'
 		);
-		new PC_Button($("#inandout"+name),"w3-button w3-purple","<",() => {$("#players_turn").css("transform","translate(0%, 0px)")});
-		new PC_Button($("#inandout"+name),"w3-button w3-purple",">",() => {$("#players_turn").css("transform","translate(110%, 0px)")});
+		new PC_Button($("#inandout"+name),"w3-button w3-purple","<",() => {$(".players_turn").css("transform","translate(0%, 0px)")});
+		new PC_Button($("#inandout"+name),"w3-button w3-purple",">",() => {$(".players_turn").css("transform","translate(110%, 0px)")});
 
 
 		// Test rajout monstre
@@ -272,9 +272,9 @@ class User_Interface{
 		useBootstrap: false,
 
     content: '<ul>'
-  						
+
 });
-				
+
 			}
 
 
@@ -638,7 +638,7 @@ class User_Interface{
 
 								UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active=true;
 
-								
+
 
 								//on retourne dans l'interface les noms triés dans le bon ordre
 								UI.DisplayPlayers(UI.app_PC.campaigns[UI.getCampaignName()].FightList,rencontre);
@@ -653,7 +653,7 @@ class User_Interface{
 
 								//faire bouton fin combat
 								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
-								
+
 								UI.Next_Turn();
 
 								if(!initiative){
@@ -701,7 +701,7 @@ class User_Interface{
 		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
 			//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
 			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
-			
+
 			}
 		else  {
 
@@ -713,12 +713,12 @@ class User_Interface{
 				useBootstrap: false,
 
     			content: '<ul>',
-  						
+
 });
 		}
-		this.app_PC.campaigns[this.getCampaignName()].InFight=1;	
+		this.app_PC.campaigns[this.getCampaignName()].InFight=1;
 	}
-	
+
 
 	EndFight(rencontre){
 		this.delConfirm('le combat',()=>{this.DelFight(rencontre);});
@@ -956,7 +956,7 @@ class User_Interface{
 						}
 
 
-						
+
 
 						//affichage de l'effet dans le tableau + portable
 						UI.dispEffect(eff,dur,u_H,UI,n_camp,n_pl,bonus);
@@ -994,7 +994,7 @@ class User_Interface{
 
 				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
 
-				//unit = 0 => heures 
+				//unit = 0 => heures
 				if (unit == 0){
 
 					var newdur = effect.duration - qte;
@@ -1044,7 +1044,7 @@ class User_Interface{
 		un = 0}
 	else{un = 1} //unit = 0 : heures / unit = 1 : rounds
 
-	
+
 //création de l'objet effet
 	var effect = new PC_Effet(eff,boolcolor,dur,un,undefined);
 
@@ -1063,7 +1063,7 @@ class User_Interface{
 
 	new PC_Button($("#btn_"+effect.id),"w3-button w3-purple","X", () => {this.delEffet(n_camp,n_pl,effect.id,effect.desc);});
 
-	
+
 
 	//ajout de l'effet dans la liste d'effets du joueur
 	for (var i = 0 ; i <= ui.app_PC.campaigns[n_camp].players.length -1 ; i++){
@@ -1095,7 +1095,7 @@ class User_Interface{
 						for(var k =0; k<= this.app_PC.campaigns[n_camp].players[j].effects.length -1; k++ ){
 							if(this.app_PC.campaigns[n_camp].players[j].effects[k].id == id_eff){
 								var idj = this.app_PC.campaigns[n_camp].players[j].id;
-								
+
 								this.app_PC.campaigns[n_camp].players[j].effects.splice(k,1);
 
 								//effacage de la ligne sur le PC
