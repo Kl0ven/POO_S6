@@ -749,8 +749,13 @@ class User_Interface{
 							'</div>');
 			}
 		// au display, le joueur avec le + d'initiative est en vert
-		$("#div_"+f[0].nom+"").css("background-color","green");
+		for (var i = 0; i < FightList.length; i++){
+			if (f[i].active == true){
 
+				$("#div_"+f[0].nom+"").css("background-color","green");
+			}
+
+		}
 	}
 
 	Next_Turn(){
