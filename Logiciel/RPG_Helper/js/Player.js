@@ -49,9 +49,8 @@ class Player extends Character{
 	 	this.comm_handler = t
 	}
 
-	resumePlayer(inf, t){
-	 	this.infos = inf
-	 	this.comm_handler = t
+	load(){
+	 	this.comm_handler.load(this.infos_mobile);
 	}
 
 	sendInfos(){

@@ -208,6 +208,17 @@ class User_interface {
     return res;
   }
 
+  initUI(){
+    $("#barre2").empty();
+    $("#barre3").empty();
+    $("#barre4").empty();
+    $("#barre5").empty();
+    $("#dynamicView").empty();
+    let onglet = ['competence','don','sort','objet'];
+    for (var o in onglet) {
+      this.view[onglet[o]].initElem();
+    }
+  }
   setTabs(val,obj){
     for (var elem in obj) {
       this.addTab(elem,val);

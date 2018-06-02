@@ -33,10 +33,12 @@ class View {
     return this.elements.length;
   }
 
-  // ajoute elem a la liste d'element 
+  // ajoute elem a la liste d'element
   addElem(elem){
     this.elements.push(elem);
   }
-
+  initElem(){
+    this.elements.splice(1,this.getNbElem());
+  }
 
 }

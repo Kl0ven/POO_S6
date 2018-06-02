@@ -49,6 +49,7 @@ class TextArea extends Widget {
     var id = this.isID() ? 'id="'+ this.id +'"' : '';
     var classes = this.isClasses() ? 'class="'+ this.classes +'"' : '';
     return '<textarea '+id+" "+classes+' rows="'+this.height+'" cols="'+this.width+'">'+this.text+'</textarea>';
+
   }
 
   // methode qui permet de passer de la div/non modifiable  à la textArea/modifiable
