@@ -179,6 +179,16 @@ class Campaign{
 		this.infos_campaign.day =  jour;
 		$("#hour").text(this.infos_campaign.hour);
 		$("#day").text(this.infos_campaign.day);
+
+
+		if (typeof this.app_PC.comm != "undefined"){
+		//affichage sur portable
+		this.app_PC.comm.modTime(qte,false,this.infos_campaign.hour);
+		}
+
+		//Vie des effets qui sont en heure
+
+		this.app_PC.UI.liveEffect(this.name,0,0,qte);
 	}
 
 	hideAll(){
