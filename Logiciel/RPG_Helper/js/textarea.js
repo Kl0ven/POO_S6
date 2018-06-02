@@ -19,7 +19,7 @@ class TextArea extends Widget{
 		this.modbtn.push(new PC_Button(parentBtn,"","",()=>{this.code('t1','[sup] [/sup]')},"image",'./assets/bt_sup.png'));
 		this.modbtn.push(new PC_Button(parentBtn,"","",()=>{this.code('t1','[color color=#000000][/color]')},"image",'./assets/bt_color.png'));
 		this.modbtn.push(new PC_Button(parentBtn,"","",()=>{this.code('t1','[img] [/img]')},"image",'./assets/bt_img.png'));
-		this.modbtn.push(new PC_Button(parentBtn,"","",()=>{},""));
+		this.modbtn.push(new PC_Button(parentBtn,"jsco","",()=>{},""));
 
 		new jscolor(document.getElementById(this.modbtn[this.modbtn.length-1].id))
     this.show();

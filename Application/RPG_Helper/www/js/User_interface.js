@@ -107,7 +107,7 @@ class User_interface {
             var name = this.$content.find('.name').val();
             // on verifie le nom et compatible et qui n'existe pas deja
             if(!name){
-              $.alert('provide a valid name');
+              $.alert('Nom invalide');
               return false;
             }
             try {
@@ -116,15 +116,19 @@ class User_interface {
               var n = 1;
             }
             if(n){
-              $.alert('provide another name');
+              $.alert('Nom déjà utilisé');
               return false;
             }
             UI.addTab(name,type)
           }
         },
-        cancel: function () {
-          //close
-        },
+        cancel: {
+					text: 'Annuler',
+					cancel: function () {
+
+					}
+
+				}
       },
       onContentReady: function () {
         // bind to events
