@@ -66,9 +66,13 @@ class Campaign{
 		console.log(name);
 		for (var p in this.players) {
 			if (this.players[p].name == name) {
+				if(typeof this.players[p].comm_handler == "undefined"){
 				console.log("dsvsdvsv");
 					this.players[p].comm_handler = comh;
 					this.players[p].load();
+				}else{
+					comh.getName(this.getPlayersNames());
+				}
 			}
 		}
 
@@ -148,7 +152,7 @@ class Campaign{
 		}
 		this.infos_campaign.encounters = encountersSave;
 		jsonfile.writeFile(file,this.infos_campaign);
-
+		$("#waiting_players").empty();
 
 	}
 
@@ -226,7 +230,9 @@ class Campaign{
 	getPlayersNames(){
 		var names = []
 		for (var p in this.players) {
+			if(typeof this.players[p].comm_handler == "undefined"){
 			names.push(this.players[p].name);
+			}
 		}
 		return names
 	}

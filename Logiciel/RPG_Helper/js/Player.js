@@ -61,6 +61,7 @@ class Player extends Character{
 	save(){
 		if (typeof this.comm_handler != "undefined") {
 					this.comm_handler.save();
+					this.comm_handler = undefined;
 		}
 
 	}
