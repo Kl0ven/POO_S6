@@ -797,7 +797,7 @@ class User_Interface{
 
 					if (i==0 && !bypass){
 
-					this.liveEffect(this.getCampaignName(),true,1,1);
+					this.liveEffect(this.getCampaignName(),true,1);
 
 
 
@@ -998,9 +998,8 @@ class User_Interface{
 
 
 
-	liveEffect(n_camp,in_fight,unit,qte){
+	liveEffect(n_camp,in_fight,qte){
 
-		console.log('coucou');
 
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 
@@ -1008,7 +1007,39 @@ class User_Interface{
 
 				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
 
-				//unit = 0 => heures 
+				//update de l'effet dans l'objet  
+				effect.live(in_fight,qte);
+
+
+				//update de l'effet sur l'écran 
+				if (effect.unit == 0){
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' heures');	
+				}
+				else{
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');	
+				}
+
+
+				//update de l'effet sur le portable
+				if (typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined" ){
+
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.com.modTime(1,true,this.app_PC.campaigns[n_camp].infos_campaign.hour);	
+				}
+				
+
+
+				//suppression de l'effet à l'écran
+				if (effect.duration <= 0){
+					this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
+				}
+
+				
+
+
+
+
+
+/*				//unit = 0 => heures 
 				if (unit == 0){
 
 					var newdur = effect.duration - qte;
@@ -1036,7 +1067,7 @@ class User_Interface{
 					}
 
 
-				}
+				}*/
 
 
 			}

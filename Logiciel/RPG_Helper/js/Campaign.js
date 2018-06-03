@@ -191,7 +191,7 @@ class Campaign{
 
 		//Vie des effets qui sont en heure
 
-		this.app_PC.UI.liveEffect(this.name,0,0,qte);
+		this.app_PC.UI.liveEffect(this.name,false,qte);
 	}
 
 	hideAll(){

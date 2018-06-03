@@ -146,8 +146,9 @@ loadPlayer(camp,player){
 
 		this.DeleteFolderRecursive(path);
 		setTimeout(()=>{this.displayCampaignsName();},10);
-
 	}
+
+
 
 	 DeleteFolderRecursive(path) {
   		if( fs.existsSync(path) ) {
