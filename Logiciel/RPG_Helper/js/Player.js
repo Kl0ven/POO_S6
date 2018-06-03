@@ -59,7 +59,10 @@ class Player extends Character{
 	}
 
 	save(){
-		this.comm_handler.save();
+		if (typeof this.comm_handler != "undefined") {
+					this.comm_handler.save();
+		}
+
 	}
 
 	//resumePlayer(name,t){  --> Le resumeplayer est géré par la Campagne
