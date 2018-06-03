@@ -90,7 +90,7 @@ class User_Interface{
 				'<form action="" class="formName">' +
 				'<div class="form-group">' +
 				'<label>Entrez le nom de votre campagne :          </label>' +
-				'<input type="text" placeholder="Le nom" class="name form-control" required autofocus />' +
+				'<input type="text" placeholder="Nom" class="name form-control" required autofocus />' +
 				'</div>' +
 				'</form>',
 				buttons: {
@@ -616,12 +616,12 @@ class User_Interface{
 			for (var j=0; j<this.app_PC.campaigns[name].encounters[i].monsters.length;j++){
 				idMonsters = this.app_PC.campaigns[name].encounters[i].monsters[j].id;
 				MonsterName[j] = this.app_PC.campaigns[name].encounters[i].monsters[j].name;
-				//console.log(MonsterName);
+				
 			}
 		}
 
 
-		console.log(MonsterName);
+		
 
 		for (var i = 0; i < (this.app_PC.campaigns[name].players.length); i++){// Pour chaque joueur, on donne son jet d'initiative
 
@@ -815,10 +815,6 @@ class User_Interface{
 					f[0].active = true;
 
 
-
-
-
-
 				}
 				else {
 					f[i+1].active =true;
@@ -828,19 +824,6 @@ class User_Interface{
 					this.liveEffect(this.getCampaignName(),true,1);
 
 
-
-
-/*											//live effect : fin du round
-					console.log('round suivant');
-
-					for (var k in p){//on parcoure tous les joueurs
-						console.log(p[k].effects.length);
-						for(var j in p[k].effects ){ // On parcour les effets de chaque joueur
-
-
-							
-			 			}	
-			 		}*/
 					}
 				}
 				break;
@@ -853,7 +836,7 @@ class User_Interface{
 		var that = this;
 		var ret
 		$(".camp").each(function(){
-			//console.log(this.id);
+			
 
 			if (that.app_PC.campaigns[this.id].active == 1){
 				ret = this.id
@@ -892,8 +875,6 @@ class User_Interface{
 
 
 
-		// pas le meilleur endoit pour le mettre ?
-		//new PC_Button($(".btn_start_fight"),"w3-button w3-round w3-blue","Démarrer Combat",undefined);
 	}
 
 
@@ -980,7 +961,7 @@ class User_Interface{
 						var u_H = $('input[name="unit_H"]:checked').val();
 	
 						var bonus = $('input[name="bonus"]:checked').val();
-						//console.log(bonus);
+						
 						// retunr bonus ou malus !!!!
 						// on verifie le nom et compatible et qui n'existe pas deja
 						if(!eff){
