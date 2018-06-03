@@ -3,7 +3,8 @@ var app;
 var imageStd = Image
 //Pour utiliser fs Node.js et json
 const fs = require('fs');
-const jsonfile = require('jsonfile')
+const jsonfile = require('jsonfile');
+var path = require('path');
 
 $(document).ready(function(){
 

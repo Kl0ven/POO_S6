@@ -24,11 +24,11 @@ class App_PC{
 
 	displayCampaignsName(){
 		$(".bts_camp").empty();
-		fs.readdirSync('./save/').forEach(file => {
+		fs.readdirSync(nw.App.dataPath+'\\save\\').forEach(file => {
 			//console.log(file);
 			this.UI.displayCampButton(file);
 			this.loadCampaign(file); // on charge chaque campagne
-			fs.readdirSync('./save/'+file+'/players').forEach(player => {
+			fs.readdirSync(nw.App.dataPath+'\\save\\'+file+'\\players').forEach(player => {
 				//console.log(file);
 				this.loadPlayer(file,player); // on charge chaque campagne
 			})
@@ -36,15 +36,15 @@ class App_PC{
 	}
 
 	loadCampaign(name){
-
-	var camp = jsonfile.readFileSync("./save/"+name+"/"+name+".json");
+	console.log(name);
+	var camp = jsonfile.readFileSync(nw.App.dataPath+"\\save\\"+name+"\\"+name+".json");
 	//console.log(camp.encounters);
 	this.campaigns[name] = new Campaign(name,this,camp.resume,camp.encounters,camp.hour,camp.day,camp.story);
 
 	}
 loadPlayer(camp,player){
 
-	var player = jsonfile.readFileSync("./save/"+camp+"/players/"+player);
+	var player = jsonfile.readFileSync(nw.App.dataPath+"\\save\\"+camp+"\\players\\"+player);
 	this.campaigns[camp].addPlayer(player)
 }
 	LaunchCampaign(Name){
@@ -140,7 +140,7 @@ loadPlayer(camp,player){
 		delete this.campaigns[Name];
 
 		//supprimer les fichiers
-		var path = "./save/"+ Name;
+		var path = nw.App.dataPath+'\\save\\'+ Name;
 
 		//console.log(path);
 
@@ -150,12 +150,13 @@ loadPlayer(camp,player){
 	}
 
 	 DeleteFolderRecursive(path) {
+		 let self = this;
   		if( fs.existsSync(path) ) {
     		fs.readdirSync(path).forEach(function(file,index){
       		var curPath = path + '/' + file;
       		//console.log(curPath)
       		if(fs.lstatSync(curPath).isDirectory()) { // recurse
-        		deleteFolderRecursive(curPath);
+        		self.DeleteFolderRecursive(curPath);
       		} else { // delete file
         		fs.unlinkSync(curPath);
       			}
