@@ -579,10 +579,10 @@ class User_Interface{
 		}
 		// condition pour s'assurer que l'on affiche une vue lorque l'on change d'onglet
 		if (vue == "header") {
-			//console.log(vue);
+
 			for (var i = 0; i < this.view.combats.getNbElem(); i++) {
 				if(this.view.combats.getElem(i) instanceof PC_Button && this.view.combats.getElem(i).getstate()){
-					//console.log(this.view[show[0]].getElem(i).getText());
+
 					this.showView(this.view.combats.getElem(i).getText());
 				}
 
@@ -596,12 +596,12 @@ class User_Interface{
 
 
 	startFight(name,rencontre){
-		//console.log(name)
+
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
 		var idPlayers = [];
 		var labandinput=''
-		//console.log(this.app_PC.campaigns[name].players.length)
+
 		for (var i = 0; i < (this.app_PC.campaigns[name].players.length /*+this.app_PC.campaigns[name].encounters.length*/); i++){// Pour chaque joueur, on donne son jet d'initiative
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
@@ -656,14 +656,15 @@ class User_Interface{
 								$("#btn_start_fight"+rencontre).remove();
 								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
 
-								//console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
+			
 								//bouton tour suivant
 								UI.setStartBtn(rencontre);
 
 								//faire bouton fin combat
 								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
 
-								UI.Next_Turn();
+								
+								UI.Next_Turn(true);
 
 								if(!initiative){
 									$.alert('provide a valid name');
@@ -706,9 +707,9 @@ class User_Interface{
 			}
 
 	setStartBtn(rencontre) {
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+
 		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
-			//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+
 			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
 
 			}
@@ -776,7 +777,7 @@ class User_Interface{
 		}*/
 	}
 
-	Next_Turn(){
+	Next_Turn(bypass = false){
 
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
 		var p = this.app_PC.campaigns[this.getCampaignName()].players;
@@ -794,27 +795,41 @@ class User_Interface{
 
 				if (typeof f[i+1] == "undefined"){
 					f[0].active = true;
+
+
+
+
+
+
 				}
 				else {
 					f[i+1].active =true;
+
+					if (i==0 && !bypass){
+
+					this.liveEffect(this.getCampaignName(),true,1);
+
+
+
+
+/*											//live effect : fin du round
+					console.log('round suivant');
+
+					for (var k in p){//on parcoure tous les joueurs
+						console.log(p[k].effects.length);
+						for(var j in p[k].effects ){ // On parcour les effets de chaque joueur
+
+
+							
+			 			}	
+			 		}*/
+					}
 				}
 				break;
 			}
 		}
-		for (var k in p){//on parcoure tous les joueurs
-			for(var j=0; j <= p[k].effects.length - 1 ;j++){ // On parcoure les effets de chaque joueur
-			 			if (p[k].effects[j].live(true,1) == false){ //on apelle live, si l'effet "meurt" on le suppprime
-			 				this.delEffet(this.getCampaignName(),p[k].name,p[k].effects[j].desc);
-
-			 			}
-
-			 }
-		}
-
-
-
-
-	}
+		
+}
 
 	getCampaignName(){
 		var that = this;
@@ -945,7 +960,7 @@ class User_Interface{
 						var eff = this.$content.find('.effect').val();
 						var dur = this.$content.find('.duration').val();
 						var u_H = $('input[name="unit_H"]:checked').val();
-						console.log(u_H);
+	
 						var bonus = $('input[name="bonus"]:checked').val();
 						//console.log(bonus);
 						// retunr bonus ou malus !!!!
@@ -993,9 +1008,8 @@ class User_Interface{
 
 
 
-	liveEffect(n_camp,in_fight,unit,qte){
+	liveEffect(n_camp,in_fight,qte){
 
-		console.log('coucou');
 
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 
@@ -1003,24 +1017,32 @@ class User_Interface{
 
 				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
 
-				//unit = 0 => heures
-				if (unit == 0){
+				//update de l'effet dans l'objet  
+				effect.live(in_fight,qte);
 
-					var newdur = effect.duration - qte;
-					effect.duration = newdur;
 
-					$("#dur_"+effect.id).text('pendant '+ newdur +' heures');
 
-					//delete effect
-					if (effect.duration == 0 ){
-						this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
-					}
-
+				//update de l'effet sur l'écran 
+				if (effect.unit == 0){
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' heures');	
+				}
+				else{
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');	
 				}
 
-				//unit = 1 => rounds
+
+				//update de l'effet sur le portable
+				if (typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined" ){
+
+					this.app_PC.campaigns[n_camp].players[i].comm_handler.com.modTime(1,true,this.app_PC.campaigns[n_camp].infos_campaign.hour);	
+				}
+				
 
 
+				//suppression de l'effet à l'écran
+				if (effect.duration <= 0){
+					this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
+				}
 
 			}
 
@@ -1131,15 +1153,12 @@ class User_Interface{
 			for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				pvint += 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.PV = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
@@ -1162,15 +1181,13 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
+
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				pvint -= 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.PV = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
@@ -1191,15 +1208,12 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.CA)
 				pvint += 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.CA = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
@@ -1217,15 +1231,12 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.CA)
 				pvint -= 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.CA = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)

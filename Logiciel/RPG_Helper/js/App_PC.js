@@ -134,6 +134,7 @@ loadPlayer(camp,player){
 
 	}
 
+
 	DeleteCampaign(Name){
 
 		//supprimer l'objet camp
@@ -149,6 +150,7 @@ loadPlayer(camp,player){
 
 	}
 
+
 	 DeleteFolderRecursive(path) {
 		 let self = this;
   		if( fs.existsSync(path) ) {
@@ -156,7 +158,9 @@ loadPlayer(camp,player){
       		var curPath = path + '/' + file;
       		//console.log(curPath)
       		if(fs.lstatSync(curPath).isDirectory()) { // recurse
+
         		self.DeleteFolderRecursive(curPath);
+
       		} else { // delete file
         		fs.unlinkSync(curPath);
       			}
@@ -166,6 +170,23 @@ loadPlayer(camp,player){
 
 
 	}
+
+
+	DeleteCampaign(Name){
+
+		//supprimer l'objet camp
+		delete this.campaigns[Name];
+
+		//supprimer les fichiers
+		var path = "./save/"+ Name;
+
+		//console.log(path);
+
+		this.DeleteFolderRecursive(path);
+		setTimeout(()=>{this.displayCampaignsName();},10);
+	}
+
+
 
 
 
