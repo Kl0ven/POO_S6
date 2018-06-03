@@ -570,10 +570,10 @@ class User_Interface{
 		}
 		// condition pour s'assurer que l'on affiche une vue lorque l'on change d'onglet
 		if (vue == "header") {
-			//console.log(vue);
+
 			for (var i = 0; i < this.view.combats.getNbElem(); i++) {
 				if(this.view.combats.getElem(i) instanceof PC_Button && this.view.combats.getElem(i).getstate()){
-					//console.log(this.view[show[0]].getElem(i).getText());
+
 					this.showView(this.view.combats.getElem(i).getText());
 				}
 
@@ -587,12 +587,12 @@ class User_Interface{
 
 
 	startFight(name,rencontre){
-		//console.log(name)
+
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
 		var idPlayers = [];
 		var labandinput=''
-		//console.log(this.app_PC.campaigns[name].players.length)
+
 		for (var i = 0; i < (this.app_PC.campaigns[name].players.length /*+this.app_PC.campaigns[name].encounters.length*/); i++){// Pour chaque joueur, on donne son jet d'initiative
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
@@ -647,7 +647,7 @@ class User_Interface{
 								$("#btn_start_fight"+rencontre).remove();
 								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
 
-								//console.log(UI.app_PC.campaigns[UI.getCampaignName()].FightList)
+			
 								//bouton tour suivant
 								UI.setStartBtn(rencontre);
 
@@ -697,9 +697,9 @@ class User_Interface{
 			}
 
 	setStartBtn(rencontre) {
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+
 		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
-			//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight);
+
 			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
 			
 			}
@@ -950,7 +950,7 @@ class User_Interface{
 						var eff = this.$content.find('.effect').val();
 						var dur = this.$content.find('.duration').val();
 						var u_H = $('input[name="unit_H"]:checked').val();
-						console.log(u_H);
+	
 						var bonus = $('input[name="bonus"]:checked').val();
 						//console.log(bonus);
 						// retunr bonus ou malus !!!!
@@ -1032,43 +1032,6 @@ class User_Interface{
 				if (effect.duration <= 0){
 					this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
 				}
-
-				
-
-
-
-
-
-/*				//unit = 0 => heures 
-				if (unit == 0){
-
-					var newdur = effect.duration - qte;
-					effect.duration = newdur;
-
-					$("#dur_"+effect.id).text('pendant '+ newdur +' heures');
-
-					//delete effect
-					if (effect.duration == 0 ){
-						this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
-					}
-
-				}
-
-				//unit = 1 => rounds
-				else{
-
-					effect.live(in_fight,live);
-
-					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');
-
-					//delete effect
-					if (effect.duration == 0 ){
-						this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
-					}
-
-
-				}*/
-
 
 			}
 
@@ -1179,15 +1142,12 @@ class User_Interface{
 			for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				pvint += 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.PV = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
@@ -1210,15 +1170,13 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
+
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.PV)
 				pvint -= 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.PV = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#PV_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("PV: "+this.app_PC.campaigns[n_camp].players[i].infos.PV)
@@ -1239,15 +1197,12 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.CA)
 				pvint += 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.CA = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)
@@ -1265,15 +1220,12 @@ class User_Interface{
 		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
 			if (this.app_PC.campaigns[n_camp].players[i].infos.name == n_pl){
 
-				//console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
 				//incrémentation de 1 dans l'objet
 
 				var pvint = parseInt(this.app_PC.campaigns[n_camp].players[i].infos.CA)
 				pvint -= 1;
 				this.app_PC.campaigns[n_camp].players[i].infos.CA = pvint;
 
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.name);
-				console.log(this.app_PC.campaigns[n_camp].players[i].infos.PV);
 
 				//incrémentation de 1 dans l'affichage
 				$("#CA_"+this.app_PC.campaigns[n_camp].players[i].infos.name).text("CA: "+this.app_PC.campaigns[n_camp].players[i].infos.CA)

@@ -57,15 +57,15 @@ class Com_Handler {
 		this.ws.onmessage = (event) => { //Fonction de récéption de message entrant
 			try {
         		var obj = JSON.parse(event.data);
-        		console.log(obj); //On essaye de récupérer notre trame
+        		//console.log(obj); //On essaye de récupérer notre trame
      		} catch (e) {
-        		console.log(e); //On affiche l'erreur si la trame n'a pas pu être récupérée
+        		//console.log(e); //On affiche l'erreur si la trame n'a pas pu être récupérée
       			}
 
 
 		if(obj.type == "newrep"){ //Le joueur a envoyé ses informations
 			var infos = obj.data; //On enregistre les infos
-			console.log(infos)
+			//console.log(infos)
 
 			//instanciation du joueur avec ses carac
 
@@ -86,7 +86,7 @@ class Com_Handler {
 			this.com.pc_app.campaigns[this.camp].resumePlayer(name,this); //On apelle resumeplayer de campaign avec le nom et cet objet
 			}
 		else { //On veut sauvegarder le joueur
-			console.log("save");
+			//console.log("save");
 			this.com.pc_app.campaigns[this.camp].savePlayer(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
 
 			}
