@@ -63,10 +63,10 @@ class Campaign{
 
 
 	resumePlayer(name,comh){
-		console.log(name);
+		//console.log(name);
 		for (var p in this.players) {
 			if (this.players[p].name == name) {
-				console.log("dsvsdvsv");
+				
 					this.players[p].comm_handler = comh;
 					this.players[p].load();
 			}
@@ -155,7 +155,7 @@ class Campaign{
 	savePlayer(data){
 
 		//Creation du fichier JSON du joueur
-		console.log(data);
+		//console.log(data);
 		var file = './save/' + this.name + '/players/' + data.cara.name + '.json'
 		//Ecriture des infos dans le fichier
 		jsonfile.writeFile(file,data)
@@ -167,14 +167,14 @@ class Campaign{
 		var heure = (parseInt(this.infos_campaign.hour.split("h")[0])+parseInt(qte))
 		var jour  = this.infos_campaign.day+Math.floor(heure/24);
 		heure = heure%24;
-		console.log("h = "+heure);
-		console.log("j = "+jour);
+		//console.log("h = "+heure);
+		//console.log("j = "+jour);
 		if(heure<0){
 			console.log("h<0");
 			heure += 24;
 		}
 		if(jour < 1 ){
-			console.log("j<0");
+			//console.log("j<0");
 			jour = 1;
 			heure = 0;
 		}
@@ -191,7 +191,7 @@ class Campaign{
 
 		//Vie des effets qui sont en heure
 
-		this.app_PC.UI.liveEffect(this.name,0,0,qte);
+		this.app_PC.UI.liveEffect(this.name,false,qte);
 	}
 
 	hideAll(){

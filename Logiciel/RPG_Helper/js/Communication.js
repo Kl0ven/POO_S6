@@ -18,7 +18,7 @@ class Communication{
 		//Fonction de connexion des téléphones
 		this.wss.on('connection', (ws)=> {
 
-					console.log('connecté');
+					//console.log('connecté');
 
 					if (this.pc_app.getOpenConnection() == true){
 

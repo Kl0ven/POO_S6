@@ -134,6 +134,25 @@ loadPlayer(camp,player){
 
 	}
 
+
+	 DeleteFolderRecursive(path) {
+  		if( fs.existsSync(path) ) {
+    		fs.readdirSync(path).forEach(function(file,index){
+      		var curPath = path + '/' + file;
+      		//console.log(curPath)
+      		if(fs.lstatSync(curPath).isDirectory()) { // recurse
+        		this.DeleteFolderRecursive(curPath);
+      		} else { // delete file
+        		fs.unlinkSync(curPath);
+      			}
+    		});
+    	fs.rmdirSync(path);
+  		}
+
+
+	}
+
+
 	DeleteCampaign(Name){
 
 		//supprimer l'objet camp
@@ -146,25 +165,9 @@ loadPlayer(camp,player){
 
 		this.DeleteFolderRecursive(path);
 		setTimeout(()=>{this.displayCampaignsName();},10);
-
 	}
 
-	 DeleteFolderRecursive(path) {
-  		if( fs.existsSync(path) ) {
-    		fs.readdirSync(path).forEach(function(file,index){
-      		var curPath = path + '/' + file;
-      		//console.log(curPath)
-      		if(fs.lstatSync(curPath).isDirectory()) { // recurse
-        		deleteFolderRecursive(curPath);
-      		} else { // delete file
-        		fs.unlinkSync(curPath);
-      			}
-    		});
-    	fs.rmdirSync(path);
-  		}
 
-
-	}
 
 
 
