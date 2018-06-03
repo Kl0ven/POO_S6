@@ -24,7 +24,11 @@ class App_PC{
 
 	displayCampaignsName(){
 		$(".bts_camp").empty();
-		fs.readdirSync(nw.App.dataPath+'\\save\\').forEach(file => {
+
+		var dir = nw.App.dataPath+'\\save\\';
+		console.log(dir);
+		if(fs.existsSync(dir)){
+					fs.readdirSync(nw.App.dataPath+'\\save\\').forEach(file => {
 			//console.log(file);
 			this.UI.displayCampButton(file);
 			this.loadCampaign(file); // on charge chaque campagne
@@ -33,6 +37,9 @@ class App_PC{
 				this.loadPlayer(file,player); // on charge chaque campagne
 			})
 		})
+		}
+
+
 	}
 
 	loadCampaign(name){
@@ -142,6 +149,7 @@ loadPlayer(camp,player){
 
 		//supprimer les fichiers
 		var path = nw.App.dataPath+'\\save\\'+ Name;
+		console.log(path)
 
 		//console.log(path);
 
@@ -172,19 +180,7 @@ loadPlayer(camp,player){
 	}
 
 
-	DeleteCampaign(Name){
 
-		//supprimer l'objet camp
-		delete this.campaigns[Name];
-
-		//supprimer les fichiers
-		var path = "./save/"+ Name;
-
-		//console.log(path);
-
-		this.DeleteFolderRecursive(path);
-		setTimeout(()=>{this.displayCampaignsName();},10);
-	}
 
 
 
