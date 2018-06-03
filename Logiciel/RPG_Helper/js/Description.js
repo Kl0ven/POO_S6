@@ -19,9 +19,9 @@ class Description {
 
   setup(){
     $(this.parent).append("<div id='"+this.id+"' class='description'><div class='btn'></div><div class='ta'></div><div class='img'><div class='btnsend'></div></div><hr></div>");
-    this.textarea = new TextArea($("#"+this.id+" .ta"),$("#"+this.id+" .btn"),undefined,10,80,'save',()=>{this.textarea.switching();this.message = this.textarea.gettext()});
-    this.btnimg = new PC_Button($("#"+this.id+" .btn"),"w3-button w3-blue","add image",() => {this.addImage();})
-    this.delBtn = new PC_Button($("#"+this.id+" .btn"),"w3-button w3-red","supprimer Description",() => {this.app_PC.UI.delConfirm("la description",()=>{this.app_PC.UI.delDesription(this.id,this.encounterName);})})
+    this.textarea = new TextArea($("#"+this.id+" .ta"),$("#"+this.id+" .btn"),undefined,10,80,'Sauvegarder',()=>{this.textarea.switching();this.message = this.textarea.gettext()});
+    this.btnimg = new PC_Button($("#"+this.id+" .btn"),"w3-button w3-blue","Image",() => {this.addImage();})
+    this.delBtn = new PC_Button($("#"+this.id+" .btn"),"w3-button w3-red","Supprimer Description",() => {this.app_PC.UI.delConfirm("la description",()=>{this.app_PC.UI.delDesription(this.id,this.encounterName);})})
     this.textarea.setText(this.message);
     if(typeof this.url != "undefined"){
       this.changeImage(this.url);

@@ -1,13 +1,14 @@
 {
   "name": "RPG_Helper",
   "main": "index.html",
+  "version":"1.0.0",
   "window": {
     "title": "RPG_Helper",
     "frame": true,
     "width": 1920,
     "height": 1080,
     "position": "center",
-    "fullscreen": false
+    "fullscreen": true
   },
   "dependencies": {
     "internal-ip": "^3.0.1",

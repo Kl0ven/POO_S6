@@ -21,7 +21,9 @@
 	text-align: center;
 }
 
-
+.jsco{
+	    width: 70px;
+}
 
 .players_turn{
 	height:600px;
@@ -44,7 +46,7 @@
 	height:500px;
 }
 
-}
+
 hr{
 	border: 10px;
 	margin-top: 250px;

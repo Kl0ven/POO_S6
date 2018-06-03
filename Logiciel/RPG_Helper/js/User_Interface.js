@@ -36,9 +36,9 @@ class User_Interface{
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Combats",() => {this.btnHandler("header",["header","footer","combats"],1);}),
 				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Règles",() => {this.btnHandler("header",["header","footer","regles"],2);}),
 				//new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Générateurs",() => {this.btnHandler("header",["header","footer","generateurs"],3);}),
-				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"],4);}),
+				new PC_Button($("#barre1"),"w3-button w3-blue w3-large","Joueurs",() => {this.btnHandler("header",["header","footer","joueurs"],3);}),
 				new PC_Button($("#barre1"),"w3-button w3-red w3 large sq","Save and quit",() => {this.saveAndQuit();}),
-        new PC_Button($("#barre1"),"w3-button w3-red sq","Campagne Test",() => {this.CampagneTest(this.getCampaignName());})
+
 
 			]);
 
@@ -183,9 +183,13 @@ class User_Interface{
 
 						}
 					},
-					cancel: function () {
-						//close
-					},
+					cancel: {
+						text: 'Annuler',
+						cancel: function () {
+
+						}
+
+					}
 				},
 				onContentReady: function () {
 					// bind to events
@@ -250,9 +254,9 @@ class User_Interface{
 
 
 		//ajout du btn pour cree des description
-		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-blue","add Description",() => {this.addDesc(name);});
+		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-blue","Ajouter Description",() => {this.addDesc(name);});
 		// btn pour supprimer la rencontre
-		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-red","supprimer la rencontre",() => {this.delConfirm(name,()=>{this.delEncounter(name)});});
+		new PC_Button($("#btn_desc_M_"+ name +""),"w3-button  w3-red","Supprimer la rencontre",() => {this.delConfirm(name,()=>{this.delEncounter(name)});});
 
 		var nb = this.view.combats.getNbElem();
 		// Ajouter un bouton rencontre au bon endroit // Callback affiche header, btns rencontres et la rencontre en question
@@ -502,6 +506,7 @@ class User_Interface{
 			theme: 'material',
 			boxWidth: '80%',
 			useBootstrap: false,
+			content:"",
 			buttons: {
 				formSubmit: {
 					text: 'Supprimer',
@@ -512,8 +517,12 @@ class User_Interface{
 					}
 
 				},
-				cancel: function () {
-					//close
+				cancel: {
+					text: 'Annuler',
+					cancel: function () {
+
+					}
+
 				},
 			},
 			onContentReady: function () {

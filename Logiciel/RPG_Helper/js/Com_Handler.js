@@ -27,7 +27,7 @@ class Com_Handler {
 		this.ws.send(JSON.stringify({"type": "effect","data" : {"bonus": e.bonus,"duration": e.duration,"unit": e.unit,"description":e.desc}}));
 	}
 
-	
+
 
 	setPlayer(p){
 		this.player = p;
@@ -88,7 +88,7 @@ class Com_Handler {
 		else { //On veut sauvegarder le joueur
 			//console.log("save");
 			this.com.pc_app.campaigns[this.camp].savePlayer(obj.data); //On envoie les infos du joueur, pc app se charge de la sauvegarde
-
+			this.ws.close();
 			}
 		}
 	}

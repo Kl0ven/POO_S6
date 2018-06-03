@@ -66,9 +66,15 @@ class Campaign{
 		//console.log(name);
 		for (var p in this.players) {
 			if (this.players[p].name == name) {
-				
+
+				if(typeof this.players[p].comm_handler == "undefined"){
+				console.log("dsvsdvsv");
+
 					this.players[p].comm_handler = comh;
 					this.players[p].load();
+				}else{
+					comh.getName(this.getPlayersNames());
+				}
 			}
 		}
 
@@ -111,16 +117,20 @@ class Campaign{
 
 
 		// Création d'un fichier de campagne
-		var dir = './save/' + this.name;
-
+		var dir = nw.App.dataPath+'\\save\\';
+		console.log(dir);
 		if(!fs.existsSync(dir)){
 			fs.mkdirSync(dir);
 		}
-		if(!fs.existsSync(dir+"/players/")){
-			fs.mkdirSync(dir+"/players/");
+		dir = dir + this.name;
+		if(!fs.existsSync(dir)){
+			fs.mkdirSync(dir);
+		}
+		if(!fs.existsSync(dir+"\\players\\")){
+			fs.mkdirSync(dir+"\\players/");
 		}
 		  // Création d'un fichier JSON campagne
-		var file = './save/' + this.name + '/' + this.name +'.json'
+		var file =nw.App.dataPath+ '\\save\\' + this.name + '\\' + this.name +'.json'
 		if (this.launched) {
 			this.infos_campaign.resume = true;
 			for (var p in this.players) {
@@ -148,15 +158,17 @@ class Campaign{
 		}
 		this.infos_campaign.encounters = encountersSave;
 		jsonfile.writeFile(file,this.infos_campaign);
-
+		$("#waiting_players").empty();
 
 	}
 
 	savePlayer(data){
 
 		//Creation du fichier JSON du joueur
-		//console.log(data);
-		var file = './save/' + this.name + '/players/' + data.cara.name + '.json'
+
+		console.log(data);
+		var file = nw.App.dataPath+'\\save\\' + this.name + '\\players\\' + data.cara.name + '.json'
+
 		//Ecriture des infos dans le fichier
 		jsonfile.writeFile(file,data)
 	}
@@ -226,7 +238,9 @@ class Campaign{
 	getPlayersNames(){
 		var names = []
 		for (var p in this.players) {
+			if(typeof this.players[p].comm_handler == "undefined"){
 			names.push(this.players[p].name);
+			}
 		}
 		return names
 	}
