@@ -599,20 +599,53 @@ class User_Interface{
 
 		var term = "Jets d'initiative" ;
 		var PlayerName = [];
+		var MonsterName = [];
 		var idPlayers = [];
-		var labandinput=''
+		var labandinput='';
+		var lmonster = undefined;
+		var idMonsters =[];
 
-		for (var i = 0; i < (this.app_PC.campaigns[name].players.length /*+this.app_PC.campaigns[name].encounters.length*/); i++){// Pour chaque joueur, on donne son jet d'initiative
+		
+		//On veut trouver  le nombre de monstres pour chaque rencontre pour chaque campagne
+		for (var i = 0; i <= this.app_PC.campaigns[name].encounters.length-1;i++){ 
+			if (this.app_PC.campaigns[name].encounters[i].name == rencontre ){
+				lmonster = this.app_PC.campaigns[name].encounters[i].monsters.length ;
+				
+			}
+			//ici on prend l'id et le nom de chaque monstre de chaque rencontre de chaque campagne
+			for (var j=0; j<this.app_PC.campaigns[name].encounters[i].monsters.length;j++){
+				idMonsters = this.app_PC.campaigns[name].encounters[i].monsters[j].id;
+				MonsterName[j] = this.app_PC.campaigns[name].encounters[i].monsters[j].name;
+				//console.log(MonsterName);
+			}
+		}
 
-			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name;
-			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
+
+		console.log(MonsterName);
+
+		for (var i = 0; i < (this.app_PC.campaigns[name].players.length); i++){// Pour chaque joueur, on donne son jet d'initiative
+
+			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name ;
+			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;	
+	
 			labandinput=labandinput +
 						'<form action="" class="formName">' +
 						'<div class="form-group" id="'+idPlayers[i]+'">' +
 						'<label>'+PlayerName[i]+'</label></br>' +
 						'<input type="number" id="'+PlayerName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
 						'</div>' +
-						'</form>'
+						'</form>' 
+}
+
+		for (var i = 0; i < (lmonster); i++){// Pour chaque monstre, on donne son jet d'initiative
+	
+			labandinput=labandinput +
+						'<form action="" class="formName">' +
+						'<div class="form-group" id="'+idMonsters[i]+'">' +
+						'<label>'+MonsterName[i]+'</label></br>' +
+						'<input type="number" id="'+MonsterName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
+						'</div>' +
+						'</form>' 
 }
 				var UI = this;
 				// affichage d'un popup
@@ -654,9 +687,8 @@ class User_Interface{
 
 								//on supprime le bouton de démarrage de combat
 								$("#btn_start_fight"+rencontre).remove();
-								//UI.app_PC.campaigns[UI.getCampaignName()].FightList[0].active = true;
+								
 
-			
 								//bouton tour suivant
 								UI.setStartBtn(rencontre);
 
@@ -708,8 +740,9 @@ class User_Interface{
 
 	setStartBtn(rencontre) {
 
+		
 		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
-
+			
 			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
 
 			}
@@ -731,31 +764,25 @@ class User_Interface{
 
 
 	EndFight(rencontre){
-		this.delConfirm('le combat',()=>{this.DelFight(rencontre);});
 		// vide la liste
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
-		/*this.app_PC.campaigns[this.getCampaignName()].FightList = [];
-		//console.log((this.app_PC.campaigns[this.getCampaignName()].FightList));
-		this.app_PC.campaigns[this.getCampaignName()].InFight=0;
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
-		$("#FighterList"+rencontre).empty();
-		$("#btn_next_turn"+rencontre).empty();
-		$("#btn_end_fight"+rencontre).empty();
-		*/
+		this.delConfirm('le combat',()=>{this.DelFight(rencontre);});
+		
 	}
 
 
 	DelFight(rencontre){
+		//on vide la liste des combattants
 		this.app_PC.campaigns[this.getCampaignName()].FightList = [];
-		//console.log((this.app_PC.campaigns[this.getCampaignName()].FightList));
+		//Aucun des combattants n'est en combat
 		this.app_PC.campaigns[this.getCampaignName()].InFight=0;
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].InFight)
+		//on vide les divs
 		$("#FighterList"+rencontre).empty();
 		$("#btn_next_turn"+rencontre).empty();
 		$("#btn_end_fight"+rencontre).empty();
 	}
-
+	// affichage des joueurs et monstres dans l'interface (barre d'onglet -> combat -> Combattants)
 	DisplayPlayers(FightList,rencontre){
+
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
 		for (var i = 0; i < FightList.length; i++){
 
@@ -767,32 +794,23 @@ class User_Interface{
 								'</div>'+
 							'</div>');
 			}
-		// au display, le joueur avec le + d'initiative est en vert
-		/*for (var i = 0; i < FightList.length; i++){
-			if (f[i].active == true){
 
-				$("#div_"+f[0].nom+"").css("background-color","green");
-			}
-
-		}*/
 	}
+
 
 	Next_Turn(bypass = false){
 
+
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
 		var p = this.app_PC.campaigns[this.getCampaignName()].players;
-		//console.log(this.app_PC.campaigns[this.getCampaignName()].FightList);
+		//on affiche tous les joueurs en gris
 		for (var n in f) {
 			$("#div_"+f[n].nom+"").css("background-color","grey");
 		}
 		for (var i = 0; i < f.length; i++){
-			// console.log(FightList[i].active);
 			if (f[i].active == true){
-
 				$("#div_"+f[i].nom+"").css("background-color","green");
 				f[i].active = false;
-				//console.log(FightList)
-
 				if (typeof f[i+1] == "undefined"){
 					f[0].active = true;
 
