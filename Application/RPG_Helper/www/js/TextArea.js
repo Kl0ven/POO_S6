@@ -6,7 +6,7 @@ cette classe gère l'affichage des zones de texte & input
 **/
 
 class TextArea extends Widget {
-  constructor(parent,parentBtn, classes,btnclass, height, width, nameBtn = "save", cb = 0) {
+  constructor(parent,parentBtn, classes,btnclass, height, width, nameBtn = "Sauvegarderr", cb = 0) {
     // init de la classe parente
     super(parent, classes)
     // nom du btn associer a la TextArea
