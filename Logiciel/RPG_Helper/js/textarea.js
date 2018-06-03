@@ -86,17 +86,17 @@ class TextArea extends Widget{
     this.text = text;
     text = text.replace(/<[^>]+>/gi,"");
     text = text.replace(/[\r\n]/g, '</br>');
-    text = text.replace(/\[g\](.+)\[\/g\]/gi, '<strong>$1</strong>');
-    text = text.replace(/\[i\](.+)\[\/i\]/gi, '<em>$1</em>');
-    text = text.replace(/\[s\](.+)\[\/s\]/gi, '<u>$1</u>');
-    text = text.replace(/\[center\](.+)\[\/center\]/gi,'<div id ="center">$1</div>' );
-    text = text.replace(/\[left\](.+)\[\/left\]/gi, '<div id ="left">$1</div>');
-    text = text.replace(/\[right\](.+)\[\/right\]/gi, '<div id ="right">$1</div>' );
-    text = text.replace(/\[sub\](.+)\[\/sub\]/gi,  '<sub>$1</sub>');
-    text = text.replace(/\[sup\](.+)\[\/sup\]/gi, '<sup>$1</sup>');
+    text = text.replace(/\[g\](.*?)\[\/g\]/gi, '<strong>$1</strong>');
+    text = text.replace(/\[i\](.*?)\[\/i\]/gi, '<em>$1</em>');
+    text = text.replace(/\[s\](.*?)\[\/s\]/gi, '<u>$1</u>');
+    text = text.replace(/\[center\](.*?)\[\/center\]/gi,'<div id ="center">$1</div>' );
+    text = text.replace(/\[left\](.*?)\[\/left\]/gi, '<div id ="left">$1</div>');
+    text = text.replace(/\[right\](.*?)\[\/right\]/gi, '<div id ="right">$1</div>' );
+    text = text.replace(/\[sub\](.*?)\[\/sub\]/gi,  '<sub>$1</sub>');
+    text = text.replace(/\[sup\](.*?)\[\/sup\]/gi, '<sup>$1</sup>');
     //text = text.replace(/(https?:\/\/[a-z0-9._/-]+)/gi, '<a href="$1">$1</a>');
-    text = text.replace(/\[color color=(\#[A-Z0-9]{6})\](.+)\[\/color\]/gi, '<div style="color:$1;">$2</div>');
-    text = text.replace(/\[img\](.+)\[\/img\]/gi , '<img src ="$1"/>');
+    text = text.replace(/\[color color=(\#[A-Z0-9]{6})\](.*?)\[\/color\]/gi, '<div style="color:$1;">$2</div>');
+    text = text.replace(/\[img\](.*?)\[\/img\]/gi , '<img src ="$1"/>');
 
     return text;
   }
