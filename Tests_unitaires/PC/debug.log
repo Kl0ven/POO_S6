@@ -3,3 +3,15 @@
 [0523/153050.315:WARNING:chrome_main_delegate.cc(565)] final extension: 
 [0523/153224.441:WARNING:chrome_main_delegate.cc(565)] final extension: 
 [0531/154855.594:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/225634.971:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/225911.217:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/230014.286:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/230109.876:ERROR:http_transport_win.cc(50)] WinHttpCrackUrl: L’URL n’utilise pas un protocole reconnu  (0x2EE6)
+[0914/230112.626:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/231339.161:ERROR:http_transport_win.cc(50)] WinHttpCrackUrl: L’URL n’utilise pas un protocole reconnu  (0x2EE6)
+[0914/231549.666:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/231901.352:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/232056.553:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/232213.536:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/232251.921:WARNING:chrome_main_delegate.cc(565)] final extension: 
+[0914/233006.125:WARNING:chrome_main_delegate.cc(565)] final extension: 

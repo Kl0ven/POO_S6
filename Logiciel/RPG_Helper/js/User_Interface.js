@@ -453,6 +453,7 @@ class User_Interface{
 	modifCamp(name){
 		this.app_PC.ModCampaign(name);
 		this.btnHandler("init",["header","footer","histoire"]);
+		this.setalltextArea();
 
 	}
 
@@ -605,47 +606,51 @@ class User_Interface{
 		var lmonster = undefined;
 		var idMonsters =[];
 
-		
+
 		//On veut trouver  le nombre de monstres pour chaque rencontre pour chaque campagne
-		for (var i = 0; i <= this.app_PC.campaigns[name].encounters.length-1;i++){ 
+		for (var i = 0; i <= this.app_PC.campaigns[name].encounters.length-1;i++){
+			console.log(rencontre);
+			console.log(this.app_PC.campaigns[name].encounters[i].name);
 			if (this.app_PC.campaigns[name].encounters[i].name == rencontre ){
+				console.log(true);
 				lmonster = this.app_PC.campaigns[name].encounters[i].monsters.length ;
-				
-			}
+
+
 			//ici on prend l'id et le nom de chaque monstre de chaque rencontre de chaque campagne
 			for (var j=0; j<this.app_PC.campaigns[name].encounters[i].monsters.length;j++){
 				idMonsters = this.app_PC.campaigns[name].encounters[i].monsters[j].id;
 				MonsterName[j] = this.app_PC.campaigns[name].encounters[i].monsters[j].name;
-				
+
+			}
 			}
 		}
 
 
-		
+
 
 		for (var i = 0; i < (this.app_PC.campaigns[name].players.length); i++){// Pour chaque joueur, on donne son jet d'initiative
 
 			PlayerName[i]=this.app_PC.campaigns[name].players[i].infos.name ;
-			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;	
-	
+			idPlayers[i]=this.app_PC.campaigns[name].players[i].id;
+
 			labandinput=labandinput +
 						'<form action="" class="formName">' +
 						'<div class="form-group" id="'+idPlayers[i]+'">' +
 						'<label>'+PlayerName[i]+'</label></br>' +
 						'<input type="number" id="'+PlayerName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
 						'</div>' +
-						'</form>' 
+						'</form>'
 }
 
 		for (var i = 0; i < (lmonster); i++){// Pour chaque monstre, on donne son jet d'initiative
-	
+
 			labandinput=labandinput +
 						'<form action="" class="formName">' +
 						'<div class="form-group" id="'+idMonsters[i]+'">' +
 						'<label>'+MonsterName[i]+'</label></br>' +
 						'<input type="number" id="'+MonsterName[i]+'" placeholder="initiative" class="initiative form-control" required autofocus/>'+
 						'</div>' +
-						'</form>' 
+						'</form>'
 }
 				var UI = this;
 				// affichage d'un popup
@@ -687,7 +692,7 @@ class User_Interface{
 
 								//on supprime le bouton de démarrage de combat
 								$("#btn_start_fight"+rencontre).remove();
-								
+
 
 								//bouton tour suivant
 								UI.setStartBtn(rencontre);
@@ -695,7 +700,7 @@ class User_Interface{
 								//faire bouton fin combat
 								new PC_Button($("#btn_end_fight"+rencontre),"w3-button w3-round w3-blue","Fin Combat",()=>{UI.EndFight(rencontre);});
 
-								
+
 								UI.Next_Turn(true);
 
 								if(!initiative){
@@ -740,9 +745,9 @@ class User_Interface{
 
 	setStartBtn(rencontre) {
 
-		
+
 		if (this.app_PC.campaigns[this.getCampaignName()].InFight==0) {
-			
+
 			new PC_Button($("#btn_next_turn"+rencontre),"w3-button w3-round w3-blue","Tour Suivant",()=>{this.Next_Turn();});
 
 			}
@@ -766,7 +771,7 @@ class User_Interface{
 	EndFight(rencontre){
 		// vide la liste
 		this.delConfirm('le combat',()=>{this.DelFight(rencontre);});
-		
+
 	}
 
 
@@ -799,10 +804,8 @@ class User_Interface{
 
 
 	Next_Turn(bypass = false){
-
-
 		var f = this.app_PC.campaigns[this.getCampaignName()].FightList;
-		var p = this.app_PC.campaigns[this.getCampaignName()].players;
+		var perso = this.app_PC.campaigns[this.getCampaignName()].players;
 		//on affiche tous les joueurs en gris
 		for (var n in f) {
 			$("#div_"+f[n].nom+"").css("background-color","grey");
@@ -811,32 +814,32 @@ class User_Interface{
 			if (f[i].active == true){
 				$("#div_"+f[i].nom+"").css("background-color","green");
 				f[i].active = false;
+				for(var p in perso){
+					if(perso[p].name == f[i].nom){
+						perso[p].comm_handler.vibrate()
+					}
+				}
 				if (typeof f[i+1] == "undefined"){
 					f[0].active = true;
-
-
 				}
 				else {
 					f[i+1].active =true;
-
 					if (i==0 && !bypass){
-
 					this.liveEffect(this.getCampaignName(),true,1);
-
-
 					}
 				}
 				break;
 			}
 		}
-		
+
+
 }
 
 	getCampaignName(){
 		var that = this;
 		var ret
 		$(".camp").each(function(){
-			
+
 
 			if (that.app_PC.campaigns[this.id].active == 1){
 				ret = this.id
@@ -849,6 +852,19 @@ class User_Interface{
 	launchCamp(name){
 		this.app_PC.LaunchCampaign(name);
 		this.btnHandler("init",["launch"]);
+		this.setalltextArea();
+
+	}
+
+	setalltextArea(){
+		this.view.histoire.elements[0].switching();
+		for (var e in this.app_PC.campaigns[this.getCampaignName()].encounters) {
+			console.log(this.app_PC.campaigns[this.getCampaignName()].encounters[e]);
+			var enc = this.app_PC.campaigns[this.getCampaignName()].encounters[e];
+			for (var d in enc.description) {
+				enc.description[d].textarea.switching();
+			}
+		}
 
 	}
 
@@ -959,9 +975,9 @@ class User_Interface{
 						var eff = this.$content.find('.effect').val();
 						var dur = this.$content.find('.duration').val();
 						var u_H = $('input[name="unit_H"]:checked').val();
-	
+
 						var bonus = $('input[name="bonus"]:checked').val();
-						
+
 						// retunr bonus ou malus !!!!
 						// on verifie le nom et compatible et qui n'existe pas deja
 						if(!eff){
@@ -1009,35 +1025,23 @@ class User_Interface{
 
 	liveEffect(n_camp,in_fight,qte){
 
+		console.log("liveEffect");
+		for (var i in this.app_PC.campaigns[n_camp].players){
 
-		for (var i = 0 ; i <= this.app_PC.campaigns[n_camp].players.length -1 ; i++){
-
-			for(var j =0; j<= this.app_PC.campaigns[n_camp].players[i].effects.length -1; j++ ){
+			for(var j in this.app_PC.campaigns[n_camp].players[i].effects){
 
 				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
+				console.log(effect);
 
-				//update de l'effet dans l'objet  
+				//update de l'effet dans l'objet
 				effect.live(in_fight,qte);
-
-
-
-				//update de l'effet sur l'écran 
+				//update de l'effet sur l'écran
 				if (effect.unit == 0){
-					$("#dur_"+effect.id).text('pendant '+ effect.duration +' heures');	
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' heures');
 				}
 				else{
-					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');	
+					$("#dur_"+effect.id).text('pendant '+ effect.duration +' rounds');
 				}
-
-
-				//update de l'effet sur le portable
-				if (typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined" ){
-
-					this.app_PC.campaigns[n_camp].players[i].comm_handler.com.modTime(1,true,this.app_PC.campaigns[n_camp].infos_campaign.hour);	
-				}
-				
-
-
 				//suppression de l'effet à l'écran
 				if (effect.duration <= 0){
 					this.delEffet(n_camp,this.app_PC.campaigns[n_camp].players[i].name,effect.id,effect.desc);
@@ -1045,6 +1049,11 @@ class User_Interface{
 
 			}
 
+		}
+		//update de l'effet sur le portable
+		if (typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined" ){
+			console.log("modhour2");
+			this.app_PC.campaigns[n_camp].players[i].comm_handler.com.modTime(1,true,this.app_PC.campaigns[n_camp].infos_campaign.hour);
 		}
 
 	}

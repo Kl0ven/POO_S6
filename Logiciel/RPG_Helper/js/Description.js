@@ -9,6 +9,7 @@ class Description {
     this.delBtn = undefined;
     this.encounterName = rencontre;
     this.setup();
+    //this.hide();
 
   }
 

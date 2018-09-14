@@ -20,6 +20,8 @@
 }
 
 
+
+
 .ipinput {
     resize: none;
     margin-top: 10px;
@@ -58,10 +60,14 @@
 }
 
 #name{
-  text-align: center;
+  display: inline;
+  margin-left: 5px;
   font-size: xx-large;
 }
 
+#vibration{
+  float: right;
+}
 
 #main{
   margin-top: 20%;

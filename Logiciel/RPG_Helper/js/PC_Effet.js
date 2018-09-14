@@ -1,5 +1,5 @@
 class PC_Effet {
-	constructor(desc,bonus,duration,unit,player,rtH = 0,htR =Infinity){
+	constructor(desc,bonus,duration,unit,player,rtH = 0,htR =100000){
 		this.id=PC_Effet.generate_ID();
 		this.rtH = rtH;
 		this.htR = htR;
@@ -12,36 +12,30 @@ class PC_Effet {
 	roundToHour(round){
 		//Conversion du nombre de rounds en nombre d'heures
 		var hour = round*this.rtH;
-		this.duration = hour;
-		this.unit = 0;
 		return hour;
 	}
 	hourToRound(hour){
 		//Conversion du nombre d'heures en nombre de rounds
 		var round = hour*this.htR;
-		this.duration = round;
-		this.unit = 1;
 		return round;
 	}
 	live(in_fight,qte){
-		if (in_fight) { //L'effet s'applique en combat
-			if (this.unit ==0) { //L'effet est compté en heures
-			 this.hourToRound(qte);
-			 this.apply(qte); //On applique l'effet après l'avoir converti en rounds
-			}
-			else {
-				this.apply(qte); //Pas besoin de conversion, on applique l'effet
-			}
-		}
-		else { // l'effet s'applique hors combat
-			if (this.unit ==0) {
-				this.apply(qte); //Pas besoin de conversion, on applique l'effet
-			}
-			else {
-				this.roundToHour(qte);
-				this.apply(qte); //On applique l'effet après l'avoir converti en heures
-			}
-		}
+		if (in_fight) { //L'effet s'applique en combat qte en round
+      if (this.unit ==0) { //L'effet est compté en heures
+       this.apply(this.roundToHour(qte)); //On applique l'effet après l'avoir converti en rounds
+      }
+      else {
+        this.apply(qte); //Pas besoin de conversion, on applique l'effet
+      }
+    }
+    else { // l'effet s'applique hors combat qte en heures
+      if (this.unit ==0) {
+        this.apply(qte); //Pas besoin de conversion, on applique l'effet
+      }
+      else {
+        this.apply(this.hourToRound(qte)); //On applique l'effet après l'avoir converti en heures
+      }
+    }
 		if (this.duration <= 0) { //Si la durée est inférieure ou égale à 0, il faut détruire l'effet
 			return false;
 		}
@@ -84,8 +78,8 @@ class PC_Effet {
 //   else {
 //   	  screenlog("Red","creation d'un effet")
 //   	  screenlog('red'," var e  = new PC_Effet('bonus de test',1,4,1,10)")
-//   } 
- 
+//   }
+
 //   e  = new PC_Effet('bonus de test',bonus,dur,unit,10)
 //   screenlog("pink","durée de l'effet = ")
 //   screenlog("pink",e.duration.toString())

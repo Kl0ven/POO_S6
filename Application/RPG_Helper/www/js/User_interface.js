@@ -81,7 +81,10 @@ class User_interface {
 
   // methode permettant d'ajouter une vue dynamique en demandant au joueur un nom
   dynamicView(type){
-    var term  = (type == "competence" || type == "objet" ) ? "Nouvelle" : "Nouveau";
+    var term  = ""
+    if(type == "competence"){term = "Nouvelle";}
+    else if (type == "objet") {term = "Nouvel";}
+    else {  term = "Nouveau";  }
     var UI = this;
     // affichage d'un popup
     $.confirm({

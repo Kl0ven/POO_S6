@@ -28,6 +28,9 @@ class Com_Handler {
 	}
 
 
+	vibrate(){
+		this.ws.send(JSON.stringify({"type" : "vibrate","data": {}}));
+	}
 
 	setPlayer(p){
 		this.player = p;

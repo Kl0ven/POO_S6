@@ -15,7 +15,23 @@
     },
     "cordova-plugin-fullscreen": {
       "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.ingejoueur.rpg_helper"
+    }
+  }
 }

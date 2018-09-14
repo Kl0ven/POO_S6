@@ -48,7 +48,8 @@ class Campaign{
 			// ajout des description
 			for (var desc in es[enc].description) {
 				var d = es[enc].description[desc];
-				this.addDesc(es[enc].name,new Description($("#descs"),es[enc].name,this.app_PC,d.m,d.url))
+				var d = this.addDesc(es[enc].name,new Description($("#descs"),es[enc].name,this.app_PC,d.m,d.url))
+				d.hide();
 			}
 			// chargement des monstres
 
@@ -100,7 +101,7 @@ class Campaign{
 				this.encounters[d].description.push(desc);
 			}
 		}
-
+		return desc;
 	}
 
 

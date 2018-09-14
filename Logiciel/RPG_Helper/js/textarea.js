@@ -22,6 +22,7 @@ class TextArea extends Widget{
 		this.modbtn.push(new PC_Button(parentBtn,"jsco","",()=>{},""));
 
 		new jscolor(document.getElementById(this.modbtn[this.modbtn.length-1].id))
+		//setTimeout(()=>{console.log(1);this.switching();console.log("sw");},100);
     this.show();
 
 	}
@@ -50,6 +51,8 @@ class TextArea extends Widget{
         }
       });
     }
+
+
   }
 
 

@@ -15,7 +15,19 @@ class App {
     // l'objet communication ne sera creer qu'apres la demande du joueur
     this.com = undefined;
     //heure
-    this.time = "22:56"
+    this.time = "00:00"
+    this.vibration = true
+  }
+
+  vibrate(){
+    if(this.vibration){
+      this.vibration = false
+      $("#vibrate").attr('src','img/vibrateoff.png');
+    }else{
+      this.vibration = true
+      $("#vibrate").attr('src','img/vibrateon.png');
+    }
+
   }
 
   //methode appelé au démarrage de l'application
@@ -150,7 +162,7 @@ class App {
     }
 
     $.alert({
-      title: 'choisie ton perso',
+      title: 'choisi ton perso',
       type: 'green',
       theme: 'material',
       content: '' +

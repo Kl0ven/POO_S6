@@ -84,6 +84,19 @@ class Communication {
         else if (obj.type == "deleffect") {
           this.mobileApp.deleffect(obj.data)
         }
+        else if (obj.type == "vibrate") {
+          if(app.vibration){
+            // navigator.vibrate([200, 50, 200]);
+            // navigator.notification.beep(1);
+            cordova.plugins.notification.local.schedule({
+                title: 'Your turn',
+                text: 'Thats pretty easy...',
+                foreground: true
+            });
+          }
+
+
+        }
       };
 
       // exectuter lors d'une erreur de connexion'

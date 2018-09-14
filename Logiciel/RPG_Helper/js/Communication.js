@@ -3,13 +3,13 @@ const internalIp = require('internal-ip');
 
 class Communication{
 	constructor(pc_app){
-		//affichage de l'adresse ip 
+		//affichage de l'adresse ip
 
 		this.pc_app = pc_app;
 		this.wss = new WebSocket.Server({ port: 8080 });
 		this.comm_Handlers =[];
 	}
-	
+
 	openCom(pinfos,resume,camp){
 
 		internalIp.v4().then(ip => { console.log(ip);
@@ -28,7 +28,7 @@ class Communication{
 
 						//l'instanciation des joueurs a lieu dans comm_handler
 					}
-					
+
 					else {
 
 						ws.terminate();
@@ -75,6 +75,7 @@ class Communication{
 
 
 	modTime(qte,in_fight,time){
+		console.log("modTime");
 		this.wss.broadcast(JSON.stringify({"type": "time","data": {"qte":qte,"in_fight":in_fight,"time":time}}));
 	}
 

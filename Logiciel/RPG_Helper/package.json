@@ -8,7 +8,7 @@
     "width": 1920,
     "height": 1080,
     "position": "center",
-    "fullscreen": true
+    "fullscreen": false
   },
   "dependencies": {
     "internal-ip": "^3.0.1",
