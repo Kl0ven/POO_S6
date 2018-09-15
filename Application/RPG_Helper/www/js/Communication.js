@@ -92,6 +92,7 @@ class Communication {
                 title: 'Your turn',
                 text: 'Thats pretty easy...',
                 foreground: true
+                
             });
           }
 
