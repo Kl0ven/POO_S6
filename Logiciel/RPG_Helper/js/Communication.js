@@ -12,13 +12,13 @@ class Communication{
 
 	openCom(pinfos,resume,camp){
 
-		internalIp.v4().then(ip => { console.log(ip);
+		internalIp.v4().then(ip => { 
 							$("#ip").text(ip);});
 
 		//Fonction de connexion des téléphones
 		this.wss.on('connection', (ws)=> {
 
-					//console.log('connecté');
+					
 
 					if (this.pc_app.getOpenConnection() == true){
 
@@ -67,7 +67,7 @@ class Communication{
 
 	sendImg(url){
 		this.getDataUri(url, (dataUri) => {
-    //console.log(dataUri)
+    
     this.wss.broadcast(JSON.stringify({type: "image", data : dataUri}))
     })
 
@@ -75,7 +75,7 @@ class Communication{
 
 
 	modTime(qte,in_fight,time){
-		console.log("modTime");
+		
 		this.wss.broadcast(JSON.stringify({"type": "time","data": {"qte":qte,"in_fight":in_fight,"time":time}}));
 	}
 

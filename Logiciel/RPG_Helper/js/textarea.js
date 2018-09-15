@@ -22,7 +22,7 @@ class TextArea extends Widget{
 		this.modbtn.push(new PC_Button(parentBtn,"jsco","",()=>{},""));
 
 		new jscolor(document.getElementById(this.modbtn[this.modbtn.length-1].id))
-		//setTimeout(()=>{console.log(1);this.switching();console.log("sw");},100);
+		//setTimeout(()=>{this.switching();},100);
     this.show();
 
 	}
@@ -72,7 +72,7 @@ class TextArea extends Widget{
       this.state = true;//on se met en zone non modifiable
       this.btn.settext("modifier");// on met le bouton sur "modifier"
 
-      //console.log(this.btn.text)
+      
 
     }else{//si on est en zone non modifiable
       $("#"+this.id).remove();

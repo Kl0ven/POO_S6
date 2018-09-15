@@ -609,10 +609,10 @@ class User_Interface{
 
 		//On veut trouver  le nombre de monstres pour chaque rencontre pour chaque campagne
 		for (var i = 0; i <= this.app_PC.campaigns[name].encounters.length-1;i++){
-			console.log(rencontre);
-			console.log(this.app_PC.campaigns[name].encounters[i].name);
+
+
 			if (this.app_PC.campaigns[name].encounters[i].name == rencontre ){
-				console.log(true);
+
 				lmonster = this.app_PC.campaigns[name].encounters[i].monsters.length ;
 
 
@@ -859,7 +859,6 @@ class User_Interface{
 	setalltextArea(){
 		this.view.histoire.elements[0].switching();
 		for (var e in this.app_PC.campaigns[this.getCampaignName()].encounters) {
-			console.log(this.app_PC.campaigns[this.getCampaignName()].encounters[e]);
 			var enc = this.app_PC.campaigns[this.getCampaignName()].encounters[e];
 			for (var d in enc.description) {
 				enc.description[d].textarea.switching();
@@ -1025,13 +1024,13 @@ class User_Interface{
 
 	liveEffect(n_camp,in_fight,qte){
 
-		console.log("liveEffect");
+
 		for (var i in this.app_PC.campaigns[n_camp].players){
 
 			for(var j in this.app_PC.campaigns[n_camp].players[i].effects){
 
 				var effect = this.app_PC.campaigns[n_camp].players[i].effects[j];
-				console.log(effect);
+
 
 				//update de l'effet dans l'objet
 				effect.live(in_fight,qte);
@@ -1052,7 +1051,7 @@ class User_Interface{
 		}
 		//update de l'effet sur le portable
 		if (typeof this.app_PC.campaigns[n_camp].players[i].comm_handler != "undefined" ){
-			console.log("modhour2");
+
 			this.app_PC.campaigns[n_camp].players[i].comm_handler.com.modTime(1,true,this.app_PC.campaigns[n_camp].infos_campaign.hour);
 		}
 

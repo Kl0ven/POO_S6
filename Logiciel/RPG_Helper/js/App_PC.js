@@ -26,14 +26,14 @@ class App_PC{
 		$(".bts_camp").empty();
 
 		var dir = nw.App.dataPath+'\\save\\';
-		console.log(dir);
+		
 		if(fs.existsSync(dir)){
 					fs.readdirSync(nw.App.dataPath+'\\save\\').forEach(file => {
-			//console.log(file);
+			
 			this.UI.displayCampButton(file);
 			this.loadCampaign(file); // on charge chaque campagne
 			fs.readdirSync(nw.App.dataPath+'\\save\\'+file+'\\players').forEach(player => {
-				//console.log(file);
+				
 				this.loadPlayer(file,player); // on charge chaque campagne
 			})
 		})
@@ -43,9 +43,9 @@ class App_PC{
 	}
 
 	loadCampaign(name){
-	console.log(name);
+	
 	var camp = jsonfile.readFileSync(nw.App.dataPath+"\\save\\"+name+"\\"+name+".json");
-	//console.log(camp.encounters);
+	
 	this.campaigns[name] = new Campaign(name,this,camp.resume,camp.encounters,camp.hour,camp.day,camp.story);
 
 	}
@@ -77,7 +77,7 @@ loadPlayer(camp,player){
 
 		while ($("#ConnectScreen").css('display') == 'block'){
 			return true;
-			console.log('ok');
+			
 		}
 
 		return false;
@@ -149,9 +149,9 @@ loadPlayer(camp,player){
 
 		//supprimer les fichiers
 		var path = nw.App.dataPath+'\\save\\'+ Name;
-		console.log(path)
+		
 
-		//console.log(path);
+		
 
 		this.DeleteFolderRecursive(path);
 		setTimeout(()=>{this.displayCampaignsName();},10);
@@ -164,7 +164,7 @@ loadPlayer(camp,player){
   		if( fs.existsSync(path) ) {
     		fs.readdirSync(path).forEach(function(file,index){
       		var curPath = path + '/' + file;
-      		//console.log(curPath)
+      		
       		if(fs.lstatSync(curPath).isDirectory()) { // recurse
 
         		self.DeleteFolderRecursive(curPath);
