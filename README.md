@@ -23,12 +23,12 @@ the DM (such as monster or objet randomization), to ease your game nights!</p>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled=""> <strong>Add generator</strong></li>
 </ul>
 <h2 id="refactoring">Refactoring</h2>
-<p>Yeah I know  the UML design was not carry out properly. But this was due to time limitation.<br>
+<p>Yeah I know  the UML design was not carried out properly. But this was due to time limitation.<br>
 The main issue is the user_interface class as it was not planed and end up messy.</p>
 <h2 id="add-offline-mode-for-mobile-app">Add offline mode for mobile app</h2>
 <p>For now you can only fill your infos when the game is started, and that sucks!! I think it will be a better solution to be able to create characters before and load the one you want to play.</p>
 <h2 id="add-offline-mode-for-desktop-app">Add offline mode for desktop app</h2>
-<p>In case of the websocket broke it will be great to be able to keep going with your campaing without the mobile app.</p>
+<p>In case of the websocket breaks it will be great to be able to keep going with your campaing without the mobile app.</p>
 <h2 id="improve-websocket">Improve Websocket</h2>
 <p>At this point WebSocket keeps crashing and i need to figure out why.</p>
 <h2 id="add-generator">Add generator</h2>
