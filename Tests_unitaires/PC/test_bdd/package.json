@@ -10,7 +10,7 @@
     "fullscreen": false
   },
   "dependencies": {
-    "knex": "^0.14.4",
+    "knex": "^0.17.6",
     "sqlite3": "^4.0.0"
   }
 }
